@@ -3,12 +3,16 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 
+interface State {
+  user : string
+};
+
 export default class App extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.state: State = {
       user: ''
     };
   }
@@ -16,7 +20,6 @@ export default class App extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:8080/')
       .then(response => {
-        console.log(response.id);
         console.log(response);
         this.setState({ user: response.data.id })
       })
