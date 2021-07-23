@@ -1,34 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
+import './css/App.css';
+import Board from './components/Board';
+import { easy } from './utility/Level';
+import Level from './interface/LevelInterface';
 
-interface State {
-  user : string
-};
+interface AppState {
+  level: Level
+}
 
-export default class App extends React.Component {
-
-  constructor(props) {
+export default class App extends React.Component<any, AppState>{
+  constructor(props: any) {
     super(props);
 
-    this.state: State = {
-      user: ''
+    this.state = {
+      level: easy
     };
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:8080/')
-      .then(response => {
-        console.log(response);
-        this.setState({ user: response.data.id })
-      })
-      .catch(error => console.log(error.message));
-  }
-
   render() {
+    const level = this.state.level;
     return (
-      <h1> {this.state.user} </h1>
+      <>
+        <div className='board'>
+          <Board level={level} />
+        </div>
+      </>
     )
   }
 }
