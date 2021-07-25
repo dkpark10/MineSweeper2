@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/App.css';
 import Board from './components/Board';
-import { easy } from './utility/Level';
+import { easy, normal, hard , test} from './utility/Level';
 import Level from './interface/LevelInterface';
 
 interface AppState {
@@ -13,7 +13,7 @@ export default class App extends React.Component<any, AppState>{
     super(props);
 
     this.state = {
-      level: easy
+      level: test
     };
   }
 
@@ -22,7 +22,9 @@ export default class App extends React.Component<any, AppState>{
     return (
       <>
         <div className='board'>
-          <Board level={level} />
+          <div className ='board-container'>
+            <Board level={level} />
+          </div>
         </div>
       </>
     )

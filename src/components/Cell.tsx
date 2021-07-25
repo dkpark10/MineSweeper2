@@ -12,18 +12,21 @@ const colorofButtonNumber: string[] = [
   "#A9350B"
 ];
 
-export default class Cell extends React.Component<any, any> {
+interface CellProps{
+  value :string,
+  onClick:React.MouseEventHandler<HTMLDivElement>
+};
+
+export default class Cell extends React.Component<CellProps, any> {
   constructor(props) {
     super(props);
-
   }
 
   render() {
-    const id: string = this.props.cellId;
-    const value:string = this.props.value;
+    const {value, onClick}:CellProps = this.props;
 
     return (
-      <div key={id} className="cell" >
+      <div className="cell" onClick = {onClick}>
         <div>{value}</div>
       </div>
     );
