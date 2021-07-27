@@ -13,20 +13,18 @@ const colorofButtonNumber: string[] = [
 ];
 
 interface CellProps{
-  value :string,
-  onClick:React.MouseEventHandler<HTMLDivElement>
+  value : string | number,
+  onClick:React.MouseEventHandler<HTMLDivElement>,
+  onContextMenu: React.MouseEventHandler<HTMLDivElement>
 };
 
 export default class Cell extends React.Component<CellProps, any> {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
-    const {value, onClick}:CellProps = this.props;
+    const {value, onClick, onContextMenu}:CellProps = this.props;
 
     return (
-      <div className="cell" onClick = {onClick}>
+      <div className="cell" onClick = {onClick} onContextMenu = {onContextMenu} >
         <div>{value}</div>
       </div>
     );

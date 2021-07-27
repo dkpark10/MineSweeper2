@@ -1,54 +1,65 @@
-import Level from '../interface/LevelInterface';
+import { Level, CellData } from '../interface/interface';
 
-const plantMine = (level: Level, board: number[][]) => {
-  const { row, col, numberOfMine }: Level = level;
+export const initializeCell = (row: number, col: number): CellData[][] => {
+  const ret: CellData[][] = Array.from({ length: row }, () => Array)
+    .map(() => Array.from({ length: col }, () => {
+      return {
+        mine: false,
+        neighbor: 0,
+        visited: false,
+        flaged: false,
+        visible: ' '
+      };
+    }))
+
+  return ret;
+}
+
+export const plantMine = (cellData: CellData[][], numberOfMine: number) => {
+  const row: number = cellData.length;
+  const col: number = cellData[0].length;
   let tmp = numberOfMine;
 
   while (tmp) {
     const ranY = Math.floor(Math.random() * row);
     const ranX = Math.floor(Math.random() * col);
 
-    if (board[ranY][ranX] === 0) {
-      board[ranY][ranX] = 1;
+    if (cellData[ranY][ranX].mine === false) {
+      cellData[ranY][ranX].mine = true;
       tmp--;
     }
   }
 }
 
-const getNeighbor = (level: Level, board: number[][]): number[][] => {
+export const getNeighbor = (cellData: CellData[][], level: Level) => {
   const { row, col, }: Level = level;
-  let ret: number[][] = Array.from(Array(row), () => Array(col).fill(0));
 
   for (let i: number = 0; i < row; i++) {
     for (let j: number = 0; j < col; j++) {
-      ret[i][j] = calcNeighbor(i, j, board, level);
+      cellData[i][j].neighbor = calcNeighbor(i, j, cellData, level);
     }
   }
-
-  return ret;
 }
 
-const calcNeighbor = (y: number, x: number, board: number[][], {row,col}): number => {
+const calcNeighbor = (y: number, x: number, board: CellData[][], { row, col }): number => {
   let ret: number = 0;
 
   for (let i: number = y - 1; i <= y + 1; i++) {
     for (let j: number = x - 1; j <= x + 1; j++) {
-      
-      if (checkOutRange(i, j, row,col))
+
+      if (checkOutRange(i, j, row, col))
         continue;
 
       if (y === i && x === j)
         continue;
 
-      if (board[i][j] === 1)
+      if (board[i][j].mine === true)
         ret++;
     }
   }
   return ret;
 }
 
-const checkOutRange = (y: number, x: number, borderY: number, borderX: number): boolean => {
+export const checkOutRange = (y: number, x: number, borderY: number, borderX: number): boolean => {
   return y < 0 || x < 0 || y >= borderY || x >= borderX;
 }
-
-export { plantMine, getNeighbor };
