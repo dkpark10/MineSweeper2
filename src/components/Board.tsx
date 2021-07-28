@@ -40,14 +40,16 @@ export default class Board extends React.Component<BoardProps, BoardStatus>{
   private onLeftClick(y: number, x: number) {
     const { row, col, }: Level = this.props.level;
     const cellData: CellData[][] = this.state.cellData;
-    clickHandler.onLeftClick(cellData, { y, x }, row, col);
+
+    clickHandler.onLeftClick(cellData, { y, x }, { row, col });
+    this.setState({ cellData: cellData });
   }
 
   private onRightClick(e: React.MouseEvent<HTMLDivElement>, y: number, x: number) {
     e.preventDefault();
     const cellData: CellData[][] = this.state.cellData;
     clickHandler.onRightClick(cellData, { y, x });
-    
+
     this.setState({ cellData: cellData });
   }
 
@@ -61,7 +63,8 @@ export default class Board extends React.Component<BoardProps, BoardStatus>{
               return (
                 <Cell 
                   key={(y * rowItem.length) + x} 
-                  value={data.visible}
+                  value={data.mine ? '💣' : data.visible}
+                  islock={data.visited}
                   onClick={() => this.onLeftClick(y,x)}
                   onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => this.onRightClick(e, y, x)}
                 />

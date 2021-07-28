@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactText } from "react";
 
 const colorofButtonNumber: string[] = [
   "",
@@ -13,7 +13,8 @@ const colorofButtonNumber: string[] = [
 ];
 
 interface CellProps{
-  value : string | number,
+  value: string | number | ReactText,
+  islock: boolean,
   onClick:React.MouseEventHandler<HTMLDivElement>,
   onContextMenu: React.MouseEventHandler<HTMLDivElement>
 };
@@ -21,11 +22,11 @@ interface CellProps{
 export default class Cell extends React.Component<CellProps, any> {
 
   render() {
-    const {value, onClick, onContextMenu}:CellProps = this.props;
-
+    const { value, islock, onClick, onContextMenu }: CellProps = this.props;
+    const strColor: string = colorofButtonNumber[value];
     return (
-      <div className="cell" onClick = {onClick} onContextMenu = {onContextMenu} >
-        <div>{value}</div>
+      <div className={islock ? "lock" : "cell"} onClick={onClick} onContextMenu={onContextMenu} >
+        <div style={{ color: `${strColor}` }}>{value}</div>
       </div>
     );
   }

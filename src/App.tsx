@@ -13,7 +13,7 @@ export default class App extends React.Component<any, AppState>{
     super(props);
 
     this.state = {
-      level: easy
+      level: test
     };
   }
 

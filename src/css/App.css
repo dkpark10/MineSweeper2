@@ -26,6 +26,7 @@ body {
 
 .board-container{
   border: 2px solid aqua;
+  padding:20px;
 }
 
 .board-container-row{
@@ -64,3 +65,13 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.lock {
+  width: 24px;
+  height: 24px;
+  background-image:linear-gradient(to bottom, #d3d3d3,#eaeaea);
+  margin-right:0.5px;
+  margin-left:0.5px;
+  display:inline-block;
+  border-radius: 2px;
+  position: relative;
+}
