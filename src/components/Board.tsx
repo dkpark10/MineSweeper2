@@ -1,8 +1,10 @@
 import React from 'react';
-import { Level, CellData, Coord } from '../interface/interface';
+import { Level, CellData } from '../interface/interface';
 import Cell from './Cell';
 import * as cellHandler from '../utility/CellHandler';
 import * as clickHandler from '../utility/ClickHandler';
+
+enum CLICKTYPE { LEFTCLICK = 0, WHEELCLICK, RIGHTCLCK };
 
 interface BoardProps {
   level: Level
@@ -37,20 +39,27 @@ export default class Board extends React.Component<BoardProps, BoardStatus>{
     };
   }
 
-  private onLeftClick(y: number, x: number) {
+  private onLeftClick(e: React.MouseEvent<HTMLDivElement>, y: number, x: number) {
     const { row, col, }: Level = this.props.level;
     const cellData: CellData[][] = this.state.cellData;
 
-    clickHandler.onLeftClick(cellData, { y, x }, { row, col });
+    switch(e.button){
+      case CLICKTYPE.LEFTCLICK:
+        clickHandler.onLeftClick(this.cellData, { y, x }, { row, col });
+        break;
+      case CLICKTYPE.WHEELCLICK:
+        clickHandler.onWheelClick(this.cellData, { y, x }, { row, col });
+        break;
+      case CLICKTYPE.RIGHTCLCK:
+        clickHandler.onRightClick(this.cellData, {y,x});
+        break;
+    }
+    
     this.setState({ cellData: cellData });
   }
 
-  private onRightClick(e: React.MouseEvent<HTMLDivElement>, y: number, x: number) {
+  private onRightClick(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-    const cellData: CellData[][] = this.state.cellData;
-    clickHandler.onRightClick(cellData, { y, x });
-
-    this.setState({ cellData: cellData });
   }
 
   private renderBoard() {
@@ -64,9 +73,9 @@ export default class Board extends React.Component<BoardProps, BoardStatus>{
                 <Cell 
                   key={(y * rowItem.length) + x} 
                   value={data.mine ? '💣' : data.visible}
-                  islock={data.visited}
-                  onClick={() => this.onLeftClick(y,x)}
-                  onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => this.onRightClick(e, y, x)}
+                  islock={data.visited && data.neighbor <= 0}
+                  onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => this.onLeftClick(e, y, x)}
+                  onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => this.onRightClick(e)}
                 />
               )
             })}

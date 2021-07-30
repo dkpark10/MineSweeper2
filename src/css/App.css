@@ -75,3 +75,35 @@ body {
   border-radius: 2px;
   position: relative;
 }
+
+.gameinfo{
+  height: 26px;
+  margin-bottom: 7px;
+  background-color: #deae1d;
+  border: 2px solid #391be3;
+  display:flex;
+  border-radius: 3px;
+  justify-items: cneter;
+  align-items: center;
+}
+
+.gameinfocell{
+  max-width:50%;
+  height:100%;
+  margin: 0 auto;
+}
+
+.gameinfocell .spanelement{
+  height: 95%;
+  min-width: 40px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  color:white;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+}
+
+select{
+  margin:auto;
+}
