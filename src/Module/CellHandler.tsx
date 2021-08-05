@@ -1,4 +1,4 @@
-import { Level, CellData } from '../interface/interface';
+import { Level, CellData } from './Interface';
 
 export const initializeCell = (row: number, col: number): CellData[][] => {
   const ret: CellData[][] = Array.from({ length: row }, () => Array)

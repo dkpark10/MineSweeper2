@@ -1,8 +1,11 @@
-import React from 'react';
-import { Level, CellData } from '../interface/interface';
+import React, { useState, useEffect } from 'react';
+import { Level, CellData } from '../Module/Interface';
 import Cell from './Cell';
-import * as cellHandler from '../utility/CellHandler';
-import * as clickHandler from '../utility/ClickHandler';
+import * as cellHandler from '../Module/CellHandler';
+import * as clickHandler from '../Module/ClickHandler';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFirstClick, setFlagNumber } from '../Reducers/Game';
+import { RootState } from '../Reducers';
 
 enum CLICKTYPE { LEFTCLICK = 0, WHEELCLICK, RIGHTCLCK };
 
@@ -10,86 +13,78 @@ interface BoardProps {
   level: Level
 };
 
-interface BoardStatus {
-  cellData: CellData[][],
-  isFirstClick: boolean,
-  numberofExtraMine: number
-};
+const Board = (prop: BoardProps) => {
 
-export default class Board extends React.Component<BoardProps, BoardStatus>{
-
-  private readonly cellData:CellData[][];
-  private readonly isFirstClick: boolean;
-  private readonly numberofExtraMine: number;
-
-  constructor(props) {
-    super(props);
-    this.onLeftClick = this.onLeftClick.bind(this);
-    this.onRightClick = this.onRightClick.bind(this);
-
-    const { row, col, numberOfMine }: Level = this.props.level;
-    this.cellData = cellHandler.initializeCell(row, col);
-    cellHandler.plantMine(this.cellData, numberOfMine);
-    cellHandler.getNeighbor(this.cellData, this.props.level);
-
-    this.state = {
-      cellData: this.cellData,
-      isFirstClick: false,
-      numberofExtraMine : (row * col) - numberOfMine
-    };
+  const dispatch = useDispatch();
+  const onFirstClick = () => {
+    dispatch(setFirstClick());
   }
 
-  private onLeftClick(e: React.MouseEvent<HTMLDivElement>, y: number, x: number) {
-    const { row, col, }: Level = this.props.level;
-    const cellData: CellData[][] = this.state.cellData;
+  const onSetFlag = (count: number) => {
+    dispatch(setFlagNumber(count));
+  }
 
-    switch(e.button){
+  const { row, col, numberOfMine }: Level = prop.level;
+  const initBoard: CellData[][] = cellHandler.initializeCell(row, col);
+  cellHandler.plantMine(initBoard, numberOfMine);
+  cellHandler.getNeighbor(initBoard, prop.level);
+  const [cellData, setCellData] = useState<CellData[][]>(initBoard);
+
+  // useSelector는 항상 최상단 함수에 작성한다.
+  const numofFlag: number = useSelector((state: RootState) => state.game.numberofFlag);
+
+  // useeffect를 사용하여 액션발행을 하고 GameInfo 컴포넌트의 렌더링을 방해하지 않도록 한다.
+  // useeffect는 렌더링을 보장한다. 그럼으로 setFlag액션을 발행하면 Board가 렌더링이 되었다는 것을
+  // 보장한다. 그 후에 GameInfo를 렌더링한다.
+  // useEffect(() => {
+  //   onSetFlag(numberOfMine);
+  // },[]);
+
+  const onLeftClick = (e: React.MouseEvent<HTMLDivElement>, y: number, x: number) => {
+
+    const newCellData: CellData[][] = [...cellData];
+
+    switch (e.button) {
       case CLICKTYPE.LEFTCLICK:
-        clickHandler.onLeftClick(this.cellData, { y, x }, { row, col });
+        onFirstClick();
+        clickHandler.onLeftClick(newCellData, { y, x }, { row, col });
         break;
       case CLICKTYPE.WHEELCLICK:
-        clickHandler.onWheelClick(this.cellData, { y, x }, { row, col });
+        clickHandler.onWheelClick(newCellData, { y, x }, { row, col });
         break;
       case CLICKTYPE.RIGHTCLCK:
-        clickHandler.onRightClick(this.cellData, {y,x});
+        clickHandler.onRightClick(newCellData, { y, x });
+        newCellData[y][x].flaged === true ? onSetFlag(numofFlag - 1) : onSetFlag(numofFlag + 1);
+
         break;
     }
-    
-    this.setState({ cellData: cellData });
+
+    setCellData(newCellData);
   }
 
-  private onRightClick(e: React.MouseEvent<HTMLDivElement>) {
+  const onRightClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
   }
 
-  private renderBoard() {
-    const cellData: CellData[][] = this.state.cellData;
-    return (
-      cellData.map((rowItem, y) => {
-        return (
-          <div className = 'board-container-row' key = {y}>
-            {rowItem.map((data, x) => {
-              return (
-                <Cell 
-                  key={(y * rowItem.length) + x} 
-                  value={data.mine ? '💣' : data.visible}
-                  islock={data.visited && data.neighbor <= 0}
-                  onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => this.onLeftClick(e, y, x)}
-                  onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => this.onRightClick(e)}
-                />
-              )
-            })}
-          </div>
-        )
-      })
-    )
-  }
-
-  public render() {
-    return (
-      <>
-        {this.renderBoard()}
-      </>
-    );
-  }
+  return (
+    cellData.map((rowItem, y) => {
+      return (
+        <div className='board-container-row' key={y}>
+          {rowItem.map((data, x) => {
+            return (
+              <Cell
+                key={(y * rowItem.length) + x}
+                value={data.mine ? '💣' : data.visible}
+                islock={data.visited && data.neighbor <= 0}
+                onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => onLeftClick(e, y, x)}
+                onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => onRightClick(e)}
+              />
+            )
+          })}
+        </div>
+      )
+    })
+  )
 }
+
+export default Board;

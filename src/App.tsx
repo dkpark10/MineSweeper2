@@ -1,39 +1,45 @@
 import React from 'react';
 import './css/App.css';
-import Board from './components/Board';
-import Clock from './components/Clock';
-import { easy, normal, hard, test } from './utility/Level';
-import { Level } from './interface/Interface';
-import { ReduxComponent } from './practice/ReduxPrac';
+import Board from './Components/Board';
+import GameInfo from './Components/GameInfo';
+import { Level } from './Module/Interface';
+import { NotePad } from './Practice/ReduxPrac';
 
 interface AppState {
-  level: Level
-}
+  easy: Level,
+  normal: Level,
+  hard: Level,
+  test: Level
+};
 
 export default class App extends React.Component<any, AppState>{
   constructor(props: any) {
     super(props);
 
+    const easy: Level = { row: 10, col: 10, numberOfMine: 10 };
+    const normal: Level = { row: 16, col: 16, numberOfMine: 40 };
+    const hard: Level = { row: 16, col: 30, numberOfMine: 99 };
+    const test: Level = { row: 5, col: 5, numberOfMine: 3 };
+
     this.state = {
-      level: test
+      easy: easy,
+      normal: normal,
+      hard: hard,
+      test: test
     };
   }
 
   render() {
-    const level = this.state.level;
-    const practice: boolean = true;
+    const level: Level = this.state.easy;
     return (
       <>
-        {practice === true ?
-          <ReduxComponent /> :
-          (
-            <div className='board'>
-              <div className='board-container'>
-                <div className='gameinfo'></div>
-                <Board level={level} />
-              </div>
-            </div>
-          )}
+        <div className='board'>
+          <div className='board-container'>
+            <GameInfo level={level} />
+            <Board level={level} />
+          </div>
+        </div>
+        <NotePad />
       </>
     )
   }

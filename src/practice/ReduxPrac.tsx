@@ -1,20 +1,13 @@
-import { combineReducers, createStore } from 'redux';
-import { Provider } from 'react-redux';
+export const NotePad = () => {
 
-interface State{
-  color:string
-}
+  const asconst = 'test !!!!!!!???????//' as const;
 
-interface Action{
-
-}
-
-const recucer = (state:State, action : Action) => {
-  return { color: 'red' };
-}
-
-export const ReduxComponent = () => {
+  const decrease = () => ({
+    type: asconst
+  });
+  
   return (
-    <div>dssd</div>
+    <>
+    </>
   )
 }

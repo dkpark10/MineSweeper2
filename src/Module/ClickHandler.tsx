@@ -1,4 +1,4 @@
-import { CellData, Coord } from '../interface/interface';
+import { CellData, Coord } from './Interface';
 import { checkOutRange } from './CellHandler';
 
 const directionY: number[] = [0, 0, 1, -1, -1, -1, 1, 1];
@@ -81,7 +81,8 @@ export const onRightClick = (cellInfo: CellData[][], coord: Coord) => {
   const { y, x }: Coord = coord;
 
   if (cellInfo[y][x].visited === true
-    || cellInfo[y][x].neighbor > 0) {
+    && (cellInfo[y][x].neighbor > 0
+      || cellInfo[y][x].neighbor <= 0)) {
     return;
   }
 
@@ -96,7 +97,7 @@ export const onWheelClick = (cellInfo: CellData[][], coord: Coord, boardSize: an
   const { y, x }: Coord = coord;
   const { row, col }: any = boardSize;
 
-  if (cellInfo[y][x].neighbor < 0 
+  if (cellInfo[y][x].neighbor < 0
     || cellInfo[y][x].flaged === true) {
     return;
   }
@@ -114,7 +115,7 @@ export const onWheelClick = (cellInfo: CellData[][], coord: Coord, boardSize: an
     }
   }
 
-  if(numofHit !== cellInfo[y][x].neighbor){
+  if (numofHit !== cellInfo[y][x].neighbor) {
     return;
   }
 
@@ -123,7 +124,7 @@ export const onWheelClick = (cellInfo: CellData[][], coord: Coord, boardSize: an
       if (checkOutRange(i, j, row, col)) {
         continue;
       }
-      if(cellInfo[i][j].neighbor > 0){
+      if (cellInfo[i][j].neighbor > 0) {
         cellInfo[i][j].visible = cellInfo[i][j].neighbor;
         cellInfo[i][j].visited = true;
         continue;
