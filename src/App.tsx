@@ -1,7 +1,8 @@
 import React from 'react';
 import './css/App.css';
-import Board from './Components/Board';
-import GameInfo from './Components/GameInfo';
+import Game from './Components/Game';
+import Header from './Components/Header';
+import GameModal from './Components/GameModal';
 import { Level } from './Module/Interface';
 import { NotePad } from './Practice/ReduxPrac';
 
@@ -19,7 +20,7 @@ export default class App extends React.Component<any, AppState>{
     const easy: Level = { row: 10, col: 10, numberOfMine: 10 };
     const normal: Level = { row: 16, col: 16, numberOfMine: 40 };
     const hard: Level = { row: 16, col: 30, numberOfMine: 99 };
-    const test: Level = { row: 5, col: 5, numberOfMine: 3 };
+    const test: Level = { row: 7, col: 7, numberOfMine: 10 };
 
     this.state = {
       easy: easy,
@@ -33,12 +34,9 @@ export default class App extends React.Component<any, AppState>{
     const level: Level = this.state.easy;
     return (
       <>
-        <div className='board'>
-          <div className='board-container'>
-            <GameInfo level={level} />
-            <Board level={level} />
-          </div>
-        </div>
+        <Header />
+        <GameModal />
+        <Game level={level} />
         <NotePad />
       </>
     )

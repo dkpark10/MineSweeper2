@@ -3,6 +3,7 @@
 // action.type 이 string 으로 추론되지 않고 같이 실제 문자열 값으로 추론 되도록 
 export const FIRSTCLICK = 'game/FIRST_CLICK' as const;
 export const SETFLAGNUMBER = 'game/SETFLAG_NUMBER' as const;
+export const SETGAMEOVER = 'game/GAME_OVER' as const;
 
 // action creator
 export const setFirstClick = () => ({
@@ -10,13 +11,21 @@ export const setFirstClick = () => ({
 });
 
 export const setFlagNumber = (flagNum: number) => ({
-  type:SETFLAGNUMBER,
-  payload:flagNum
+  type: SETFLAGNUMBER,
+  payload: flagNum
+});
+
+export const setExtraCell = (diff: number) => ({
+  type: SETGAMEOVER,
+  payload: diff
 })
+
+// -------------------------------------------------------------------------------------------------------------
 
 export interface GameState {
   isFirstClick: boolean,
-  numberofFlag: number
+  numberofFlag: number,
+  isGameOver: number
 };
 
 interface GameAction {
@@ -25,23 +34,29 @@ interface GameAction {
 }
 
 const initialState: GameState = {
-  isFirstClick: false,
-  numberofFlag: null
+  isFirstClick: true,
+  numberofFlag: -1,
+  isGameOver: -1
 };
 
 // 리듀서
 export default function gameReducer(state: GameState = initialState, action: GameAction): GameState {
-  console.log(action);
+  console.log(state,action);
   switch (action.type) {
     case FIRSTCLICK:
-      return { 
+      return {
         ...state,
-        isFirstClick: true
+        isFirstClick: false
       };
     case SETFLAGNUMBER:
-      return{
+      return {
         ...state,
         numberofFlag: action.payload
+      }
+    case SETGAMEOVER:
+      return {
+        ...state,
+        isGameOver: action.payload <= 0 ? 0 : action.payload
       }
     default:
       return state;

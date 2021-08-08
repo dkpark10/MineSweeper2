@@ -9,7 +9,7 @@ export interface CellData {
   neighbor: number,
   visited: boolean,
   flaged: boolean,
-  visible: number | string
+  visible: number | string,
 }
 
 export interface Coord {

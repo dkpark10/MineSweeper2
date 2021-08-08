@@ -3,27 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Reducers';
 import { Level } from '../Module/Interface';
 import { setFlagNumber } from '../Reducers/Game';
+import '../css/Gameinfo.css';
 
 interface Prop {
-  level:Level
-}
+  firstClick:boolean,
+  numofFlag:number
+};
 
-const GameInfo = (prop:Prop) => {
+const GameInfo = (prop: Prop) => {
 
   const dispatch = useDispatch();
-  const { row, col, numberOfMine }: Level = prop.level;
+  const { firstClick, numofFlag }: Prop = prop;
 
-  useEffect(() => {
-    dispatch(setFlagNumber(numberOfMine));
-  }, []);
+  // // 초기 젓 마운트 될 때 남은 깃발 갯수 리듀서에 작성
+  // useEffect(() => {
+  //   dispatch(setFlagNumber(numberOfMine));
+  // }, []);
 
   const [count, setCount] = useState<number>(0);
-  const { startTimer, numofFlag } = useSelector((state: RootState) => {
-    return {
-      startTimer: state.game.isFirstClick,
-      numofFlag: state.game.numberofFlag
-    }
-  });
 
   const getCount = (count: number): string => {
     if (count < 10) {
@@ -37,19 +34,21 @@ const GameInfo = (prop:Prop) => {
 
   useEffect(() => {
     let timerId: NodeJS.Timer;
-    if (startTimer) {
+    if (firstClick === false) {
       timerId = setInterval(() => {
         setCount(count + 1)
       }, 1000);
     }
+
     return () => clearInterval(timerId);
   });
 
   return (
     <>
       <div className='gameinfo'>
-        <span>⏰{getCount(count)}</span>
-        <span>   {numofFlag}</span>
+        <div> ⏳ {getCount(count)}</div>
+        <div className='heart'>💗</div>
+        <div> 🚩{numofFlag}</div>
       </div>
     </>
   )
