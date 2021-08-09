@@ -66,7 +66,9 @@ const Game = (prop: BoardProps) => {
       case CLICKTYPE.RIGHTCLCK:
         const flagStatus: boolean = clickHandler.onRightClick(newCellData, { y, x });
         if(flagStatus){
-          newCellData[y][x].flaged === true ? setNumofFlag(numofFlag - 1) : setNumofFlag(numofFlag + 1);
+          newCellData[y][x].flaged === true 
+          ? setNumofFlag(numofFlag => numofFlag - 1) 
+          : setNumofFlag(numofFlag => numofFlag + 1);
         }
         break;
     }

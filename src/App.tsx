@@ -2,9 +2,9 @@ import React from 'react';
 import './css/App.css';
 import Game from './Components/Game';
 import Header from './Components/Header';
-import GameModal from './Components/GameModal';
+import Modal from './Components/Modal';
 import { Level } from './Module/Interface';
-import { NotePad } from './Practice/ReduxPrac';
+import NotePad from './Practice/ReduxPrac';
 
 interface AppState {
   easy: Level,
@@ -35,9 +35,9 @@ export default class App extends React.Component<any, AppState>{
     return (
       <>
         <Header />
-        <GameModal />
+        <Modal />
         <Game level={level} />
-        <NotePad />
+        {/* <NotePad /> */}
       </>
     )
   }
