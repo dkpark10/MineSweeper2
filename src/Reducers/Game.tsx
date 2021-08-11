@@ -1,40 +1,51 @@
 // 액션 타입을 선언
 // 뒤에 as const 를 붙여줌으로써 나중에 액션 객체를 만들게 action.type 의 값을 추론하는 과정에서
 // action.type 이 string 으로 추론되지 않고 같이 실제 문자열 값으로 추론 되도록 
-export const SETGAMEOVER = 'game/GAMEOVER' as const;
+export const SETEXTRACELL = 'game/SETEXTRACELL' as const;
 export const GAMERESET = 'game/GAMERESET' as const;
+export const RECORDTIME = 'game/RECORDTIME' as const;
 
 // action creator
 
 export const setExtraCell = (diff: number) => ({
-  type: SETGAMEOVER,
+  type: SETEXTRACELL,
   payload: diff
 });
 
-export const gameReset = () => ({
-  type: GAMERESET
+export const gameReset = (diff: boolean) => ({
+  type: GAMERESET,
+  reset: diff
+})
+
+export const recordTime = (time:number) => ({
+  type: RECORDTIME,
+  payload: time
 })
 
 // -------------------------------------------------------------------------------------------------------------
 
 export interface GameState {
+  gameRestart: boolean,
   isGameOver: number,
+  takenTime:number
 };
 
 interface GameAction {
   type: string,
-  payload: number
+  payload: number,
+  reset:boolean
 }
 
 const initialState: GameState = {
-  isGameOver: -1,
+  gameRestart: false,
+  isGameOver: 987654321,
+  takenTime: -1
 };
 
 // 리듀서
 export default function gameReducer(state: GameState = initialState, action: GameAction): GameState {
-  console.log(state,action);
   switch (action.type) {
-    case SETGAMEOVER:
+    case SETEXTRACELL:
       return {
         ...state,
         isGameOver: action.payload <= 0 ? 0 : action.payload
@@ -42,7 +53,12 @@ export default function gameReducer(state: GameState = initialState, action: Gam
     case GAMERESET:
       return{
         ...state,
-        isGameOver: 9876554321
+        gameRestart: action.reset
+      }
+    case RECORDTIME:
+      return{
+        ...state,
+        takenTime: action.payload
       }
     default:
       return state;

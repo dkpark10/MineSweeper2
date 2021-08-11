@@ -1,18 +1,21 @@
 import '../css/Modal.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Reducers';
-import { gameReset } from '../Reducers/Game';
+import { gameReset, setExtraCell } from '../Reducers/Game';
 
 const GameModal = () => {
 
   const dispatch = useDispatch();
 
-  const { gameOver } = useSelector((state: RootState) => ({
-    gameOver: state.game.isGameOver
+  const { gameOver, takenTime, reset } = useSelector((state: RootState) => ({
+    gameOver: state.game.isGameOver,
+    takenTime:state.game.takenTime,
+    reset: state.game.gameRestart
   }));
 
   const gameRestart = () => {
-    dispatch(gameReset());
+    dispatch(gameReset(!reset));
+    dispatch(setExtraCell(987654321));
   }
 
   return (
@@ -20,8 +23,8 @@ const GameModal = () => {
       <div className={gameOver <= 0 ? 'modal' : 'modal hidden'}>
         <div className='modal-overlay'></div>
         <div className='modal-content'>
-          <div> Time : 231</div>
-          <div> Level : hard</div>
+          <div> Time : {takenTime / 1000}</div>
+          <div> Level : easy</div>
           <button className='closemodal' onClick={gameRestart}>Close</button>
         </div>
       </div>

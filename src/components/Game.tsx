@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Level, CellData, Coord } from '../Module/Interface';
 import Cell from './Cell';
-import '../css/Board.css';
+import '../css/Game.css';
 import * as cellHandler from '../Module/CellHandler';
 import GameInfo from './GameInfo';
 import * as clickHandler from '../Module/ClickHandler';
@@ -20,30 +20,33 @@ const Game = (prop: BoardProps) => {
   console.log('Board Component render');
   const dispatch = useDispatch();
 
-  const onSetExtraCell = (extraCell: number) => {
-    dispatch(setExtraCell(extraCell));
-  }
-
   const { row, col, numberOfMine }: Level = prop.level;
-  const initBoard: CellData[][] = cellHandler.initializeCell(row, col);
-  cellHandler.plantMine(initBoard, numberOfMine);
-  cellHandler.getNeighbor(initBoard, prop.level);
 
-  const [cellData, setCellData] = useState<CellData[][]>(initBoard);
+  // 처음 2차원 셀을 생성해주어서 렌더가 안되는 일이 없게 한다.
+  const [cellData, setCellData] = useState<CellData[][]>(cellHandler.initializeCell(row, col));
   const [firstClick, setFirstClick] = useState<boolean>(true);
   const [numofFlag, setNumofFlag] = useState<number>(numberOfMine);
 
   // useSelector는 항상 최상단 함수에 작성한다.
-  const { extraCell } = useSelector((state: RootState) => ({
-    extraCell: state.game.isGameOver
+  const { extraCell,gameRestart} = useSelector((state: RootState) => ({
+    extraCell: state.game.isGameOver,
+    gameRestart: state.game.gameRestart
   }));
 
   // useeffect를 사용하여 액션발행을 하고 GameInfo 컴포넌트의 렌더링을 방해하지 않도록 한다.
-  // useeffect는 렌더링을 보장한다. 그럼으로 setFlag액션을 발행하면 Board가 렌더링이 되었다는 것을
+  // useeffect는 내부 수행은 렌더링이 된 후 수행을 보장한다. 
+  // 그럼으로 setFlag액션을 발행하면 Board가 렌더링이 되었다는 것을
   // 보장한다. 그 후에 GameInfo를 렌더링한다.
+
   useEffect(() => {
-    onSetExtraCell((row * col) - numberOfMine);
-  }, []);
+    const newCellData: CellData[][] = cellHandler.initializeCell(row,col);
+    cellHandler.plantMine(newCellData, numberOfMine);
+    cellHandler.getNeighbor(newCellData, {row,col,numberOfMine});
+    setCellData([...newCellData]);
+    setNumofFlag(numberOfMine);
+    setFirstClick(true);
+    dispatch(setExtraCell((row * col) - numberOfMine));
+  }, [gameRestart, row, col, numberOfMine, dispatch]);
 
   const onLeftClick = (e: React.MouseEvent<HTMLDivElement>, { y, x }: Coord) => {
 
@@ -52,11 +55,8 @@ const Game = (prop: BoardProps) => {
 
     switch (e.button) {
       case CLICKTYPE.LEFTCLICK:
-
-        // 첫클릭은 했다면 다음과 같이 분기문을 걸어서 dispatch를 막아야 한다.
-        // 분기문을 걸지 않고 state를 reducer가 편집할 경우 타이머의 시간이 일시적으로 멈춘다.
-        if(firstClick === true){
-          setFirstClick(false);
+        if (firstClick === true) {
+          setFirstClick(state => !state);
         }
         newNumofExtraCell = clickHandler.onLeftClick(newCellData, { y, x }, { row, col });
         break;
@@ -65,17 +65,16 @@ const Game = (prop: BoardProps) => {
         break;
       case CLICKTYPE.RIGHTCLCK:
         const flagStatus: boolean = clickHandler.onRightClick(newCellData, { y, x });
-        if(flagStatus){
-          newCellData[y][x].flaged === true 
-          ? setNumofFlag(numofFlag => numofFlag - 1) 
-          : setNumofFlag(numofFlag => numofFlag + 1);
+        if (flagStatus) {
+          newCellData[y][x].flaged === true
+            ? setNumofFlag(numofFlag => numofFlag - 1)
+            : setNumofFlag(numofFlag => numofFlag + 1);
         }
         break;
     }
 
     if (newNumofExtraCell) {
-      console.log(newNumofExtraCell);
-      onSetExtraCell(extraCell - newNumofExtraCell);
+      dispatch(setExtraCell(extraCell - newNumofExtraCell));
       setCellData(newCellData);
     }
   }
@@ -110,9 +109,9 @@ const Game = (prop: BoardProps) => {
     <>
       <div className='board'>
         <div className='board-container'>
-          <GameInfo 
-          firstClick={firstClick}
-          numofFlag={numofFlag}
+          <GameInfo
+            firstClick={firstClick}
+            numofFlag={numofFlag}
           />
           {renderBoard()}
         </div>
