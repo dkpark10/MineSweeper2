@@ -6,7 +6,7 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "noImplicitAny": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "sourceMap": true,
     "lib": [
       "es2015",
@@ -18,6 +18,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
+    "strictPropertyInitialization": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true

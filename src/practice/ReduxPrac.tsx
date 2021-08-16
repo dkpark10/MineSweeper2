@@ -2,22 +2,20 @@ import React, { useState, useEffect } from 'react';
 
 const NotePad = () => {
 
-  const[count,setCount] = useState<number>(0);
+  const init:number[] = Array.from({length:10000}, (v,i) => i + 1);
+  const[arr,setArr] = useState<number[]>(init);
   console.log('11 notepad');
 
   const dec = () => {
-    setCount((prev) => {
-      console.log('prev == ',prev);
-      return prev+ 1;
-    })
+    const newar:number[] = Array.from({length:10000}, (v,i) => i + 1);
+    setArr((prev) => Object.assign({}, newar));
   }
 
   console.log('22 notepad');
 
   return (
     <>
-      <div>{count}</div>
-      <button >1+</button>
+      <div>ㅎㅎㅎㅎ</div>
       <button onClick = {dec}>1-</button>
     </>
   )

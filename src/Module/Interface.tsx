@@ -16,3 +16,14 @@ export interface Coord {
   y: number,
   x: number
 };
+
+export interface BoardSize {
+  row: number,
+  col: number
+}
+
+export interface ClickRenderStatus{
+  render: boolean;
+  flag:boolean;
+  removeCell: number;
+}

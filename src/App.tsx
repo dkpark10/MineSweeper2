@@ -4,6 +4,7 @@ import Game from './Components/Game';
 import Header from './Components/Header';
 import Modal from './Components/Modal';
 import { Level } from './Module/Interface';
+import NotePad from './Practice/ReduxPrac';
 
 const easy: Level = { row: 10, col: 10, numberOfMine: 10 };
 const normal: Level = { row: 16, col: 16, numberOfMine: 40 };
@@ -12,7 +13,8 @@ const test: Level = { row: 7, col: 7, numberOfMine: 10 };
 
 const App = () => {
 
-  const level:Level = normal;
+  const level:Level = hard;
+  const practice:boolean = true;
 
   return (
     <>

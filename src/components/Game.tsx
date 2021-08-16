@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Level, CellData, Coord } from '../Module/Interface';
+import { Level, CellData, Coord, ClickRenderStatus } from '../Module/Interface';
 import Cell from './Cell';
 import '../css/Game.css';
 import * as cellHandler from '../Module/CellHandler';
 import GameInfo from './GameInfo';
-import * as clickHandler from '../Module/ClickHandler';
 import { useDispatch, useSelector } from 'react-redux';
 import { setExtraCell } from '../Reducers/Game';
 import { RootState } from '../Reducers';
-
-enum CLICKTYPE { LEFTCLICK = 0, WHEELCLICK, RIGHTCLCK };
+import createClickFactory from '../Module/ClickFactory';
 
 interface BoardProps {
   level: Level
@@ -28,9 +26,10 @@ const Game = (prop: BoardProps) => {
   const [numofFlag, setNumofFlag] = useState<number>(numberOfMine);
 
   // useSelector는 항상 최상단 함수에 작성한다.
-  const { extraCell,gameRestart} = useSelector((state: RootState) => ({
+  const { extraCell, gameRestart, isGameOver } = useSelector((state: RootState) => ({
     extraCell: state.game.isGameOver,
-    gameRestart: state.game.gameRestart
+    gameRestart: state.game.gameRestart,
+    isGameOver: state.game.isGameOver
   }));
 
   // useeffect를 사용하여 액션발행을 하고 GameInfo 컴포넌트의 렌더링을 방해하지 않도록 한다.
@@ -48,35 +47,30 @@ const Game = (prop: BoardProps) => {
     dispatch(setExtraCell((row * col) - numberOfMine));
   }, [gameRestart, row, col, numberOfMine, dispatch]);
 
-  const onLeftClick = (e: React.MouseEvent<HTMLDivElement>, { y, x }: Coord) => {
+  const onCellClick = (e: React.MouseEvent<HTMLDivElement>, { y, x }: Coord) => {
 
     const newCellData: CellData[][] = [...cellData];
-    let newNumofExtraCell: number = 0;
 
-    switch (e.button) {
-      case CLICKTYPE.LEFTCLICK:
-        if (firstClick === true) {
-          setFirstClick(state => !state);
-        }
-        newNumofExtraCell = clickHandler.onLeftClick(newCellData, { y, x }, { row, col });
-        break;
-      case CLICKTYPE.WHEELCLICK:
-        newNumofExtraCell = clickHandler.onWheelClick(newCellData, { y, x }, { row, col });
-        break;
-      case CLICKTYPE.RIGHTCLCK:
-        const flagStatus: boolean = clickHandler.onRightClick(newCellData, { y, x });
-        if (flagStatus) {
-          newCellData[y][x].flaged === true
-            ? setNumofFlag(numofFlag => numofFlag - 1)
-            : setNumofFlag(numofFlag => numofFlag + 1);
-        }
-        break;
+    if (firstClick === true && e.button === 0) {
+      setFirstClick(state => !state);
     }
 
-    if (newNumofExtraCell) {
-      dispatch(setExtraCell(extraCell - newNumofExtraCell));
-      setCellData(newCellData);
+    let clickController = createClickFactory(e.button, newCellData, { y, x }, { row, col });
+    const renderStatus: ClickRenderStatus = clickController.process();
+
+    if(renderStatus.render === true){
+      if (renderStatus.flag === true) {
+        clickController.getCellData()[y][x].flaged === true
+        ? setNumofFlag(numofFlag => numofFlag - 1)
+        : setNumofFlag(numofFlag => numofFlag + 1);
+      }
+
+      if(renderStatus.removeCell > 0){
+        dispatch(setExtraCell(extraCell - renderStatus.removeCell));
+        setCellData(newCellData);
+      }
     }
+    clickController = null;
   }
 
   const onRightClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -92,9 +86,9 @@ const Game = (prop: BoardProps) => {
               return (
                 <Cell
                   key={(y * rowItem.length) + x}
-                  value={data.mine ? '💣' : data.visible}
+                  value={data.mine && isGameOver <= 0 ? '💣' : data.visible}
                   islock={data.visited}
-                  onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => onLeftClick(e, { y, x })}
+                  onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => onCellClick(e, { y, x })}
                   onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => onRightClick(e)}
                 />
               )
