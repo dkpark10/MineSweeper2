@@ -21,6 +21,7 @@ export const plantMine = (cellData: CellData[][], numberOfMine: number) => {
   let tmp = numberOfMine;
 
   while (tmp) {
+    
     const ranY = Math.floor(Math.random() * row);
     const ranX = Math.floor(Math.random() * col);
 

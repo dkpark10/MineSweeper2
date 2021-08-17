@@ -1,5 +1,5 @@
 import { ClickHandler } from './ClickHandler';
-import { CellData, Coord, BoardSize, ClickRenderStatus } from './Interface';
+import { CellData, Coord, ClickRenderStatus } from './Interface';
 
 const noRender: ClickRenderStatus = {
   render: false,
@@ -14,10 +14,6 @@ const gameOver: ClickRenderStatus = {
 }
 
 class LeftClickHandler extends ClickHandler {
-
-  constructor(c: CellData[][], coo: Coord, bs: BoardSize) {
-    super(c, coo, bs);
-  }
 
   public process(): ClickRenderStatus {
 

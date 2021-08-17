@@ -7,13 +7,17 @@
   border: 2px solid yellow;
 }
 
-.board-container{
-  background-color: #3b3b40;
+.game-container{
+  background-color: #2e2d2d;
   border-radius: 5px;
   padding:20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
 }
 
-.board-container-row{
+.game-container-row{
   margin-bottom: 0px;
   height:25px;
 }
@@ -35,7 +39,7 @@
   text-align: center;
   display: inline;
   font-weight: bold;
-  font-size: 7px;
+  font-size: 12px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

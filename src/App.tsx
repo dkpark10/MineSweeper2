@@ -13,7 +13,7 @@ const test: Level = { row: 7, col: 7, numberOfMine: 10 };
 
 const App = () => {
 
-  const level:Level = hard;
+  const level:Level = easy;
   const practice:boolean = true;
 
   return (
@@ -21,7 +21,7 @@ const App = () => {
       <Header />
       <Modal />
       <Game level={level} />
-      {/* <NotePad /> */}
+      <NotePad />
     </>
   )
 }

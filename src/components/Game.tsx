@@ -12,6 +12,7 @@ import createClickFactory from '../Module/ClickFactory';
 interface BoardProps {
   level: Level
 };
+const LEFTCLICK: number = 0;
 
 const Game = (prop: BoardProps) => {
 
@@ -38,50 +39,66 @@ const Game = (prop: BoardProps) => {
   // 보장한다. 그 후에 GameInfo를 렌더링한다.
 
   useEffect(() => {
-    const newCellData: CellData[][] = cellHandler.initializeCell(row,col);
+    const newCellData: CellData[][] = cellHandler.initializeCell(row, col);
     cellHandler.plantMine(newCellData, numberOfMine);
-    cellHandler.getNeighbor(newCellData, {row,col,numberOfMine});
-    setCellData([...newCellData]);
+    cellHandler.getNeighbor(newCellData, { row, col, numberOfMine });
+    setCellData(newCellData);
     setNumofFlag(numberOfMine);
     setFirstClick(true);
     dispatch(setExtraCell((row * col) - numberOfMine));
   }, [gameRestart, row, col, numberOfMine, dispatch]);
 
-  const onCellClick = (e: React.MouseEvent<HTMLDivElement>, { y, x }: Coord) => {
 
+  const onCellClick = (e: React.MouseEvent<HTMLDivElement>, { y, x }: Coord) => {
+    // 배열 state를 사용할 때 복사해서 사용하자.
     const newCellData: CellData[][] = [...cellData];
 
-    if (firstClick === true && e.button === 0) {
-      setFirstClick(state => !state);
-    }
+    e.preventDefault();
+    onFirstClick(firstClick, e.button, newCellData, { y, x });
 
     let clickController = createClickFactory(e.button, newCellData, { y, x }, { row, col });
     const renderStatus: ClickRenderStatus = clickController.process();
 
-    if(renderStatus.render === true){
+    if (renderStatus.render === true) {
       if (renderStatus.flag === true) {
         clickController.getCellData()[y][x].flaged === true
-        ? setNumofFlag(numofFlag => numofFlag - 1)
-        : setNumofFlag(numofFlag => numofFlag + 1);
+          ? setNumofFlag(numofFlag => numofFlag - 1)
+          : setNumofFlag(numofFlag => numofFlag + 1);
       }
 
-      if(renderStatus.removeCell > 0){
-        dispatch(setExtraCell(extraCell - renderStatus.removeCell));
-        setCellData(newCellData);
-      }
+      dispatch(setExtraCell(extraCell - renderStatus.removeCell));
+      setCellData(newCellData);
     }
     clickController = null;
   }
+
+
+  // 첫번째 클릭에 대한 이벤트 처리
+  const onFirstClick = (isFirstClick: boolean, buttonType: number, newCellData: CellData[][], coord:Coord) => {
+    const { y, x }: Coord = coord;
+    if (firstClick === true && buttonType === LEFTCLICK) {
+      setFirstClick(state => !state);
+
+      // 첫클릭에 지뢰를 밟지 않도록 한다.
+      if (newCellData[y][x].mine === true) {
+        newCellData[y][x].mine = false;
+        cellHandler.plantMine(newCellData, 1);
+        setCellData(newCellData);
+      }
+    }
+  }
+
 
   const onRightClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
   }
 
+
   const renderBoard = () => {
     return (
       cellData.map((rowItem, y) => {
         return (
-          <div className='board-container-row' key={y}>
+          <div className='game-container-row' key={y}>
             {rowItem.map((data, x) => {
               return (
                 <Cell
@@ -99,10 +116,11 @@ const Game = (prop: BoardProps) => {
     )
   }
 
+
   return (
     <>
       <div className='board'>
-        <div className='board-container'>
+        <div className='game-container'>
           <GameInfo
             firstClick={firstClick}
             numofFlag={numofFlag}

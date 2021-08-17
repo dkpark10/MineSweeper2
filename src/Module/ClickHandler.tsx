@@ -5,17 +5,17 @@ const directionX: number[] = [1, -1, 0, 0, -1, 1, -1, 1];
 
 export abstract class ClickHandler {
 
-  cellData: CellData[][];
-  coord: Coord;
-  boardSize: BoardSize;
+  protected readonly cellData: CellData[][];
+  protected readonly coord: Coord;
+  protected readonly boardSize?: BoardSize;
 
   constructor(c: CellData[][], coo: Coord, bs?: BoardSize) {
     this.cellData = c;
     this.coord = coo;
-    this.boardSize= bs;
+    this.boardSize = bs;
   }
 
-  public getCellData():CellData[][] {
+  public getCellData(): CellData[][] {
     return this.cellData;
   }
 

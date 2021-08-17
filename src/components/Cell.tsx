@@ -3,10 +3,10 @@ import React, { ReactText } from "react";
 const colorofButtonNumber: string[] = [
   "",
   "#FF245E",
-  "#614BF4",
+  "#8CA9FA",
   "#FFAA39",
-  "#DC1C38",
   "#7EEE62",
+  "#D9D1E8",
   "#0DEBEB",
   "#A566F8",
   "#A9350B"

@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
 
+const colorofButtonNumber: string[] = [
+  "",
+  "#FF245E",
+  "#614BF4",
+  "#FFAA39",
+  "#7EEE62",
+  "#5d00ff",
+  "#0DEBEB",
+  "#A566F8",
+  "#A9350B"
+];
+
 const NotePad = () => {
 
-  const init:number[] = Array.from({length:10000}, (v,i) => i + 1);
-  const[arr,setArr] = useState<number[]>(init);
-  console.log('11 notepad');
-
-  const dec = () => {
-    const newar:number[] = Array.from({length:10000}, (v,i) => i + 1);
-    setArr((prev) => Object.assign({}, newar));
-  }
-
-  console.log('22 notepad');
+  const [arr, setArr] = useState(Array.from({ length: 9 }, (v, i) => i + 1));
 
   return (
     <>
-      <div>ㅎㅎㅎㅎ</div>
-      <button onClick = {dec}>1-</button>
+      {arr.map((element, idx) => {
+        return(
+          <span key={idx} style={{ color:`${colorofButtonNumber[idx + 1]}`}}>{element}</span>
+        )
+      })}
     </>
   )
 }

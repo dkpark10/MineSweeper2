@@ -1,5 +1,5 @@
 import { ClickHandler } from './ClickHandler';
-import { CellData, Coord, BoardSize, ClickRenderStatus } from './Interface';
+import { CellData, Coord, ClickRenderStatus } from './Interface';
 
 const noRender: ClickRenderStatus = {
   render: false,
@@ -9,10 +9,6 @@ const noRender: ClickRenderStatus = {
 
 class RightClickHandler extends ClickHandler {
 
-  constructor(c: CellData[][], coo: Coord, bs?: BoardSize) {
-    super(c, coo);
-  }
-  
   public process(): ClickRenderStatus {
 
     const cellData: CellData[][] = this.cellData;
@@ -33,7 +29,7 @@ class RightClickHandler extends ClickHandler {
     return {
       render: true,
       flag: true,
-      removeCell: -1
+      removeCell: 0
     } as ClickRenderStatus
   }
 }
