@@ -1,5 +1,67 @@
-header {
-  height:40px;
+header a{
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+}
+
+header .title-container{
+  background-color: white;
+  height:78px;
+  position: relative;
+}
+
+header .title-container a{
+  color:#1033e3;
+  position: absolute;
+  font-weight: bold;
+  font-size: 27px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+header .menu-container{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  height:41px;
+  text-align: center;
   background-color: #1033e3;
+  font-size: 12px;
+}
+
+header .menu-container a{
+  color: #e0e0e0;
+  display: inline-block;  
+  margin: 10px;
+}
+
+header .menu-left{
+  width: 17%;
+}
+
+header .menu-right{
+  width: 17%;
+  display: flex;
+}
+
+header .menu-right .sign-button{
+  background-color: #1033e3;
+  border: 1px solid white;
   color:white;
+  border-radius: 8px;
+  width: 84px;
+  height:30px;
+  position: relative;
+}
+
+header .menu-right .sign-button div{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 11.5px;
+  transform: translate(-50%, -50%);  
+}
+
+header .menu-right .sign-button:hover{
+  background-color: turquoise;
 }

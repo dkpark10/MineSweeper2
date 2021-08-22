@@ -7,19 +7,25 @@ import GameInfo from './GameInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { setExtraCell } from '../Reducers/Game';
 import { RootState } from '../Reducers';
+import Header from './Header';
 import createClickFactory from '../Module/ClickFactory';
 
-interface BoardProps {
-  level: Level
-};
 const LEFTCLICK: number = 0;
 
-const Game = (prop: BoardProps) => {
+const level = {
+  easy: { row: 10, col: 10, numberOfMine: 10 },
+  normal: { row: 16, col: 16, numberOfMine: 40 },
+  hard: { row: 16, col: 30, numberOfMine: 99 },
+  test: { row: 7, col: 7, numberOfMine: 10 }
+};
+
+
+const Game = () => {
 
   console.log('Board Component render');
   const dispatch = useDispatch();
 
-  const { row, col, numberOfMine }: Level = prop.level;
+  const { row, col, numberOfMine }: Level = level.easy;
 
   // 처음 2차원 셀을 생성해주어서 렌더가 안되는 일이 없게 한다.
   const [cellData, setCellData] = useState<CellData[][]>(cellHandler.initializeCell(row, col));
@@ -74,12 +80,12 @@ const Game = (prop: BoardProps) => {
 
 
   // 첫번째 클릭에 대한 이벤트 처리
-  const onFirstClick = (isFirstClick: boolean, buttonType: number, newCellData: CellData[][], coord:Coord) => {
+  const onFirstClick = (isFirstClick: boolean, buttonType: number, newCellData: CellData[][], coord: Coord) => {
     const { y, x }: Coord = coord;
     if (firstClick === true && buttonType === LEFTCLICK) {
       setFirstClick(state => !state);
 
-      // 첫클릭에 지뢰를 밟지 않도록 한다.
+      // 첫클릭에 지뢰를 밟지 아니 하도록 한다.
       if (newCellData[y][x].mine === true) {
         newCellData[y][x].mine = false;
         cellHandler.plantMine(newCellData, 1);
@@ -119,6 +125,7 @@ const Game = (prop: BoardProps) => {
 
   return (
     <>
+      <Header />
       <div className='board'>
         <div className='game-container'>
           <GameInfo

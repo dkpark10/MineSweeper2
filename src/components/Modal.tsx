@@ -2,6 +2,7 @@ import '../css/Modal.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Reducers';
 import { gameReset, setExtraCell } from '../Reducers/Game';
+const GAMEOVER: number = 987654321;
 
 const GameModal = () => {
 
@@ -15,7 +16,7 @@ const GameModal = () => {
 
   const gameRestart = () => {
     dispatch(gameReset(!reset));
-    dispatch(setExtraCell(987654321));
+    dispatch(setExtraCell(GAMEOVER));
   }
 
   return (

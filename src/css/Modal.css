@@ -46,7 +46,7 @@
 .closemodal:hover {
   position: relative;
   margin-top:20px;
-  background-color: rebeccapurple;
+  background: linear-gradient(70deg,#1033e3, #f74bf7);
   font-weight: bold;
   color:white;
   font-family: "Roboto", sans-serif;

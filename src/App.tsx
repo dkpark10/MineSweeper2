@@ -1,27 +1,19 @@
 import React from 'react';
 import './css/App.css';
 import Game from './Components/Game';
-import Header from './Components/Header';
 import Modal from './Components/Modal';
-import { Level } from './Module/Interface';
+import { Route } from 'react-router-dom';
+import SignIn from './Components/SignIn';
 import NotePad from './Practice/ReduxPrac';
-
-const easy: Level = { row: 10, col: 10, numberOfMine: 10 };
-const normal: Level = { row: 16, col: 16, numberOfMine: 40 };
-const hard: Level = { row: 16, col: 30, numberOfMine: 99 };
-const test: Level = { row: 7, col: 7, numberOfMine: 10 };
 
 const App = () => {
 
-  const level:Level = easy;
-  const practice:boolean = true;
-
   return (
     <>
-      <Header />
+      <Route path="/" component={Game} exact={true} />
+      <Route path="/signin" component={SignIn} />
       <Modal />
-      <Game level={level} />
-      <NotePad />
+      {/* <NotePad /> */}
     </>
   )
 }
