@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 import gameReducer, { GameState } from './Game';
+import loginReducer, { LoginStatus } from './Login';
 
 export interface RootState {
-  game : GameState
+  game : GameState,
+  login: LoginStatus
 }
 
 export default combineReducers<RootState>({
-  game: gameReducer
+  game: gameReducer,
+  login: loginReducer
 });

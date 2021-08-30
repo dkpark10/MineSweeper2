@@ -5,25 +5,6 @@ export const SETEXTRACELL = 'game/SETEXTRACELL' as const;
 export const GAMERESET = 'game/GAMERESET' as const;
 export const RECORDTIME = 'game/RECORDTIME' as const;
 
-// action creator
-
-export const setExtraCell = (diff: number) => ({
-  type: SETEXTRACELL,
-  payload: diff
-});
-
-export const gameReset = (diff: boolean) => ({
-  type: GAMERESET,
-  reset: diff
-})
-
-export const recordTime = (time:number) => ({
-  type: RECORDTIME,
-  payload: time
-})
-
-// -------------------------------------------------------------------------------------------------------------
-
 export interface GameState {
   gameRestart: boolean,
   isGameOver: number,
@@ -41,6 +22,22 @@ const initialState: GameState = {
   isGameOver: 987654321,
   takenTime: -1
 };
+
+// action creator
+export const setExtraCell = (diff: number) => ({
+  type: SETEXTRACELL,
+  payload: diff
+});
+
+export const gameReset = (diff: boolean) => ({
+  type: GAMERESET,
+  reset: diff
+})
+
+export const recordTime = (time:number) => ({
+  type: RECORDTIME,
+  payload: time
+})
 
 // 리듀서
 export default function gameReducer(state: GameState = initialState, action: GameAction): GameState {

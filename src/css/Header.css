@@ -26,21 +26,21 @@ header .menu-container{
   height:41px;
   text-align: center;
   background-color: #1033e3;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 header .menu-container a{
-  color: #e0e0e0;
+  color: #d0d0d0;
   display: inline-block;  
   margin: 10px;
 }
 
 header .menu-left{
-  width: 17%;
+  width: 16%;
 }
 
 header .menu-right{
-  width: 17%;
+  width: 16%;
   display: flex;
 }
 

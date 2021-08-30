@@ -28,6 +28,7 @@ export abstract class ClickHandler {
     let numofExtraCell: number = 1;
     const { y, x }: Coord = coord;
     const cellData: CellData[][] = this.cellData;
+    
     cellData[y][x].visited = true;
 
     numofExtraCell += this.setNeighborCell(coord);
@@ -40,6 +41,10 @@ export abstract class ClickHandler {
         continue;
       }
 
+      // 방문한곳이 아니어야하며
+      // 주위 지뢰가 없는 순수한칸이며
+      // 깃발이 꽂혀있지 않으며
+      // 지뢰가 있지 않은곳으로 연쇄충돌
       if (cellData[nextY][nextX].visited === false
         && cellData[nextY][nextX].neighbor <= 0
         && cellData[nextY][nextX].flaged === false
