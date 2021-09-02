@@ -2,17 +2,23 @@ import React from 'react';
 import './css/App.css';
 import Game from './Components/Game';
 import Modal from './Components/Modal';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import SignIn from './Components/SignIn';
+import SignUp from './Components/SignUp';
+import NotFound from './Components/NotFound';
 import NotePad from './Practice/ReduxPrac';
 
 const App = () => {
 
   return (
     <>
-      <Route path="/" component={Game} exact={true} />
-      <Route path="/signin" component={SignIn} />
-      <Modal />
+      <Switch>
+        <Route exact path="/" component={Game} />
+        <Route path="/signin" component={SignIn} />
+        <Route path="/signup" component={SignUp} />
+        <Route component={NotFound} />
+        <Modal />
+      </Switch>
       {/* <NotePad /> */}
     </>
   )

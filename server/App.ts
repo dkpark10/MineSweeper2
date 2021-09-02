@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, request } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 declare function require(params: string): any;
 
@@ -7,10 +7,7 @@ const app: any = express();
 const helmet: any = require('helmet');
 const compression: any = require('compression');
 const bodyparser: any = require('body-parser');
-const session:any = require('express-session');
-const fileStore:any = require('session-file-store')(session);
-const path:any = require('path');
-const fs:any = require('fs');
+const config :any = require('./config/Jwtkey');
 const cors: any = require('cors');
 
 const port = process.env.PORT || 8080 ;
@@ -26,15 +23,19 @@ app.use(helmet());
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.set('jwt-secretKey', config.secret);
 app.use(express.static(__dirname + '/public')); 
+app.use('/user');
 
-app.use('/', (request: Request, response : Response, next :NextFunction) => {
-  response.status(200).json({id:'hawi'});
+app.get('/', (request: Request, response : Response, next :NextFunction) => {
+  response.status(200).json({id:'ani sisisisi'});
 });
 
-app.use((request: Request, response:Response, next: NextFunction) => {
-  response.render("notfound", {});
-})
+app.post('/', (request: Request, response : Response, next :NextFunction) => {
+  const {id, pwd} = request.body;
+  console.log(id,pwd);
+  response.status(200).json({id:'12345'});
+});
 
 app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
   console.error(error.stack);

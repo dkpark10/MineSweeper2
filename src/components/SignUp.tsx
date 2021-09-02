@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, RouteProps } from 'react-router-dom';
 import axios from 'axios';
-import '../css/Signin.css';
+import '../css/Signup.css';
 
 const titleStyle = {
   color: '#1033e3',
@@ -9,28 +9,27 @@ const titleStyle = {
   marginBottom: '50px'
 };
 
-interface LoginInfo {
+interface SignupInfo {
   id: string;
+  email: string;
   pwd: string;
-}
+  chkpwd: string;
+};
 
-const SignIn = (props: RouteProps) => {
+const SignUp = (props: RouteProps) => {
 
-  const [inputs, setInputs] = useState<LoginInfo>({
+  const [inputs, setInputs] = useState<SignupInfo>({
     id: '',
-    pwd: ''
+    email: '',
+    pwd: '',
+    chkpwd: ''
   });
-  const [hi, setHi] = useState<string>('axios');
 
   const submintHandler = (e: React.FormEvent<HTMLFormElement>) => {
 
     // post 방식으로 보낼 때 이벤트를 막아야 한다.
     // 민감한 정보가 쿼리스트링으로 전달 
     e.preventDefault();
-
-    axios.post('http://localhost:8080/', inputs)
-      .then(res => setHi((prev: string) => res.data.id))
-      .catch(e => console.log(e.message));
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,8 +50,8 @@ const SignIn = (props: RouteProps) => {
 
   return (
     <>
-      <div className='login-container'>
-        <div className='login-wrapper'>
+      <div className='signup-container'>
+        <div className='signup-wrapper'>
           <Link to="/">
             <h1 style={titleStyle}>Mine Sweeper</h1>
           </Link>
@@ -72,6 +71,19 @@ const SignIn = (props: RouteProps) => {
             </p>
             <p className='input-container'>
               <input
+                type="text"
+                name="email"
+                placeholder="Password"
+                onChange={onChange}
+                value={inputs.pwd}
+              />
+              {inputs.pwd.length > 0 && <button
+                name='pwd'
+                className='btn-reset'
+                onClick={onReset} />}
+            </p>
+            <p className='input-container'>
+              <input
                 type="password"
                 name="pwd"
                 placeholder="Password"
@@ -83,12 +95,20 @@ const SignIn = (props: RouteProps) => {
                 className='btn-reset'
                 onClick={onReset} />}
             </p>
-            <div className='login-forgot'>
-              <Link to="/">Forgot ID</Link>
-              <Link to="/">Forgot Password</Link>
-              <Link to="/">Sign Up</Link>
-            </div>
-            <p><input type='submit' value='Login'></input></p>
+            <p className='input-container'>
+              <input
+                type="password"
+                name="chkpwd"
+                placeholder="Check Password"
+                onChange={onChange}
+                value={inputs.pwd}
+              />
+              {inputs.pwd.length > 0 && <button
+                name='pwd'
+                className='btn-reset'
+                onClick={onReset} />}
+            </p>
+            <p><input type='submit' value='Register'></input></p>
           </form>
         </div>
       </div>
@@ -96,4 +116,4 @@ const SignIn = (props: RouteProps) => {
   )
 }
 
-export default SignIn;
+export default SignUp;

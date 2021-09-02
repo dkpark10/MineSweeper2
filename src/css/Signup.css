@@ -1,4 +1,4 @@
-.login-container {
+.signup-container {
   font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
@@ -8,32 +8,20 @@
   border: 2px solid yellow;
 }
 
-.login-container a{
+.signup-container a{
   text-decoration: none;
 }
 
 
-.login-wrapper{
+.signup-wrapper{
   padding: 20px;
   background-color: white;
   border-radius: 12px;
   width: 378px;
-  height: 423px;
+  height: 483px;
   box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
   text-align: center;
   position: relative;
-}
-
-.login-forgot {
-  display:flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.login-forgot a{
-  color:#aaaaaa;
-  text-decoration: none;
-  font-size: 12px;
 }
 
 

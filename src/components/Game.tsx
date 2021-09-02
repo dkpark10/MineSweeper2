@@ -126,14 +126,12 @@ const Game = () => {
   return (
     <>
       <Header />
-      <div className='board'>
-        <div className='game-container'>
-          <GameInfo
-            firstClick={firstClick}
-            numofFlag={numofFlag}
-          />
-          {renderBoard()}
-        </div>
+      <div className='game-container'>
+        <GameInfo
+          firstClick={firstClick}
+          numofFlag={numofFlag}
+        />
+        {renderBoard()}
       </div>
     </>
   )

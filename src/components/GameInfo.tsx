@@ -65,11 +65,11 @@ const GameInfo = (prop: Prop) => {
 
   return (
     <>
-      <div className='gameinfo'>
+      <p className='gameinfo'>
         <div> ⏳ {getCount(count)}</div>
         <div className='heart'>💗</div>
         <div> 🚩{numofFlag}</div>
-      </div>
+      </p>
     </>
   )
 }

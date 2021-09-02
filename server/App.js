@@ -5,10 +5,7 @@ var app = express();
 var helmet = require('helmet');
 var compression = require('compression');
 var bodyparser = require('body-parser');
-var session = require('express-session');
-var fileStore = require('session-file-store')(session);
-var path = require('path');
-var fs = require('fs');
+var config = require('./config/Jwtkey');
 var cors = require('cors');
 var port = process.env.PORT || 8080;
 app.use(cors());
@@ -20,12 +17,16 @@ app.use(compression());
 app.use(helmet());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.set('jwt-secretKey', config.secret);
 app.use(express.static(__dirname + '/public'));
-app.use('/', function (request, response, next) {
-    response.status(200).json({ id: 'hawiwiwiwi123' });
+app.use('/user');
+app.get('/', function (request, response, next) {
+    response.status(200).json({ id: 'ani sisisisi' });
 });
-app.use(function (request, response, next) {
-    response.render("notfound", {});
+app.post('/', function (request, response, next) {
+    var _a = request.body, id = _a.id, pwd = _a.pwd;
+    console.log(id, pwd);
+    response.status(200).json({ id: '12345' });
 });
 app.use(function (error, request, response, next) {
     console.error(error.stack);
