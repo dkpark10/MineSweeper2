@@ -30,7 +30,7 @@ const SignIn = (props: RouteProps) => {
 
     axios.post('http://localhost:8080/', inputs)
       .then(res => setHi((prev: string) => res.data.id))
-      .catch(e => console.log(e.message));
+      .catch(e => console.log(e.message, 'error ~~'));
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

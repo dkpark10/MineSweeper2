@@ -1,10 +1,11 @@
 .gameinfo{
-  height: 12px;
+  height: 26px;
+  margin-bottom: 9px;
   display:flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 3px;
 }
+
 
 .gameinfo div{
   min-width: 45px;
@@ -14,6 +15,7 @@
   font-size: 14px;
   font-family: "Roboto", sans-serif;
 }
+
 
 .gameinfo .heart{
   font-size: 18px;

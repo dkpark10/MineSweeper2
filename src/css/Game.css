@@ -9,10 +9,12 @@
   border:2px solid yellow;
 }
 
+
 .game-container-row{
   margin-bottom: 0px;
   height:25px;
 }
+
 
 .cell {
   width: 24px;
@@ -26,6 +28,7 @@
   position: relative;
 }
 
+
 .cell div{
   position: absolute;
   background-image:linear-gradient(to bottom, #FFFFFF,#E4E4E4);
@@ -38,13 +41,16 @@
   transform: translate(-50%, -50%);
 }
 
+
 .cell:hover{
   background-image:linear-gradient(to bottom, #dee6fc, #ffffff);
 }
 
+
 .cell:active{
   background-image: linear-gradient(to bottom, #D4F4FA,#BDBDBD);
 }
+
 
 .lock {
   width: 24px;
@@ -56,6 +62,7 @@
   border-radius: 2px;
   position: relative;
 }
+
 
 .lock div{
   position: absolute;

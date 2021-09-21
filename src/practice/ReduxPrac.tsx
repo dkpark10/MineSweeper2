@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { debounce } from "lodash";
 
 const colorofButtonNumber: string[] = [
   "",
@@ -12,19 +13,51 @@ const colorofButtonNumber: string[] = [
   "#A9350B"
 ];
 
+const somthingFunc = () => {
+  console.log("called somthingFunc");
+};
+
+const debounceSomethingFunc = debounce(() => {
+  console.log("called debounceSomethingFunc");
+}, 200);
+
+
 const NotePad = () => {
 
-  const [arr, setArr] = useState(Array.from({ length: 9 }, (v, i) => i + 1));
+  const [text, setText] = React.useState("");
+  const [text2, setText2] = React.useState("");
+
+  const onChange = event => {
+    const value = event.target.value;
+
+    setText(value);
+    somthingFunc();
+  };
+
+  const onDebounceChange = event => {
+    const value = event.target.value;
+
+    setText2(value);
+    debounceSomethingFunc();
+  };
 
   return (
     <>
-      {arr.map((element, idx) => {
-        return(
-          <span key={idx} style={{ color:`${colorofButtonNumber[idx + 1]}`}}>{element}</span>
-        )
-      })}
+      < div>
+        < label>
+          < span style={{ marginRight: 16 }}>텍스트1</span>
+          < input type="text" value={text} onChange={onChange} />
+        </label>
+      </div>
+      < div>
+        < label>
+          < span style={{ marginRight: 16 }}>텍스트2 </span>
+          < input type="text" value={text2} onChange={onDebounceChange} />
+        </label>
+      </div>
+      < div style={{ marginTop: 16 }}>console을 확인해주세요.</div>
     </>
-  )
+  );
 }
 
 export default NotePad;

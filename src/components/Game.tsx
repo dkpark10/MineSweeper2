@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Level, CellData, Coord, ClickRenderStatus } from '../Module/Interface';
-import Cell from './Cell';
 import '../css/Game.css';
 import * as cellHandler from '../Module/CellHandler';
 import GameInfo from './GameInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { setExtraCell } from '../Reducers/Game';
 import { RootState } from '../Reducers';
-import Header from './Header';
 import createClickFactory from '../Module/ClickFactory';
+import Header from './Header';
+import Modal from './Modal';
+import Cell from './Cell';
 
 const LEFTCLICK: number = 0;
 
@@ -125,6 +126,7 @@ const Game = () => {
 
   return (
     <>
+      <Modal />
       <Header />
       <div className='game-container'>
         <GameInfo

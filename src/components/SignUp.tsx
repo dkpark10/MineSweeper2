@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, RouteProps } from 'react-router-dom';
-import axios from 'axios';
+import asxiosApi from '../Module/API';
+import { debounce } from 'lodash';
 import '../css/Signup.css';
 
 const titleStyle = {
@@ -15,6 +16,10 @@ interface SignupInfo {
   pwd: string;
   chkpwd: string;
 };
+
+const debounceIDinputCheck = debounce((value: string) => {
+  console.log(`${value}`);
+}, 450);
 
 const SignUp = (props: RouteProps) => {
 
@@ -33,14 +38,20 @@ const SignUp = (props: RouteProps) => {
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
     const { name, value } = e.target;
     setInputs({
       ...inputs,
       [name]: value
-    })
+    });
+
+    if (name === 'id'){
+      debounceIDinputCheck(value);
+    }
   }
 
   const onReset = (e: any) => {
+
     const name = e.target.name;
     setInputs({
       ...inputs,
@@ -73,9 +84,9 @@ const SignUp = (props: RouteProps) => {
               <input
                 type="text"
                 name="email"
-                placeholder="Password"
+                placeholder="E-mail"
                 onChange={onChange}
-                value={inputs.pwd}
+                value={inputs.email}
               />
               {inputs.pwd.length > 0 && <button
                 name='pwd'
@@ -99,9 +110,9 @@ const SignUp = (props: RouteProps) => {
               <input
                 type="password"
                 name="chkpwd"
-                placeholder="Check Password"
+                placeholder="Password Check"
                 onChange={onChange}
-                value={inputs.pwd}
+                value={inputs.chkpwd}
               />
               {inputs.pwd.length > 0 && <button
                 name='pwd'
