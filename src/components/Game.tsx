@@ -30,6 +30,7 @@ const Game = () => {
 
   // 처음 2차원 셀을 생성해주어서 렌더가 안되는 일이 없게 한다.
   const [cellData, setCellData] = useState<CellData[][]>(cellHandler.initializeCell(row, col));
+  console.log('렌더순서 111111111111');
   const [firstClick, setFirstClick] = useState<boolean>(true);
   const [numofFlag, setNumofFlag] = useState<number>(numberOfMine);
 
@@ -46,21 +47,26 @@ const Game = () => {
   // 보장한다. 그 후에 GameInfo를 렌더링한다.
 
   useEffect(() => {
-    const newCellData: CellData[][] = cellHandler.initializeCell(row, col);
+
+    console.log('렌더순서 222222222222222222');
+    let newCellData: CellData[][] = cellHandler.initializeCell(row, col);
     cellHandler.plantMine(newCellData, numberOfMine);
     cellHandler.getNeighbor(newCellData, { row, col, numberOfMine });
+    
     setCellData(newCellData);
     setNumofFlag(numberOfMine);
     setFirstClick(true);
     dispatch(setExtraCell((row * col) - numberOfMine));
+
   }, [gameRestart, row, col, numberOfMine, dispatch]);
 
 
   const onCellClick = (e: React.MouseEvent<HTMLDivElement>, { y, x }: Coord) => {
+  
     // 배열 state를 사용할 때 복사해서 사용하자.
     const newCellData: CellData[][] = [...cellData];
-
     e.preventDefault();
+    
     onFirstClick(firstClick, e.button, newCellData, { y, x });
 
     let clickController = createClickFactory(e.button, newCellData, { y, x }, { row, col });
@@ -96,11 +102,6 @@ const Game = () => {
   }
 
 
-  const onRightClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  }
-
-
   const renderBoard = () => {
     return (
       cellData.map((rowItem, y) => {
@@ -113,7 +114,7 @@ const Game = () => {
                   value={data.mine && isGameOver <= 0 ? '💣' : data.visible}
                   islock={data.visited}
                   onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => onCellClick(e, { y, x })}
-                  onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => onRightClick(e)}
+                  onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
                 />
               )
             })}

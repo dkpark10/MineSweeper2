@@ -1,6 +1,7 @@
 import { Level, CellData } from './Interface';
 
 export const initializeCell = (row: number, col: number): CellData[][] => {
+  
   const ret: CellData[][] = Array.from({ length: row }, () => Array)
     .map(() => Array.from({ length: col }, () => {
       return {
@@ -16,6 +17,7 @@ export const initializeCell = (row: number, col: number): CellData[][] => {
 }
 
 export const plantMine = (cellData: CellData[][], numberOfMine: number) => {
+
   const row: number = cellData.length;
   const col: number = cellData[0].length;
   let tmp = numberOfMine;
@@ -33,6 +35,7 @@ export const plantMine = (cellData: CellData[][], numberOfMine: number) => {
 }
 
 export const getNeighbor = (cellData: CellData[][], level: Level) => {
+
   const { row, col, }: Level = level;
 
   for (let i: number = 0; i < row; i++) {
@@ -43,6 +46,7 @@ export const getNeighbor = (cellData: CellData[][], level: Level) => {
 }
 
 const calcNeighbor = (y: number, x: number, board: CellData[][], { row, col }): number => {
+
   let ret: number = 0;
 
   for (let i: number = y - 1; i <= y + 1; i++) {

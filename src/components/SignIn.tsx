@@ -27,10 +27,6 @@ const SignIn = (props: RouteProps) => {
     // post 방식으로 보낼 때 이벤트를 막아야 한다.
     // 민감한 정보가 쿼리스트링으로 전달 
     e.preventDefault();
-
-    axios.post('http://localhost:8080/', inputs)
-      .then(res => setHi((prev: string) => res.data.id))
-      .catch(e => console.log(e.message, 'error ~~'));
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

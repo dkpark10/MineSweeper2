@@ -1,7 +1,6 @@
 import React from 'react';
 import './css/App.css';
 import Game from './Components/Game';
-import Modal from './Components/Modal';
 import { Route, Switch } from 'react-router-dom';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
@@ -16,9 +15,9 @@ const App = () => {
         <Route exact path="/" component={Game} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/test" component={NotePad} />
         <Route component={NotFound} />
       </Switch>
-      {/* <NotePad /> */}
     </>
   )
 }

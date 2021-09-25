@@ -1,63 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { debounce } from "lodash";
+import React, { useState, useEffect, useRef } from 'react';
 
-const colorofButtonNumber: string[] = [
-  "",
-  "#FF245E",
-  "#614BF4",
-  "#FFAA39",
-  "#7EEE62",
-  "#5d00ff",
-  "#0DEBEB",
-  "#A566F8",
-  "#A9350B"
-];
+class TTT {
 
-const somthingFunc = () => {
-  console.log("called somthingFunc");
-};
+  private readonly arr: number[];
 
-const debounceSomethingFunc = debounce(() => {
-  console.log("called debounceSomethingFunc");
-}, 200);
-
+  constructor() {
+    this.arr = new Array(1000000).fill(0);
+  }
+}
 
 const NotePad = () => {
 
-  const [text, setText] = React.useState("");
-  const [text2, setText2] = React.useState("");
+  let test = useRef<TTT>(null);
+  
+  const [name, setName] = useState<string>('');
+  const [arr, setArr] = useState<number[]>(Array(100000).fill(1));
 
-  const onChange = event => {
-    const value = event.target.value;
+  useEffect(() => {
+    console.log('마운트 렌터');
+    test.current = new TTT();
 
-    setText(value);
-    somthingFunc();
+    return () => { 
+      console.log('언마운트 렌더');
+      test.current = null;
+    }
+
+  }, [name]);
+
+  const onChangeName = e => {
+    setName(e.target.value);
   };
 
-  const onDebounceChange = event => {
-    const value = event.target.value;
-
-    setText2(value);
-    debounceSomethingFunc();
-  };
+  const clickTest = () => {
+    const newarr:number[] = [...arr];
+    setArr(prev => newarr.map((ele) => ele * 2));
+    console.log(arr.length);
+  }
 
   return (
     <>
-      < div>
-        < label>
-          < span style={{ marginRight: 16 }}>텍스트1</span>
-          < input type="text" value={text} onChange={onChange} />
-        </label>
+      <div>
+        <input value={name} onChange={onChangeName} />
+        <h3>{name}</h3>
+        <button onClick={clickTest}>test</button>
       </div>
-      < div>
-        < label>
-          < span style={{ marginRight: 16 }}>텍스트2 </span>
-          < input type="text" value={text2} onChange={onDebounceChange} />
-        </label>
-      </div>
-      < div style={{ marginTop: 16 }}>console을 확인해주세요.</div>
     </>
-  );
+  )
 }
 
 export default NotePad;
+
