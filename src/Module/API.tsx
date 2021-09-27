@@ -1,29 +1,20 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
-const axiosAPI = async (url: string, data?: any, method?: string) => {
 
-  switch (method) {
-    case 'GET':
-      axios.get(url, data)
-        .then((response) => { })
-        .catch((err) => console.error(err));
-      break;
-    case 'POST':
-      axios.post(url, data,
-        {
-          headers: {
-            'Content-type': 'application/json',
-          }
-        })
-        .then((response) => { })
-        .catch((err) => console.error(err));
-      break;
-    default:
-      axios.get(url)
-        .then((response) => { })
-        .catch((err) => console.error(err));
-      break;
-  }
+interface AxiosInterface {
+  [key: string]: (url: string, data?: any) => Promise<AxiosResponse<any>>;
 }
 
-export default axiosAPI;
+const header: { [key: string]: any } = { headers: { 'Content-type': 'application/json' } };
+
+const axiosApi: AxiosInterface = {
+  get: (url: string) => axios.get(url)
+    .then((response: AxiosResponse) => response.data)
+    .catch(err => console.error(err)),
+
+  post: (url: string, data: any) => axios.post(url, data, header)
+    .then((response: AxiosResponse) => response.data)
+    .catch(err => console.error(err)),
+};
+
+export default axiosApi;

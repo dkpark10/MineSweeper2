@@ -41,6 +41,16 @@ input[type='password'] {
 }
 
 
+.btn-reset,
+.btn-remove {
+  border-radius: 50%;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 2px 5px;
+}
+
+
 input[type='submit']{
   background-color: #1033e3;
   display:block;
@@ -62,16 +72,6 @@ input[type='submit']:hover{
 }
 
 
-.btn-reset,
-.btn-remove {
-  border-radius: 50%;
-  color: black;
-  font-weight: bold;
-  border: none;
-  padding: 2px 5px;
-}
-
-
 .btn-reset {
   position: absolute;
   top:10px;
@@ -82,4 +82,12 @@ input[type='submit']:hover{
 .btn-reset::before,
 .btn-remove::before {
   content: 'X'
+}
+
+.invalid-text{
+  color:red;
+  margin-left: 16px;
+  margin-bottom: 0px;
+  margin-top: 5px;
+  text-align: left;
 }

@@ -30,7 +30,6 @@ const Game = () => {
 
   // 처음 2차원 셀을 생성해주어서 렌더가 안되는 일이 없게 한다.
   const [cellData, setCellData] = useState<CellData[][]>(cellHandler.initializeCell(row, col));
-  console.log('렌더순서 111111111111');
   const [firstClick, setFirstClick] = useState<boolean>(true);
   const [numofFlag, setNumofFlag] = useState<number>(numberOfMine);
 
@@ -48,7 +47,6 @@ const Game = () => {
 
   useEffect(() => {
 
-    console.log('렌더순서 222222222222222222');
     let newCellData: CellData[][] = cellHandler.initializeCell(row, col);
     cellHandler.plantMine(newCellData, numberOfMine);
     cellHandler.getNeighbor(newCellData, { row, col, numberOfMine });
@@ -102,27 +100,25 @@ const Game = () => {
   }
 
 
-  const renderBoard = () => {
+  const gameBoard: JSX.Element[] = cellData.map((rowItem, y) => {
+
     return (
-      cellData.map((rowItem, y) => {
-        return (
-          <div className='game-container-row' key={y}>
-            {rowItem.map((data, x) => {
-              return (
-                <Cell
-                  key={(y * rowItem.length) + x}
-                  value={data.mine && isGameOver <= 0 ? '💣' : data.visible}
-                  islock={data.visited}
-                  onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => onCellClick(e, { y, x })}
-                  onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
-                />
-              )
-            })}
-          </div>
-        )
-      })
+      <div className='game-container-row' key={y}>
+        {rowItem.map((data, x) => {
+          return (
+            <Cell
+              key={(y * rowItem.length) + x}
+              value={data.mine && isGameOver <= 0 ? '💣' : data.visible}
+              islock={data.visited}
+              onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => onCellClick(e, { y, x })}
+              onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
+            />
+          )
+        })}
+      </div>
     )
-  }
+  })
+
 
 
   return (
@@ -134,7 +130,7 @@ const Game = () => {
           firstClick={firstClick}
           numofFlag={numofFlag}
         />
-        {renderBoard()}
+        {gameBoard}
       </div>
     </>
   )
