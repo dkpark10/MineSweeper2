@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, RouteProps } from 'react-router-dom';
+import { Link, RouteProps, Redirect } from 'react-router-dom';
 import ResetButton from './ResetButton';
 import InputInvalidChecker, {InvalidStatus} from '../Module/InputCheker'
 import axiosApi from '../Module/API';
@@ -36,6 +36,7 @@ const SignUp = (props: RouteProps) => {
     return () => inputChecker.current = null;
   }, []);
 
+  const [failmsg, setFailMsg] = useState<boolean>(false);
   const [inputs, setInputs] = useState<InputList>({
     id: { value: '', invalid: true, msg: '' },
     email: { value: '', invalid: true, msg: '' },
@@ -52,9 +53,8 @@ const SignUp = (props: RouteProps) => {
     const invalid = Object.entries(inputs)
       .filter(([key, value]) => true === value.invalid).length > 0;
 
-    if(invalid === true){
+    if(invalid === true)
       return;
-    }
     
     axiosApi.post(`http://localhost:8080/api/auth/register`, 
     [
@@ -63,7 +63,9 @@ const SignUp = (props: RouteProps) => {
       inputs.pwd.value
     ])
     .then(res => {
-      console.log(res);
+      if (res.data.result === false) {
+        setFailMsg(prev => true);
+      }
     });
   }
 
@@ -71,6 +73,7 @@ const SignUp = (props: RouteProps) => {
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 
     const { name, value } = e.target;
+    setFailMsg(prev => false);
 
     inputChecker.current.inputInvalidCheck(name, value, inputs['pwd'].value)
       .then((response: InvalidStatus) => {
@@ -129,6 +132,7 @@ const SignUp = (props: RouteProps) => {
           <Link to="/">
             <h1 style={titleStyle}>Mine Sweeper</h1>
           </Link>
+          {failmsg && <label className='invalid-text'>Please try again in a little while.</label>}
           <form onSubmit={submintHandler}>
             {inputList}
             <div>
