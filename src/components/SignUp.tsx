@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, RouteProps, Redirect } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import ResetButton from './ResetButton';
-import InputInvalidChecker, {InvalidStatus} from '../Module/InputCheker'
+import InputInvalidChecker, { InvalidStatus } from '../Module/InputCheker'
 import axiosApi from '../Module/API';
 import '../css/Signup.css';
 
@@ -27,7 +27,7 @@ interface InputList {
 };
 
 
-const SignUp = (props: RouteProps) => {
+const SignUp = ({ history }: RouteComponentProps) => {
 
   let inputChecker = useRef<InputInvalidChecker>(null);
 
@@ -53,20 +53,22 @@ const SignUp = (props: RouteProps) => {
     const invalid = Object.entries(inputs)
       .filter(([key, value]) => true === value.invalid).length > 0;
 
-    if(invalid === true)
+    if (invalid === true)
       return;
-    
-    axiosApi.post(`http://localhost:8080/api/auth/register`, 
-    [
-      inputs.id.value,
-      inputs.email.value,
-      inputs.pwd.value
-    ])
-    .then(res => {
-      if (res.data.result === false) {
-        setFailMsg(prev => true);
-      }
-    });
+
+    axiosApi.post(`http://localhost:8080/api/auth/register`,
+      [
+        inputs.id.value,
+        inputs.email.value,
+        inputs.pwd.value
+      ])
+      .then((res: any) => {
+        if (res.result === false) {
+          setFailMsg(prev => true);
+        } else {
+          history.goBack();
+        }
+      });
   }
 
 
@@ -92,7 +94,10 @@ const SignUp = (props: RouteProps) => {
 
   const onReset = (inputName: string) => {
     setInputs({
-      ...inputs, [inputName]: { value: '' }
+      ...inputs, [inputName]: {
+        value: '',
+        invalid: true
+      }
     })
   }
 
