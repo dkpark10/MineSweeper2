@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import ResetButton from './ResetButton';
-import axiosApi from '../Module/API';
+import axiosApi, { Response } from '../Module/API';
+import axios from 'axios';
 import '../css/Signin.css';
 
 const titleStyle = {
@@ -22,6 +23,7 @@ interface LoginInfo {
   pwd: InputElement;
 };
 
+
 const msg = {
   id: 'ID is empty Enter your ID.',
   pwd: 'Password is empty Enter your Password'
@@ -41,16 +43,36 @@ const SignIn = ({ history }: RouteComponentProps) => {
     // 민감한 정보가 쿼리스트링으로 전달 
     e.preventDefault();
 
-    const ret = Object.entries(inputs).filter(([key, value]) => value.invalid === true);
-    if (ret.length > 0) {
+    // 유효하지 않거나 입력이 없을 때
+    const invalid = Object.entries(inputs).filter(([key, value]) => {
+      return value.invalid === true || value.value.length <= 0;
+    });
+
+    if (invalid.length > 0) {
       return;
     }
 
     axiosApi.post(`http://localhost:8080/api/auth/login`,
-      [
-        inputs.id.value,
-        inputs.pwd.value
-      ])
+      {
+        "id": inputs.id.value,
+        "pwd": inputs.pwd.value
+      })
+      .then((res: Response) => {
+
+        const accessToken = res.token;
+
+        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+        console.log(accessToken);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        // history.goBack();
+      })
+
+
+    axiosApi.get(`http://localhost:8080/api/auth/test`)
+      .then((res: Response) => {
+        console.log(res);
+        history.goBack();
+      })
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,4 +1,4 @@
-import axiosApi from './API';
+import axiosApi,{Response} from './API';
 
 export interface InvalidStatus {
   msg: string;
@@ -48,7 +48,7 @@ export default class InputInvalidChecker {
       }
 
       axiosApi.get(`http://localhost:8080/api/auth/user?${name}=${value}`)
-        .then((response: any) => {
+        .then((response: Response) => {
           if (response.result === true) {
             return resolve({ msg: this.invalidText[name][1], status: true });
           }

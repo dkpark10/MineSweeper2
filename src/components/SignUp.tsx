@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import ResetButton from './ResetButton';
 import InputInvalidChecker, { InvalidStatus } from '../Module/InputCheker'
-import axiosApi from '../Module/API';
+import axiosApi, { Response } from '../Module/API';
 import '../css/Signup.css';
 
 const titleStyle = {
@@ -57,13 +57,14 @@ const SignUp = ({ history }: RouteComponentProps) => {
       return;
 
     axiosApi.post(`http://localhost:8080/api/auth/register`,
-      [
-        inputs.id.value,
-        inputs.email.value,
-        inputs.pwd.value
-      ])
-      .then((res: any) => {
+      {
+        "id": inputs.id.value,
+        "email": inputs.email.value,
+        "pwd": inputs.pwd.value
+      })
+      .then((res: Response) => {
         if (res.result === false) {
+          console.log(res.message);
           setFailMsg(prev => true);
         } else {
           history.goBack();
