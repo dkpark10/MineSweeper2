@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../css/Gameinfo.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Reducers/Index';
-import { recordTime } from '../Reducers/Game';
+import { setRecordTime } from '../Reducers/Game';
 
-interface Prop {
+interface Props {
   firstClick: boolean,
   numofFlag: number
 };
@@ -19,10 +19,9 @@ const getCount = (count: number): string => {
   }
 }
 
-const GameInfo = (prop: Prop) => {
+const GameInfo = (props: Props) => {
 
-  console.log('GameInfo Component render');
-  const { firstClick, numofFlag }: Prop = prop;
+  const { firstClick, numofFlag }: Props = props;
 
   // // 초기 젓 마운트 될 때 남은 깃발 갯수 리듀서에 작성
   // useEffect(() => {
@@ -31,7 +30,7 @@ const GameInfo = (prop: Prop) => {
 
   const dispatch = useDispatch();
 
-  const isGameOver: boolean = useSelector((state: RootState) => state.game.isGameOver) <= 0;
+  const isGameOver = useSelector((state: RootState) => state.game.isGameOver) <= 0;
   const [count, setCount] = useState<number>(0);
 
   const timerId = useRef<any>(null);
@@ -52,13 +51,15 @@ const GameInfo = (prop: Prop) => {
 
   // 게임종료시
   useEffect(() => {
+
     if (isGameOver) {
+      
       const endTime = new Date().getTime();
-      dispatch(recordTime(endTime - beginTime.current));
-      console.log(endTime - beginTime.current);
+      dispatch(setRecordTime(endTime - beginTime.current));
       beginTime.current = null;
       setCount(count => 0);
     }
+
     clearInterval(timerId.current);
     timerId.current = null;
   }, [isGameOver, dispatch]);

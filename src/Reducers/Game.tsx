@@ -34,7 +34,7 @@ export const gameReset = (diff: boolean) => ({
   reset: diff
 })
 
-export const recordTime = (time:number) => ({
+export const setRecordTime = (time:number) => ({
   type: RECORDTIME,
   payload: time
 })
@@ -45,7 +45,7 @@ export default function gameReducer(state: GameState = initialState, action: Gam
     case SETEXTRACELL:
       return {
         ...state,
-        isGameOver: action.payload <= 0 ? 0 : action.payload
+        isGameOver: action.payload
       }
     case GAMERESET:
       return{

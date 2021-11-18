@@ -1,5 +1,10 @@
-header a{
+header{
+  width: 100%;
+  min-width: 680px;
   font-family: 'Roboto', sans-serif;
+}
+
+header a{
   text-decoration: none;
 }
 
@@ -49,7 +54,7 @@ header .menu-right .sign-button{
   border: 1px solid white;
   color:white;
   border-radius: 8px;
-  width: 84px;
+  min-width: 90px;
   height:30px;
   position: relative;
 }

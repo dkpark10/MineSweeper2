@@ -1,22 +1,44 @@
 import '../css/Modal.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Reducers';
-import { gameReset, setExtraCell } from '../Reducers/Game';
-const GAMEOVER: number = 987654321;
+import { gameReset, setRecordTime } from '../Reducers/Game';
+import { useEffect } from 'react';
+import axiosApi, { Response } from '../Module/API';
 
 const GameModal = () => {
 
+  console.log('modal render');
   const dispatch = useDispatch();
 
-  const { gameOver, takenTime, reset } = useSelector((state: RootState) => ({
+  const { gameOver, takenTime, userId } = useSelector((state: RootState) => ({
     gameOver: state.game.isGameOver,
-    takenTime:state.game.takenTime,
-    reset: state.game.gameRestart
+    takenTime: state.game.takenTime,
+    userId: state.login.id
   }));
 
+  useEffect(() => {
+
+    if (takenTime !== -1) {
+
+      const gameSuccess = gameOver === 0 ? true : false;
+      console.log('game over', gameSuccess, takenTime / 1000);
+      axiosApi.post(`http://localhost:8080/api/auth/record`, {
+        "id": userId,
+        "record": takenTime / 1000,
+        "success": gameSuccess,
+        "level": "easy"
+      })
+      .then((res:Response) => {
+        console.log(res.message);
+      })
+    }
+
+    dispatch(gameReset(false));
+  }, [gameOver, takenTime, userId, dispatch]);
+
   const gameRestart = () => {
-    dispatch(gameReset(!reset));
-    dispatch(setExtraCell(GAMEOVER));
+    dispatch(gameReset(true));
+    dispatch(setRecordTime(-1));
   }
 
   return (

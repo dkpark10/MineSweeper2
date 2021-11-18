@@ -1,15 +1,23 @@
 import '../css/Header.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { RootState } from '../Reducers';
+import { useSelector } from 'react-redux';
+
 
 interface HyperLink {
   title: string;
   url: string;
 }
 
+interface LoginInfo {
+  isLogin: boolean;
+  id: string;
+}
+
 const styles = {
-  color:'white',
-  textDecoration:'underline'
+  color: 'white',
+  textDecoration: 'underline'
 };
 
 const HeaderTitle = () => {
@@ -22,13 +30,13 @@ const HeaderTitle = () => {
   )
 }
 
-const HeaderMenu = () => {
+const HeaderMenu = ({ isLogin, id }: LoginInfo) => {
 
   return (
     <div className='menu-container'>
       <div className='menu-left' />
       <MenuCenter />
-      <MenuSignButton />
+      {isLogin ? <LogoutMenu id={id} /> : <LoginMenu />}
     </div>
   )
 }
@@ -46,9 +54,10 @@ const MenuCenter = () => {
       { title: 'Option', url: '/option' }
     ];
 
-  const selectMenuColor = (idx: number) => { setSel(idx); }
+  const selectMenuColor = (idx: number) => setSel(idx);
 
   return (
+
     <div className='menu-center'>
       {menu.map((item: HyperLink, idx: number) => {
         return (
@@ -58,12 +67,12 @@ const MenuCenter = () => {
               <h4>{item.title}</h4>}
           </Link>
         )
-      })};
+      })}
     </div>
   )
 }
 
-const MenuSignButton = () => {
+const LoginMenu = () => {
 
   return (
     <>
@@ -72,14 +81,14 @@ const MenuSignButton = () => {
           <div className='sign-button'>
             <div>
               Sign In
-              </div>
+            </div>
           </div>
         </Link>
         <Link to="/signup">
           <div className='sign-button'>
             <div>
               Sign Up
-              </div>
+            </div>
           </div>
         </Link>
       </div>
@@ -87,13 +96,37 @@ const MenuSignButton = () => {
   )
 }
 
+
+const LogoutMenu = ({ id }: { id: string }) => {
+
+  return (
+    <>
+      <div className='menu-right'>
+        <div className='sign-button' onClick={()=>console.log('logiut')}>
+          <div>
+            Sign Out
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
 const Header = () => {
+
+  const loginInfo = useSelector((state: RootState) => ({
+    isLogin: state.login.isLogin,
+    id: state.login.id
+  }));
 
   return (
     <>
       <header>
         <HeaderTitle />
-        <HeaderMenu />
+        <HeaderMenu
+          isLogin={loginInfo.isLogin}
+          id={loginInfo.id}
+        />
       </header>
     </>
   );

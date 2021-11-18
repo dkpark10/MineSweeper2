@@ -3,6 +3,9 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import ResetButton from './ResetButton';
 import axiosApi, { Response } from '../Module/API';
 import axios from 'axios';
+import { Cookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { setLogin } from '../Reducers/Login';
 import '../css/Signin.css';
 
 const titleStyle = {
@@ -32,6 +35,9 @@ const msg = {
 
 const SignIn = ({ history }: RouteComponentProps) => {
 
+  const dispatch = useDispatch();
+
+  const [failMsg, setFailMsg] = useState<string>('');
   const [inputs, setInputs] = useState<LoginInfo>({
     id: { value: '', invalid: false },
     pwd: { value: '', invalid: false }
@@ -44,35 +50,38 @@ const SignIn = ({ history }: RouteComponentProps) => {
     e.preventDefault();
 
     // 유효하지 않거나 입력이 없을 때
-    const invalid = Object.entries(inputs).filter(([key, value]) => {
-      return value.invalid === true || value.value.length <= 0;
-    });
-
-    if (invalid.length > 0) {
+    const invalid = Object.entries(inputs).filter(([key, val]) => val.invalid || val.value.length <= 0);
+    if (invalid.length > 0)
       return;
-    }
 
-    axiosApi.post(`http://localhost:8080/api/auth/login`,
-      {
-        "id": inputs.id.value,
-        "pwd": inputs.pwd.value
-      })
-      .then((res: Response) => {
+    axiosApi.post(`http://localhost:8080/api/auth/login`, {
+      "id": inputs.id.value,
+      "pwd": inputs.pwd.value
+    })
+      .then((response: Response) => {
 
-        const accessToken = res.token;
+        if (response.result === true) {
+          const accessToken = response.token;
 
-        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-        console.log(accessToken);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        // history.goBack();
-      })
+          // Authorization 헤더에 토큰을 박는다.
+          axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+          const cookie = new Cookies();
 
+          cookie.set('accessToken', {
+            accessToken: accessToken,
+            id: inputs.id.value
+          }, {
+            path: '/',
+            httpOnly: process.env.NODE_ENV !== 'development'
+          })
 
-    axiosApi.get(`http://localhost:8080/api/auth/test`)
-      .then((res: Response) => {
-        console.log(res);
-        history.goBack();
-      })
+          dispatch(setLogin({ isLogin: true, id: inputs.id.value }));
+          history.goBack();
+        }
+        else {
+          setFailMsg(prev => response.message);
+        }
+      });
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -139,6 +148,7 @@ const SignIn = ({ history }: RouteComponentProps) => {
               <Link to="/">Forgot Password</Link>
               <Link to="/">Sign Up</Link>
             </div>
+            <h5 className='invalid-text' style={{ textAlign: 'center', marginTop: '15px' }}>{failMsg}</h5>
             <p><input type='submit' value='Login'></input></p>
           </form>
         </div>
