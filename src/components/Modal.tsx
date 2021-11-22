@@ -5,9 +5,13 @@ import { gameReset, setRecordTime } from '../Reducers/Game';
 import { useEffect } from 'react';
 import axiosApi, { Response } from '../Module/API';
 
-const GameModal = () => {
+interface ModalProps{
+  levelInfo: string;
+}
 
-  console.log('modal render');
+const GameModal = ({ levelInfo }: ModalProps) => {
+
+  console.log(levelInfo);
   const dispatch = useDispatch();
 
   const { gameOver, takenTime, userId } = useSelector((state: RootState) => ({
@@ -26,15 +30,15 @@ const GameModal = () => {
         "id": userId,
         "record": takenTime / 1000,
         "success": gameSuccess,
-        "level": "easy"
+        "level": levelInfo
       })
       .then((res:Response) => {
-        console.log(res.message);
       })
     }
-
     dispatch(gameReset(false));
-  }, [gameOver, takenTime, userId, dispatch]);
+
+    return () => localStorage.setItem('difficulty', levelInfo);
+  }, [gameOver, takenTime, userId, dispatch, levelInfo]);
 
   const gameRestart = () => {
     dispatch(gameReset(true));
@@ -47,7 +51,7 @@ const GameModal = () => {
         <div className='modal-overlay'></div>
         <div className='modal-content'>
           <div> Time : {takenTime / 1000}</div>
-          <div> Level : easy</div>
+          <div> Level : {levelInfo}</div>
           <button className='closemodal' onClick={gameRestart}>Close</button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Level, CellData, Coord, ClickRenderStatus } from '../Module/Interface';
+import { Level, CellData, Coord, ClickRenderStatus } from '../Module/Common';
 import '../css/Game.css';
 import * as cellHandler from '../Module/CellHandler';
 import GameInfo from './GameInfo';
@@ -9,21 +9,14 @@ import { RootState } from '../Reducers';
 import createClickFactory from '../Module/ClickFactory';
 import Cell from './Cell';
 
-const LEFTCLICK: number = 0;
+interface GameBoardProps{
+  levelInfo: Level;
+}
 
-const level = {
-  easy: { row: 10, col: 10, numberOfMine: 10 },
-  normal: { row: 16, col: 16, numberOfMine: 40 },
-  hard: { row: 16, col: 30, numberOfMine: 99 },
-  test: { row: 7, col: 7, numberOfMine: 10 }
-};
-
-
-const GameBoard = () => {
+const GameBoard = ({ levelInfo }: GameBoardProps) => {
 
   const dispatch = useDispatch();
-
-  const levelInfo: Level = level.easy;
+  const LEFTCLICK = 0;
 
   // 처음 2차원 셀을 생성해주어서 렌더가 안되는 일이 없게 한다.
   const [cellData, setCellData] = useState<CellData[][]>(cellHandler.initializeCell(levelInfo.row, levelInfo.col));
@@ -37,7 +30,7 @@ const GameBoard = () => {
   }));
 
   // useeffect를 사용하여 액션발행을 하고 GameInfo 컴포넌트의 렌더링을 방해하지 않도록 한다.
-  // useeffect는 내부 수행은 렌더링이 된 후 수행을 보장한다. 
+  // useeffect의 내부 수행로직은 렌더링이 된 후 수행을 보장한다. 
   // 그럼으로 setFlag액션을 발행하면 Board가 렌더링이 되었다는 것을
   // 보장한다. 그 후에 GameInfo를 렌더링한다.
 
@@ -59,9 +52,9 @@ const GameBoard = () => {
 
   const onCellClick = (e: React.MouseEvent<HTMLDivElement>, { y, x }: Coord) => {
 
+    e.preventDefault();
     // 배열 state를 사용할 때 복사해서 사용하자.
     const newCellData: CellData[][] = [...cellData];
-    e.preventDefault();
 
     onFirstClick(firstClick, e.button, newCellData, { y, x });
     const { row, col } = levelInfo;
@@ -87,6 +80,7 @@ const GameBoard = () => {
   const onFirstClick = (isFirstClick: boolean, buttonType: number, newCellData: CellData[][], coord: Coord) => {
 
     const { y, x }: Coord = coord;
+
     if (firstClick === true && buttonType === LEFTCLICK) {
       setFirstClick(false);
 

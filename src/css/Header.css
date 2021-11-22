@@ -15,7 +15,7 @@ header .title-container{
 }
 
 header .title-container a{
-  color:#1033e3;
+  color: var(--main-theme-color);
   position: absolute;
   font-weight: bold;
   font-size: 27px;
@@ -30,7 +30,7 @@ header .menu-container{
   justify-content: space-between;
   height:41px;
   text-align: center;
-  background-color: #1033e3;
+  background-color: var(--main-theme-color);;
   font-size: 13px;
 }
 
@@ -50,7 +50,7 @@ header .menu-right{
 }
 
 header .menu-right .sign-button{
-  background-color: #1033e3;
+  background-color: var(--main-theme-color);;
   border: 1px solid white;
   color:white;
   border-radius: 8px;

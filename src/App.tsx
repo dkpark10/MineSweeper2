@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import NotFound from './Components/NotFound';
+import Option from './Components/Option';
 import NotePad from './Practice/ReduxPrac';
 import { Cookies } from 'react-cookie';
 import axios from 'axios';
@@ -41,6 +42,7 @@ const App = () => {
         <Route exact path="/" component={Game} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/option" component={Option} />
         <Route path="/test" component={NotePad} />
         <Route component={NotFound} />
       </Switch>

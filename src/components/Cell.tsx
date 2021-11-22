@@ -23,6 +23,7 @@ const Cell = (props: CellProps) => {
 
   const { value, islock, onMouseDown, onContextMenu }: CellProps = props;
   const strColor: string = colorofButtonNumber[value];
+  
   return (
     <div
       className={islock ? "lock" : "cell"}

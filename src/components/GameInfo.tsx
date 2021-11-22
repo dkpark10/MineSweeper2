@@ -53,7 +53,7 @@ const GameInfo = (props: Props) => {
   useEffect(() => {
 
     if (isGameOver) {
-      
+
       const endTime = new Date().getTime();
       dispatch(setRecordTime(endTime - beginTime.current));
       beginTime.current = null;
@@ -67,9 +67,13 @@ const GameInfo = (props: Props) => {
   return (
     <>
       <div className='gameinfo'>
-        <div> ⏳ {getCount(count)}</div>
-        <div className='heart'>💗</div>
-        <div> 🚩{numofFlag}</div>
+        <span> ⏳
+          <label> {getCount(count)}</label>
+        </span>
+        <span className='heart'>💗</span>
+        <span> 🚩
+          <label> {numofFlag} </label>
+        </span>
       </div>
     </>
   )

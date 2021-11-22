@@ -60,27 +60,27 @@ const SignIn = ({ history }: RouteComponentProps) => {
     })
       .then((response: Response) => {
 
-        if (response.result === true) {
-          const accessToken = response.token;
-
-          // Authorization 헤더에 토큰을 박는다.
-          axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-          const cookie = new Cookies();
-
-          cookie.set('accessToken', {
-            accessToken: accessToken,
-            id: inputs.id.value
-          }, {
-            path: '/',
-            httpOnly: process.env.NODE_ENV !== 'development'
-          })
-
-          dispatch(setLogin({ isLogin: true, id: inputs.id.value }));
-          history.goBack();
+        if (response.result === false) {
+          setFailMsg('id or password is wrong');
+          return;
         }
-        else {
-          setFailMsg(prev => response.message);
-        }
+
+        const accessToken = response.token;
+
+        // Authorization 헤더에 토큰을 박는다.
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        const cookie = new Cookies();
+
+        cookie.set('accessToken', {
+          accessToken: accessToken,
+          id: inputs.id.value
+        }, {
+          path: '/',
+          httpOnly: process.env.NODE_ENV !== 'development'
+        })
+
+        dispatch(setLogin({ isLogin: true, id: inputs.id.value }));
+        history.goBack();
       });
   }
 
@@ -105,6 +105,7 @@ const SignIn = ({ history }: RouteComponentProps) => {
       }
     })
   }
+
 
   const inputList: JSX.Element[] = [
     ['id', 'ID'], ['pwd', 'Password']]

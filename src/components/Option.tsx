@@ -1,0 +1,67 @@
+import React, { useEffect, useState } from 'react';
+import { levelList } from '../Module/Common';
+import Header from './Header';
+import '../css/Option.css';
+
+const OptionContainer = () => {
+
+  const [selectedLevel, setSelectedLevel] = useState<string>('');
+
+  useEffect(() => {
+
+    if(levelList[localStorage.getItem('difficulty')] === undefined){
+      setSelectedLevel('Easy');
+      return;
+    }
+
+    setSelectedLevel(localStorage.getItem('difficulty'));
+  }, []);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    localStorage.setItem('difficulty', e.currentTarget.value);
+    setSelectedLevel(e.currentTarget.value);
+  }
+
+  const levelContainer: JSX.Element[] = Object.entries(levelList).map((ele, idx) => {
+
+    const [key, value] = ele;
+    const isSelected = selectedLevel === key;
+
+    return (
+      <div className='option-row-container' key={idx}>
+        <input
+          type='radio'
+          name='level'
+          value={key}
+          onChange={onChange}
+          checked={isSelected} />
+        <label>
+          <span style={{ fontSize: '18px' }}>{key}
+          </span> <br />
+          {`${value.row} X ${value.col} Mine : ${value.numberOfMine}`}
+        </label>
+      </div>
+    )
+  });
+
+  return (
+    <>
+      <div className='option-container'>
+        <h3>Difficulty</h3>
+        {levelContainer}
+      </div>
+    </>
+  )
+}
+
+const Option = () => {
+
+  return (
+    <>
+      <Header selected='Option' />
+      <OptionContainer />
+    </>
+  )
+}
+
+export default Option;

@@ -4,13 +4,15 @@
   display:flex;
   justify-content: space-around;
   align-items: center;
+  min-width: 45px;
+}
+
+.gameinfo span{
+  width: 3.5rem;
 }
 
 
-.gameinfo div{
-  min-width: 45px;
-  float: right;
-  font-weight: bold;
+.gameinfo label{
   color:white;
   font-size: 14px;
   font-family: "Roboto", sans-serif;
@@ -19,6 +21,6 @@
 
 .gameinfo .heart{
   font-size: 18px;
-  width:20px;
+  color:rgb(202, 15, 46);
   text-align: center;
 }

@@ -4,15 +4,13 @@ import { useState } from 'react';
 import { RootState } from '../Reducers';
 import { useSelector } from 'react-redux';
 
+interface HeaderProps{
+  selected?: string;
+};
 
-interface HyperLink {
-  title: string;
-  url: string;
-}
-
-interface LoginInfo {
+interface MenuProps {
   isLogin: boolean;
-  id: string;
+  selected: string;
 }
 
 const styles = {
@@ -30,21 +28,20 @@ const HeaderTitle = () => {
   )
 }
 
-const HeaderMenu = ({ isLogin, id }: LoginInfo) => {
+const HeaderMenu = ({ isLogin, selected }: MenuProps) => {
 
   return (
     <div className='menu-container'>
       <div className='menu-left' />
-      <MenuCenter />
-      {isLogin ? <LogoutMenu id={id} /> : <LoginMenu />}
+      <MenuCenter selected={selected} />
+      {isLogin ? <LogoutMenu /> : <LoginMenu />}
     </div>
   )
 }
 
-const MenuCenter = () => {
+const MenuCenter = ({ selected }) => {
 
-  const [sel, setSel] = useState<number>(-1);
-  const menu: HyperLink[] =
+  const menu =
     [
       { title: 'Ranking', url: '/ranking' },
       { title: 'Community', url: '/community' },
@@ -54,15 +51,13 @@ const MenuCenter = () => {
       { title: 'Option', url: '/option' }
     ];
 
-  const selectMenuColor = (idx: number) => setSel(idx);
-
   return (
 
     <div className='menu-center'>
-      {menu.map((item: HyperLink, idx: number) => {
+      {menu.map((item, idx: number) => {
         return (
-          <Link key={idx} to='/' onClick={() => selectMenuColor(idx)}>
-            {sel === idx ?
+          <Link key={idx} to={item.url}>
+            {selected as string === item.title ?
               <h4 style={styles}>{item.title}</h4> :
               <h4>{item.title}</h4>}
           </Link>
@@ -97,7 +92,7 @@ const LoginMenu = () => {
 }
 
 
-const LogoutMenu = ({ id }: { id: string }) => {
+const LogoutMenu = () => {
 
   return (
     <>
@@ -112,20 +107,17 @@ const LogoutMenu = ({ id }: { id: string }) => {
   )
 }
 
-const Header = () => {
+const Header = ({selected}: HeaderProps) => {
 
-  const loginInfo = useSelector((state: RootState) => ({
-    isLogin: state.login.isLogin,
-    id: state.login.id
-  }));
+  const isLogin = useSelector((state: RootState) => state.login.isLogin);
 
   return (
     <>
       <header>
         <HeaderTitle />
         <HeaderMenu
-          isLogin={loginInfo.isLogin}
-          id={loginInfo.id}
+          isLogin={isLogin}
+          selected={selected}
         />
       </header>
     </>

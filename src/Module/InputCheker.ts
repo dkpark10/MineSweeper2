@@ -52,11 +52,9 @@ export default class InputInvalidChecker {
           if (response.result === true) {
             return resolve({ msg: this.invalidText[name][1], status: true });
           }
-          else {
-            return resolve({ msg: '', status: false });
-          }
+          return resolve({ msg: '', status: false });
         })
-        .catch((err) => {
+        .catch(err => {
           // 웹서버와 통신 중 장애 발생 시 에러처리 아이디 중복체크로 회원가입 방지
           return { msg: '', status: true };
         });
