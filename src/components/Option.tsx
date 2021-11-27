@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { levelList } from '../Module/Common';
+import { levelList } from '../modules/Common';
+import RadioButton from './atoms/RadioButton';
 import Header from './Header';
-import '../css/Option.css';
+import '../styles/Option.css';
 
 const OptionContainer = () => {
 
@@ -9,7 +10,7 @@ const OptionContainer = () => {
 
   useEffect(() => {
 
-    if(levelList[localStorage.getItem('difficulty')] === undefined){
+    if (levelList[localStorage.getItem('difficulty')] === undefined) {
       setSelectedLevel('Easy');
       return;
     }
@@ -29,8 +30,7 @@ const OptionContainer = () => {
 
     return (
       <div className='option-row-container' key={idx}>
-        <input
-          type='radio'
+        <RadioButton
           name='level'
           value={key}
           onChange={onChange}

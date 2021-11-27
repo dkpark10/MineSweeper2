@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/index.css';
+import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import rootReducer from './Reducers/Index';
+import rootReducer from './reducers/Index';
 import composeWithDevTools from 'redux-devtools-extension'; // 리덕스 개발자 도구
 import { BrowserRouter } from 'react-router-dom';
 

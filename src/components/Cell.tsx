@@ -22,15 +22,15 @@ interface CellProps {
 const Cell = (props: CellProps) => {
 
   const { value, islock, onMouseDown, onContextMenu }: CellProps = props;
-  const strColor: string = colorofButtonNumber[value];
-  
+  const strColor = colorofButtonNumber[value];
+
   return (
     <div
       className={islock ? "lock" : "cell"}
       onMouseDown={onMouseDown}
       onContextMenu={onContextMenu}
     >
-      <div style={{ color: `${strColor}` }}>{value}</div>
+      <div className='cell-text' style={{ color: `${strColor}` }}>{value}</div>
     </div>
   );
 }

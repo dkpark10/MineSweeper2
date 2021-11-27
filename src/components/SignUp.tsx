@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import ResetButton from './ResetButton';
-import InputInvalidChecker, { InvalidStatus } from '../Module/InputCheker'
-import axiosApi, { Response } from '../Module/API';
-import '../css/Signup.css';
+import InputInvalidChecker, { InvalidStatus } from '../modules/InputCheker'
+import axiosApi, { Response } from '../modules/API';
+import '../styles/Signup.css';
 
 const titleStyle = {
   color: '#1033e3',
@@ -29,13 +29,6 @@ interface InputList {
 
 const SignUp = ({ history }: RouteComponentProps) => {
 
-  let inputChecker = useRef<InputInvalidChecker>(null);
-
-  useEffect(() => {
-    inputChecker.current = new InputInvalidChecker();
-    return () => inputChecker.current = null;
-  }, []);
-
   const [failmsg, setFailMsg] = useState<boolean>(false);
   const [inputs, setInputs] = useState<InputList>({
     id: { value: '', invalid: true, msg: '' },
@@ -56,7 +49,7 @@ const SignUp = ({ history }: RouteComponentProps) => {
     if (invalid === true)
       return;
 
-    axiosApi.post(`http://localhost:8080/api/auth/register`,
+    axiosApi.post(`http://localhost:8080/api/auth/user`,
       {
         "id": inputs.id.value,
         "email": inputs.email.value,
@@ -78,7 +71,8 @@ const SignUp = ({ history }: RouteComponentProps) => {
     const { name, value } = e.target;
     setFailMsg(prev => false);
 
-    inputChecker.current.inputInvalidCheck(name, value, inputs['pwd'].value)
+    const inputInvalidChecker: InputInvalidChecker = new InputInvalidChecker();
+    inputInvalidChecker.run(name, value, inputs['pwd'].value)
       .then((response: InvalidStatus) => {
 
         setInputs({

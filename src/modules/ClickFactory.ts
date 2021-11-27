@@ -2,7 +2,7 @@ import { ClickHandler } from './ClickHandler';
 import LeftClickHandler from './LeftClickHandler';
 import RightClickHandler from './RightClickHandler';
 import WheelClickHandler from './WheelClickHandler';
-import { CellData, Coord, BoardSize } from './Interface';
+import { CellData, Coord, BoardSize } from './Common';
 
 enum CLICKTYPE { LEFTCLICK = 0, WHEELCLICK, RIGHTCLCK };
 

@@ -1,8 +1,10 @@
-import '../css/Header.css';
+import '../styles/Header.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { RootState } from '../Reducers';
+import { RootState } from '../reducers';
 import { useSelector } from 'react-redux';
+import axiosApi, { Response } from '../modules/API';
+import axios from 'axios';
+import { response } from 'express';
 
 interface HeaderProps{
   selected?: string;
@@ -94,10 +96,17 @@ const LoginMenu = () => {
 
 const LogoutMenu = () => {
 
+  const test = () => {
+    axiosApi.get(`http://localhost:8080/api/auth/test`)
+      .then(response => {
+        console.log(response);
+    })
+  }
+
   return (
     <>
       <div className='menu-right'>
-        <div className='sign-button' onClick={()=>console.log('logiut')}>
+        <div className='sign-button' onClick={test}>
           <div>
             Sign Out
           </div>

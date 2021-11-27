@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import ResetButton from './ResetButton';
-import axiosApi, { Response } from '../Module/API';
+import axiosApi, { Response } from '../modules/API';
 import axios from 'axios';
-import { Cookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
-import { setLogin } from '../Reducers/Login';
-import '../css/Signin.css';
+import { setLogin } from '../reducers/Login';
+import '../styles/Signin.css';
 
 const titleStyle = {
   color: '#1033e3',
@@ -14,28 +13,24 @@ const titleStyle = {
   marginBottom: '50px'
 };
 
-
 interface InputElement {
   value: string;
   invalid: boolean;
 }
-
 
 interface LoginInfo {
   id: InputElement;
   pwd: InputElement;
 };
 
-
-const msg = {
-  id: 'ID is empty Enter your ID.',
-  pwd: 'Password is empty Enter your Password'
-};
-
-
 const SignIn = ({ history }: RouteComponentProps) => {
 
   const dispatch = useDispatch();
+
+  const msg = {
+    id: 'ID is empty Enter your ID.',
+    pwd: 'Password is empty Enter your Password'
+  };
 
   const [failMsg, setFailMsg] = useState<string>('');
   const [inputs, setInputs] = useState<LoginInfo>({
@@ -65,23 +60,18 @@ const SignIn = ({ history }: RouteComponentProps) => {
           return;
         }
 
-        const accessToken = response.token;
-
+        const accessToken = response.loginInfo.accessToken;
         // Authorization 헤더에 토큰을 박는다.
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        const cookie = new Cookies();
 
-        cookie.set('accessToken', {
-          accessToken: accessToken,
-          id: inputs.id.value
-        }, {
-          path: '/',
-          httpOnly: process.env.NODE_ENV !== 'development'
-        })
-
-        dispatch(setLogin({ isLogin: true, id: inputs.id.value }));
+        dispatch(setLogin({
+          isLogin: true, 
+          id: response.loginInfo.id
+        }));
+        
         history.goBack();
-      });
+      })
+      .catch(e => setFailMsg('Server Error'));
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

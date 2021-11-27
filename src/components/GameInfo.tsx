@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../css/Gameinfo.css';
+import '../styles/Gameinfo.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../Reducers/Index';
-import { setRecordTime } from '../Reducers/Game';
+import { RootState } from '../reducers/Index';
+import { setRecordTime } from '../reducers/Game';
 
 interface Props {
   firstClick: boolean,
-  numofFlag: number
+  numofFlag: number,
+  isGameOver: boolean
 };
 
 const getCount = (count: number): string => {
@@ -19,9 +20,7 @@ const getCount = (count: number): string => {
   }
 }
 
-const GameInfo = (props: Props) => {
-
-  const { firstClick, numofFlag }: Props = props;
+const GameInfo = ({firstClick, numofFlag, isGameOver}: Props) => {
 
   // // 초기 젓 마운트 될 때 남은 깃발 갯수 리듀서에 작성
   // useEffect(() => {
@@ -30,7 +29,6 @@ const GameInfo = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const isGameOver = useSelector((state: RootState) => state.game.isGameOver) <= 0;
   const [count, setCount] = useState<number>(0);
 
   const timerId = useRef<any>(null);

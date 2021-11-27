@@ -13,7 +13,7 @@ interface LoginAction {
 
 const initialState: LoginStatus = {
   isLogin: false,
-  id: ''
+  id: '',
 };
 
 export const setLogin = (loginInfo: LoginStatus): LoginAction => ({

@@ -1,9 +1,9 @@
-import '../css/Modal.css';
+import '../styles/Modal.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Reducers';
-import { gameReset, setRecordTime } from '../Reducers/Game';
+import { gameReset, setRecordTime } from '../reducers/Game';
 import { useEffect } from 'react';
-import axiosApi, { Response } from '../Module/API';
+import axiosApi, { Response } from '../modules/API';
 
 interface ModalProps{
   levelInfo: string;
@@ -11,34 +11,33 @@ interface ModalProps{
 
 const GameModal = ({ levelInfo }: ModalProps) => {
 
-  console.log(levelInfo);
   const dispatch = useDispatch();
 
-  const { gameOver, takenTime, userId } = useSelector((state: RootState) => ({
-    gameOver: state.game.isGameOver,
+  const { extraCell, takenTime, userId } = useSelector((state: RootState) => ({
+    extraCell: state.game.isGameOver,
     takenTime: state.game.takenTime,
     userId: state.login.id
   }));
 
+  const isGameSuccess = extraCell === 0 ? true : false;
+
   useEffect(() => {
 
-    if (takenTime !== -1) {
-
-      const gameSuccess = gameOver === 0 ? true : false;
-      console.log('game over', gameSuccess, takenTime / 1000);
+    if (takenTime !== -1 && userId !== '') {
       axiosApi.post(`http://localhost:8080/api/auth/record`, {
         "id": userId,
         "record": takenTime / 1000,
-        "success": gameSuccess,
+        "success": isGameSuccess,
         "level": levelInfo
       })
       .then((res:Response) => {
+        console.log(res);
       })
     }
     dispatch(gameReset(false));
 
     return () => localStorage.setItem('difficulty', levelInfo);
-  }, [gameOver, takenTime, userId, dispatch, levelInfo]);
+  }, [isGameSuccess, takenTime, userId, dispatch, levelInfo]);
 
   const gameRestart = () => {
     dispatch(gameReset(true));
@@ -47,7 +46,7 @@ const GameModal = ({ levelInfo }: ModalProps) => {
 
   return (
     <>
-      <div className={gameOver <= 0 ? 'modal' : 'modal hidden'}>
+      <div className={extraCell <= 0 ? 'modal' : 'modal hidden'}>
         <div className='modal-overlay'></div>
         <div className='modal-content'>
           <div> Time : {takenTime / 1000}</div>

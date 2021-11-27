@@ -1,4 +1,4 @@
-import { CellData, Coord, BoardSize, ClickRenderStatus } from './Interface';
+import { CellData, Coord, BoardSize, ClickRenderStatus } from './Common';
 
 const directionY: number[] = [0, 0, 1, -1, -1, -1, 1, 1];
 const directionX: number[] = [1, -1, 0, 0, -1, 1, -1, 1];

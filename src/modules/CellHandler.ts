@@ -1,4 +1,4 @@
-import { Level, CellData } from './Interface';
+import { Level, CellData } from './Common';
 
 export const initializeCell = (row: number, col: number): CellData[][] => {
   
@@ -18,8 +18,8 @@ export const initializeCell = (row: number, col: number): CellData[][] => {
 
 export const plantMine = (cellData: CellData[][], numberOfMine: number) => {
 
-  const row: number = cellData.length;
-  const col: number = cellData[0].length;
+  const row = cellData.length;
+  const col = cellData[0].length;
   let tmp = numberOfMine;
 
   while (tmp) {
@@ -38,8 +38,8 @@ export const getNeighbor = (cellData: CellData[][], level: Level) => {
 
   const { row, col, }: Level = level;
 
-  for (let i: number = 0; i < row; i++) {
-    for (let j: number = 0; j < col; j++) {
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < col; j++) {
       cellData[i][j].neighbor = calcNeighbor(i, j, cellData, level);
     }
   }
@@ -47,10 +47,10 @@ export const getNeighbor = (cellData: CellData[][], level: Level) => {
 
 const calcNeighbor = (y: number, x: number, board: CellData[][], { row, col }): number => {
 
-  let ret: number = 0;
+  let ret = 0;
 
-  for (let i: number = y - 1; i <= y + 1; i++) {
-    for (let j: number = x - 1; j <= x + 1; j++) {
+  for (let i = y - 1; i <= y + 1; i++) {
+    for (let j = x - 1; j <= x + 1; j++) {
 
       if (checkOutRange(i, j, row, col))
         continue;

@@ -1,4 +1,4 @@
-import '../css/NotFound.css';
+import '../styles/NotFound.css';
 import { useState, useRef, useEffect } from 'react';
 
 const NotFound = () => {

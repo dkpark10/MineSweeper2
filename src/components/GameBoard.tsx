@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Level, CellData, Coord, ClickRenderStatus } from '../Module/Common';
-import '../css/Game.css';
-import * as cellHandler from '../Module/CellHandler';
+import { Level, CellData, Coord, ClickRenderStatus } from '../modules/Common';
+import '../styles/Game.css';
+import * as cellHandler from '../modules/CellHandler';
 import GameInfo from './GameInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { setExtraCell } from '../Reducers/Game';
-import { RootState } from '../Reducers';
-import createClickFactory from '../Module/ClickFactory';
+import { setExtraCell } from '../reducers/Game';
+import { RootState } from '../reducers';
+import createClickFactory from '../modules/ClickFactory';
 import Cell from './Cell';
 
-interface GameBoardProps{
+interface GameBoardProps {
   levelInfo: Level;
 }
 
@@ -120,6 +120,7 @@ const GameBoard = ({ levelInfo }: GameBoardProps) => {
         <GameInfo
           firstClick={firstClick}
           numofFlag={numofFlag}
+          isGameOver={extraCell <= 0}
         />
         {gameBoard}
       </div>

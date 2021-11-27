@@ -36,7 +36,6 @@
   font-size: 12px;
 }
 
-
 .input-container {
   position: relative;
 }
@@ -89,4 +88,12 @@ input[type='submit']:hover{
 .btn-reset::before,
 .btn-remove::before {
   content: 'X'
+}
+
+.invalid-text{
+  color:red;
+  margin-left: 16px;
+  margin-bottom: 0px;
+  margin-top: 5px;
+  text-align: left;
 }

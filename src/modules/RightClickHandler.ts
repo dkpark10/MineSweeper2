@@ -1,5 +1,5 @@
 import { ClickHandler } from './ClickHandler';
-import { CellData, Coord, ClickRenderStatus } from './Interface';
+import { CellData, Coord, ClickRenderStatus } from './Common';
 
 const noRender: ClickRenderStatus = {
   render: false,

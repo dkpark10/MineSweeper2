@@ -17,7 +17,7 @@ export default class InputInvalidChecker {
     pwd : 'The password must be at least 6 to 15 digits.'
   }
 
-  public async inputInvalidCheck(name: string, value: string, pwd: string): Promise<InvalidStatus> {
+  public async run(name: string, value: string, pwd: string): Promise<InvalidStatus> {
 
     let invalid: InvalidStatus;
 
