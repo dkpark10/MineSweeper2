@@ -24,8 +24,12 @@ export const plantMine = (cellData: CellData[][], numberOfMine: number) => {
 
   while (tmp) {
     
-    const ranY = Math.floor(Math.random() * row);
-    const ranX = Math.floor(Math.random() * col);
+    // 보안상 이유로 랜덤함수 교체
+    // const ranY = Math.floor(Math.random() * row);
+    // const ranX = Math.floor(Math.random() * col);
+
+    const ranY = window.crypto.getRandomValues(new Uint8Array(1))[0] % row;
+    const ranX = window.crypto.getRandomValues(new Uint8Array(1))[0] % col;
 
     if (cellData[ranY][ranX].mine === false) {
       cellData[ranY][ranX].mine = true;

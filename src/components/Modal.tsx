@@ -23,16 +23,16 @@ const GameModal = ({ levelInfo }: ModalProps) => {
 
   useEffect(() => {
 
-    if (takenTime !== -1 && userId !== '') {
-      axiosApi.post(`http://localhost:8080/api/auth/record`, {
-        "id": userId,
-        "record": takenTime / 1000,
-        "success": isGameSuccess,
-        "level": levelInfo
+    if (takenTime !== -1 && userId && userId !== '') {
+
+      console.log(isGameSuccess);
+      axiosApi.post(`http://localhost:8080/api/auth/game`, {
+        id: userId,
+        record: takenTime / 1000,
+        success: isGameSuccess,
+        level: levelInfo
       })
-      .then((res:Response) => {
-        console.log(res);
-      })
+        .then((res: Response) => { ; });
     }
     dispatch(gameReset(false));
 

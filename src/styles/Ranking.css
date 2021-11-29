@@ -1,0 +1,50 @@
+.level-container{
+  font-family: 'Roboto', sans-serif;
+  border-radius: 5px;
+  padding:20px;
+  display: flex;
+  justify-content: space-between;
+  margin: 1.0rem 0;
+  position: relative;
+  width: 574px;
+  left:50%;
+  transform: translateX(-50%);
+}
+
+.level-container a{
+  text-decoration: none;
+}
+
+.level-container span{
+  display: inline-block;
+  width: 6rem;
+  text-align: center;
+}
+
+.level-container label{
+  cursor: pointer;  
+}
+
+.rank-container {
+  display: flex;
+  position: relative;
+  background-color: white;
+  margin : 9px 0;
+  height: 2.4rem;
+  width: 624px;
+  left:50%;
+  border-radius: 7px;
+  transform: translateX(-50%);
+}
+
+.rank-container:hover{
+  border:2px solid var(--main-theme-color);
+}
+
+.rank-container .rank-row-container{
+  font-family: 'Tajawal', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

@@ -61,7 +61,6 @@ class WheelClickHandler extends ClickHandler implements WheelClickInterFace {
     }
 
     if (numofHit !== cellData[y][x].neighbor) {
-      console.log('norender',numofHit, cellData[y][x].neighbor);
       return noRender;
     }
 

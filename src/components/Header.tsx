@@ -1,12 +1,11 @@
 import '../styles/Header.css';
 import { Link } from 'react-router-dom';
 import { RootState } from '../reducers';
-import { useSelector } from 'react-redux';
+import { setLogin } from '../reducers/Login';
+import { useDispatch, useSelector } from 'react-redux';
 import axiosApi, { Response } from '../modules/API';
-import axios from 'axios';
-import { response } from 'express';
 
-interface HeaderProps{
+interface HeaderProps {
   selected?: string;
 };
 
@@ -45,9 +44,8 @@ const MenuCenter = ({ selected }) => {
 
   const menu =
     [
-      { title: 'Ranking', url: '/ranking' },
+      { title: 'Ranking', url: '/ranking/easy?page=1' },
       { title: 'Community', url: '/community' },
-      { title: 'My Page', url: '/mypage' },
       { title: 'Statistics', url: '/statistics' },
       { title: 'How to Game', url: '/gamemethod' },
       { title: 'Option', url: '/option' }
@@ -96,11 +94,17 @@ const LoginMenu = () => {
 
 const LogoutMenu = () => {
 
+  const dispatch = useDispatch();
   const test = () => {
-    axiosApi.get(`http://localhost:8080/api/auth/test`)
-      .then(response => {
-        console.log(response);
-    })
+    axiosApi.post(`http://localhost:8080/api/logout`)
+      .then((response: Response) => {
+        if (response.result === false) {
+          throw new Error('logout error');
+        }
+
+        dispatch(setLogin({ isLogin: false, id: '' }));
+      })
+      .catch(e => console.log(e))
   }
 
   return (
@@ -116,7 +120,7 @@ const LogoutMenu = () => {
   )
 }
 
-const Header = ({selected}: HeaderProps) => {
+const Header = ({ selected }: HeaderProps) => {
 
   const isLogin = useSelector((state: RootState) => state.login.isLogin);
 

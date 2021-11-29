@@ -49,7 +49,7 @@ const SignIn = ({ history }: RouteComponentProps) => {
     if (invalid.length > 0)
       return;
 
-    axiosApi.post(`http://localhost:8080/api/auth/login`, {
+    axiosApi.post(`http://localhost:8080/api/login`, {
       "id": inputs.id.value,
       "pwd": inputs.pwd.value
     })
@@ -64,14 +64,19 @@ const SignIn = ({ history }: RouteComponentProps) => {
         // Authorization 헤더에 토큰을 박는다.
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
+        console.log(response.loginInfo.id);
+        console.log(inputs.id.value);
         dispatch(setLogin({
           isLogin: true, 
-          id: response.loginInfo.id
+          id: inputs.id.value
         }));
         
         history.goBack();
       })
-      .catch(e => setFailMsg('Server Error'));
+      .catch(e => {
+        console.log(e);
+        setFailMsg('Server Error');
+      })
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

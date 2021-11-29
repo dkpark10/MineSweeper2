@@ -46,10 +46,10 @@ const OptionContainer = () => {
 
   return (
     <>
-      <div className='option-container'>
+      <main className='option-container'>
         <h3>Difficulty</h3>
         {levelContainer}
-      </div>
+      </main>
     </>
   )
 }

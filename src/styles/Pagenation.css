@@ -1,0 +1,26 @@
+.page-container{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 524px;
+  left:50%;
+  margin : 1.4rem 0;
+  transform: translateX(-50%);
+}
+
+.page-container a{
+  text-decoration: none;
+}
+
+.page-container span{
+  cursor: pointer;
+  width:30px;
+  text-align: center;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.2rem;
+}
+
+.page-container span:hover{
+  color: var(--main-theme-color);
+  border : 1px solid var(--main-theme-color);
+}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Gameinfo.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../reducers/Index';
+import { useDispatch } from 'react-redux';
 import { setRecordTime } from '../reducers/Game';
 
 interface Props {
@@ -36,7 +35,6 @@ const GameInfo = ({firstClick, numofFlag, isGameOver}: Props) => {
 
   // 첫클릭 후 타이머 시작
   useEffect(() => {
-    console.log('Timer First Mount');
     beginTime.current = new Date().getTime();
     timerId.current = setInterval(() => {
       if (firstClick === false) {

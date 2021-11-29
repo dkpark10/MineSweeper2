@@ -7,6 +7,7 @@ export interface AxiosInterface {
 export interface Response {
   result: boolean;
   message?: string;
+  data?: any
   loginInfo?: {
     id: string;
     accessToken: string;
@@ -26,7 +27,7 @@ const axiosApi: AxiosInterface = {
     .then((response: AxiosResponse<Response>) => response.data)
     .catch(err => console.error(err)),
 
-  post: (url: string, data: any) => axios.post(url, data, config)
+  post: (url: string, data: { [key: string]: any }) => axios.post(url, data, config)
     .then((response: AxiosResponse<Response>) => response.data)
     .catch(err => console.error(err)),
 };

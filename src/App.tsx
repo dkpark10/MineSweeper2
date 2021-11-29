@@ -7,14 +7,29 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import NotFound from './components/NotFound';
 import Option from './components/Option';
+import Ranking from './components/Ranking';
 import NotePad from './Practice/ReduxPrac';
 import axios from 'axios';
 import { setLogin } from './reducers/Login';
 import { useDispatch } from 'react-redux';
+import cookieParser from 'cookie-parser';
+import cookieKey from './config/CookieKey';
 
-interface TokenCookie{
-  accessToken: string;
-  id: string;
+// interface TokenCookie {
+//   accessToken: string;
+//   id: string;
+// }
+
+const parseCookie = (name: string) => {
+
+  const cookie = new Cookies();
+  const tmp = cookie.get<string>(name);
+  const tokenCookie = cookieParser.signedCookie(tmp, cookieKey.key);
+
+  if (!tokenCookie)
+    return;
+
+  return JSON.parse(tokenCookie.slice(2));
 }
 
 export default function App() {
@@ -24,15 +39,14 @@ export default function App() {
   // 컴포넌트 새로 마운트 될 때 마다 토큰 박음
   useEffect(() => {
 
-    const cookie = new Cookies();
-    const tokenCookie  = cookie.get<TokenCookie>('accessToken');
+    const parsedCookie = parseCookie('accessToken');
 
-    if (tokenCookie) {
+    if (parsedCookie) {
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${tokenCookie.accessToken}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${parsedCookie.accessToken}`;
       dispatch(setLogin({
         isLogin: true,
-        id: tokenCookie.id
+        id: parsedCookie.id
       }));
     }
   });
@@ -43,6 +57,7 @@ export default function App() {
         <Route exact path="/" component={Game} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/ranking/:level" component={Ranking} />
         <Route path="/option" component={Option} />
         <Route path="/test" component={NotePad} />
         <Route component={NotFound} />
