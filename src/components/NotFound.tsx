@@ -1,31 +1,30 @@
-import '../styles/NotFound.css';
-import { useState, useRef, useEffect } from 'react';
+import styled from 'styled-components';
+import { HeaderText } from '../components/atoms/Text';
+
+const NotFoundWrapper = styled.div`
+  position: absolute; 
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  text-align:center;
+`;
 
 const NotFound = () => {
 
-  const [minedot, setMineDot] = useState<string>('💣');
-  const timer = useRef<any>(null);
-
-  useEffect(() => {
-
-    timer.current = setInterval(() => {
-      setMineDot((prev: string) => {
-        if(prev.length % 3 === 0){
-          return '💣';
-        }
-        return prev + '💣';
-      })
-    }, 1000);
-
-    return () => clearInterval(timer.current);
-  }, []);
-
   return (
     <>
-      <div className='notfound'>
-        <h1 style = {{display:'inline-block'}}>Not Found</h1>
-        <span> {minedot}</span>
-      </div>
+      <NotFoundWrapper>
+        <HeaderText
+          size={'5.5'}
+          value={'4 💣 4'}
+          isColor={false}
+        />
+        <HeaderText
+          size={'3.5'}
+          value={'Not Found'}
+          isColor={false}
+        />
+      </NotFoundWrapper>
     </>
   )
 }

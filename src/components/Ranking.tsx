@@ -3,10 +3,10 @@ import '../styles/Ranking.css';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axiosApi, { Response } from '../modules/API';
-import Pagenation from './Pagenation';
 import { useSelector } from 'react-redux';
 import { RootState } from '../Reducers';
 import queryString from 'query-string';
+import Pagenation from './organisms/Pagenation';
 
 export interface MatchParams {
   level: string;
@@ -68,14 +68,12 @@ const Ranking = ({ match, location }: RouteComponentProps<MatchParams>) => {
       />
       <hr style={{ width: '624px' }} />
       <RankingList
-        currentPage={page[0]}
+        currentPage={String(page)}
         level={level}
       />
       <Pagenation
         totalItemCount={totalItemCount}
-        itemCountperPage={20}
         currentPage={Number(page)}
-        pageRangeDisplayed={9}
         match={match}
       />
     </>
@@ -111,9 +109,14 @@ const RankingList = ({ currentPage, level }: RankListProps) => {
   }, [currentPage, level]);
 
   const rankListComponent: JSX.Element[] = list.map((ele, idx) => {
+
     return (
       <div className='rank-container' key={idx}>
-        <span className='rank-row-container' style={{ width: '15%', fontSize: '18px' }}>
+        <span className='rank-row-container' style={{
+          width: '15%',
+          fontSize: '18px',
+          color: '#1033E3',
+        }}>
           {ele.ranking}
         </span>
         <span className='rank-row-container' style={{ width: '70%' }}>
@@ -128,7 +131,22 @@ const RankingList = ({ currentPage, level }: RankListProps) => {
 
   return (
     <>
-      {rankListComponent}
+      <div className='rank-wrapper'>
+        <div className='rank-header' style={{ fontSize: '1.2rem' }}>
+          <span className='rank-row-container' style={{
+            width: '15%',
+          }}>
+            {'Rank'}
+          </span>
+          <span className='rank-row-container' style={{ width: '70%' }}>
+            {'ID'}
+          </span>
+          <span className='rank-row-container' style={{ width: '15%' }}>
+            {'Time'}
+          </span>
+        </div>
+        {rankListComponent}
+      </div>
     </>
   )
 }

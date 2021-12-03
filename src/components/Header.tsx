@@ -40,14 +40,14 @@ const HeaderMenu = ({ isLogin, selected }: MenuProps) => {
   )
 }
 
-const MenuCenter = ({ selected }) => {
+const MenuCenter = ({ selected }: { selected: string }) => {
 
   const menu =
     [
+      { title: 'Game', url: '/' },
       { title: 'Ranking', url: '/ranking/easy?page=1' },
-      { title: 'Community', url: '/community' },
+      { title: 'Community', url: '/community?page=1' },
       { title: 'Statistics', url: '/statistics' },
-      { title: 'How to Game', url: '/gamemethod' },
       { title: 'Option', url: '/option' }
     ];
 
@@ -57,7 +57,7 @@ const MenuCenter = ({ selected }) => {
       {menu.map((item, idx: number) => {
         return (
           <Link key={idx} to={item.url}>
-            {selected as string === item.title ?
+            {selected === item.title ?
               <h4 style={styles}>{item.title}</h4> :
               <h4>{item.title}</h4>}
           </Link>
@@ -95,7 +95,7 @@ const LoginMenu = () => {
 const LogoutMenu = () => {
 
   const dispatch = useDispatch();
-  const test = () => {
+  const logout = () => {
     axiosApi.post(`http://localhost:8080/api/logout`)
       .then((response: Response) => {
         if (response.result === false) {
@@ -110,7 +110,7 @@ const LogoutMenu = () => {
   return (
     <>
       <div className='menu-right'>
-        <div className='sign-button' onClick={test}>
+        <div className='sign-button' onClick={logout}>
           <div>
             Sign Out
           </div>

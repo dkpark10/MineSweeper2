@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { levelList } from '../modules/Common';
 import RadioButton from './atoms/RadioButton';
+import { HeaderText } from './atoms/Text';
 import Header from './Header';
 import '../styles/Option.css';
 
@@ -47,7 +48,11 @@ const OptionContainer = () => {
   return (
     <>
       <main className='option-container'>
-        <h3>Difficulty</h3>
+        <HeaderText 
+          size={'1.3'}
+          value={'Difficulty'}
+          isColor={true}
+        />
         {levelContainer}
       </main>
     </>

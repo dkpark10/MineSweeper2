@@ -67,10 +67,10 @@ const SignIn = ({ history }: RouteComponentProps) => {
         console.log(response.loginInfo.id);
         console.log(inputs.id.value);
         dispatch(setLogin({
-          isLogin: true, 
+          isLogin: true,
           id: inputs.id.value
         }));
-        
+
         history.goBack();
       })
       .catch(e => {

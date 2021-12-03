@@ -22,7 +22,9 @@ const Game = () => {
       <Modal
         levelInfo={checkLevel}
       />
-      <Header />
+      <Header 
+        selected={'Game'} 
+      />
       <GameBoard
         levelInfo={level}
       />

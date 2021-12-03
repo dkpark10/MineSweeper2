@@ -8,12 +8,15 @@ import SignUp from './components/SignUp';
 import NotFound from './components/NotFound';
 import Option from './components/Option';
 import Ranking from './components/Ranking';
+import Bulletin from './components/template/Bulletin';
 import NotePad from './Practice/ReduxPrac';
 import axios from 'axios';
 import { setLogin } from './reducers/Login';
 import { useDispatch } from 'react-redux';
 import cookieParser from 'cookie-parser';
 import cookieKey from './config/CookieKey';
+import { ThemeProvider } from 'styled-components';
+import theme from './styles/Theme';
 
 // interface TokenCookie {
 //   accessToken: string;
@@ -53,15 +56,18 @@ export default function App() {
 
   return (
     <>
-      <Switch>
-        <Route exact path="/" component={Game} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/ranking/:level" component={Ranking} />
-        <Route path="/option" component={Option} />
-        <Route path="/test" component={NotePad} />
-        <Route component={NotFound} />
-      </Switch>
+      <ThemeProvider theme={theme}>
+        <Switch>
+          <Route exact path="/" component={Game} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/ranking/:level" component={Ranking} />
+          <Route path="/community" component={Bulletin} />
+          <Route path="/option" component={Option} />
+          <Route path="/test" component={NotePad} />
+          <Route component={NotFound} />
+        </Switch>
+      </ThemeProvider>
     </>
   )
 }
