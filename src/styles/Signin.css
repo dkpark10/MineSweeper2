@@ -17,7 +17,6 @@
   background-color: white;
   border-radius: 12px;
   width: 378px;
-  height: 423px;
   box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
   text-align: center;
   position: relative;
@@ -39,7 +38,7 @@
   position: relative;
 }
 
-
+.login-wrapper
 input[type='text'],
 input[type='password'] {
   width:313px;
@@ -50,6 +49,7 @@ input[type='password'] {
   padding: .8em .9em;
 }
 
+.login-wrapper
 input[type='submit']{
   background-color: #1033e3;
   display:block;
@@ -61,10 +61,10 @@ input[type='submit']{
   font-family: 'Roboto', sans-serif;
   border: none;
   color:white;
-  margin: 0 auto;
-  margin-top: 40px;
+  margin: 1.7rem auto;
 }
 
+.login-wrapper
 input[type='submit']:hover{
   background: linear-gradient(70deg,#1033e3, #f74bf7);
 }

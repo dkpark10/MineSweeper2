@@ -6,28 +6,41 @@ interface ITextWrapper {
   fontSize?: string;
   value?: string;
   isColor?: boolean;
+  paddingLeft?: string;
+  justifyContent?: string;
+  children?: any
 }
 
-const TextWrapperStyle = styled.div<ITextWrapper>`
+const TextWrapperStyle = styled.span<ITextWrapper>`
   display: flex;
-  justify-content: center;
+  justify-content: ${({ justifyContent }) => justifyContent};
   align-items: center;
-  border: 2px solid yellow;
-  font-family: 'Tajawal', sans-serif;
-  width: ${({ width }) => width}
+  width: ${({ width }) => width};
+  padding-left: ${({ paddingLeft }) => paddingLeft};
 `;
 
-const TextWrapper = ({ width, fontSize, value, isColor }: ITextWrapper) => {
+const TextWrapper = ({
+  width,
+  fontSize,
+  value,
+  isColor,
+  paddingLeft,
+  justifyContent,
+  children }: ITextWrapper) => {
+
   return (
     <>
       <TextWrapperStyle
         width={width}
+        paddingLeft={paddingLeft}
+        justifyContent={justifyContent}
       >
         <InlineText
           size={fontSize}
           value={value}
           isColor={isColor}
         />
+        {children}
       </TextWrapperStyle>
     </>
   )

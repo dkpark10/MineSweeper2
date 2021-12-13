@@ -3,21 +3,23 @@ import styled from 'styled-components';
 interface ITextStyle {
   size: string;
   isColor: boolean;
-}
-
-interface ITextProps extends ITextStyle {
-  value: string;
+  value?: string;
+  bold?: boolean;
 }
 
 const HeaderStyle = styled.div<ITextStyle>`
-  font-size: ${({ size }) => size}rem;
+  font-family: 'Tajawal', sans-serif;
+  font-size: ${({ size }) => size};
   color: ${({ isColor, theme }) => {
     return isColor === true ? theme.mainColor : theme.fontColor;
   }};
   margin: 18px 0px;
+  font-weight: ${({ bold }) => {
+    return bold === true ? 'bold' : null;
+  }};
 `;
 
-const HeaderText = ({ size, value, isColor }: ITextProps) => {
+const HeaderText = ({ size, value, isColor }: ITextStyle) => {
 
   return (
     <>
@@ -32,19 +34,24 @@ const HeaderText = ({ size, value, isColor }: ITextProps) => {
 }
 
 const InlineStyle = styled.span<ITextStyle>`
-  font-size: ${({ size }) => size}rem;
+  font-family: 'Tajawal', sans-serif;
+  font-size: ${({ size }) => size};
   color: ${({ isColor, theme }) => {
     return isColor === true ? theme.mainColor : theme.fontColor;
   }};
+  font-weight: ${({ bold }) => {
+    return bold === true ? 'bold' : null;
+  }};
 `;
 
-const InlineText = ({ size, value, isColor }: ITextProps) => {
-  console.log('sdsd');
+const InlineText = ({ size, value, isColor,bold }: ITextStyle) => {
+  
   return (
     <>
       <InlineStyle
         size={size}
         isColor={isColor}
+        bold={bold}
       >
         {value}
       </InlineStyle>

@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 export interface IPageStyle {
   bold: boolean;
+  border?: boolean;
+  width?: string;
   isCurrentPage?: boolean;
+  backgroundColor?: boolean;
 };
 
 export interface IPage extends IPageStyle {
@@ -12,6 +15,22 @@ export interface IPage extends IPageStyle {
 };
 
 const PageStyle = styled.span<IPageStyle>`
+  width: ${({ width }) => width};
+  border : ${({ theme, border }) => {
+    return border === true ? `1px solid ${theme.fontColor}` : 'none'
+  }};
+  background-color: ${({ theme, backgroundColor }) => {
+    return backgroundColor === true ? theme.mainColor : 'none'
+  }};
+
+  cursor:pointer;
+  display:inline-block;
+
+  font-family: 'Tajawal', sans-serif;
+  border-radius:5px;
+  margin: 0.8rem 0;
+  text-align:center;
+
   a {
     color:${({ theme, isCurrentPage }) => {
     return isCurrentPage === true ? theme.mainColor : theme.fontColor;
@@ -19,21 +38,28 @@ const PageStyle = styled.span<IPageStyle>`
 
     text-decoration: none;
     &:hover{
-      color:${({ theme }) => theme.mainColor}
-
-    font-weight:${({ bold }) => {
-    return bold === true ? 'bold' : null;
+      color:${({ theme }) => theme.mainColor};
   }};
-  }
+}
 `;
 
-const PageLink = ({ url, isCurrentPage, value, bold }: IPage) => {
+const PageLink = ({
+  url,
+  width,
+  border,
+  isCurrentPage,
+  value,
+  bold,
+  backgroundColor }: IPage) => {
 
   return (
     <>
       <PageStyle
         bold={bold}
+        width={width}
+        border={border}
         isCurrentPage={isCurrentPage}
+        backgroundColor={backgroundColor}
       >
         <Link to={url}>
           {value}

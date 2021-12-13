@@ -35,6 +35,7 @@ const parseCookie = (name: string) => {
   return JSON.parse(tokenCookie.slice(2));
 }
 
+
 export default function App() {
 
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ export default function App() {
     if (parsedCookie) {
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${parsedCookie.accessToken}`;
+
       dispatch(setLogin({
         isLogin: true,
         id: parsedCookie.id

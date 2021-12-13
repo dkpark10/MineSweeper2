@@ -7,11 +7,17 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../Reducers';
 import queryString from 'query-string';
 import Pagenation from './organisms/Pagenation';
+import styled from 'styled-components';
 
 export interface MatchParams {
   level: string;
   page: string;
 }
+
+const LineWrapper = styled.div`
+  display:flex;
+  justify-content:center;
+`;
 
 const RankLinkbyLevel = ({ current }: { current: string }) => {
 
@@ -66,7 +72,9 @@ const Ranking = ({ match, location }: RouteComponentProps<MatchParams>) => {
       <RankLinkbyLevel
         current={level}
       />
-      <hr style={{ width: '624px' }} />
+      <LineWrapper>
+        <hr style={{ width: '624px' }} />
+      </LineWrapper>
       <RankingList
         currentPage={String(page)}
         level={level}

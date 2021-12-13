@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import InputText from '../atoms/InputText';
+import Input from '../atoms/Inputs';
 import Button from '../atoms/Button';
 import Select from '../atoms/Select';
 
@@ -13,7 +13,7 @@ const InputWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 1.6rem;
-  margin : 2rem;
+  margin-top: 1rem;
   min-width:500px;
 `;
 
@@ -32,16 +32,17 @@ const SearchInput = ({ width, height, backgroundColor }: ISearchInput) => {
           height={'1.6'}
           option={option}
         />
-        <InputText
+        <Input
+          type={'text'}
           width={width}
           height={height}
           backgroundColor={backgroundColor}
         />
         <Button
-          width={'2.2'}
-          height={'1.6'}
+          width={'2.2rem'}
+          height={'1.6rem'}
           backgroundColor={'white'}
-          value={'Search'}
+          value={'🔎'}
         />
       </InputWrapper>
     </>

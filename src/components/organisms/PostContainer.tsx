@@ -4,26 +4,34 @@ import styled from 'styled-components';
 interface IPostWrapper {
   children: any;
   backgroundColor: string;
+  grid_Template_Columnn: string;
 }
 
 const PostStyle = styled.div<IPostWrapper>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
   position: relative;
-  background-color: ${({backgroundColor}) => backgroundColor};
   margin : 9px 0;
-  height: 2.4rem;
-  width: 100%;
+  min-height: 2.5rem;
   border-radius: 7px;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  grid-template-columns: ${({ grid_Template_Columnn }) => grid_Template_Columnn};
+  box-shadow: 5px 5px 8px 0px rgb(175, 175, 175);
+  border-top: 0.5px solid white;
+  border-left: 0.5px solid #eee;
+
+  &:hover{
+    border: 2px solid ${({ theme }) => theme.mainColor};
+  }
 `;
 
-const PostWrapper = ({ children, backgroundColor }: IPostWrapper) => {
+const PostWrapper = ({ children, backgroundColor, grid_Template_Columnn }: IPostWrapper) => {
 
   return (
     <>
       <PostStyle
-        backgroundColor={backgroundColor}>
+        backgroundColor={backgroundColor}
+        grid_Template_Columnn={grid_Template_Columnn}
+      >
         {children}
       </PostStyle>
     </>

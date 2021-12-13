@@ -23,11 +23,16 @@ const config: { [key: string]: any } = {
 };
 
 const axiosApi: AxiosInterface = {
+  
   get: (url: string) => axios.get(url, config)
     .then((response: AxiosResponse<Response>) => response.data)
     .catch(err => console.error(err)),
 
   post: (url: string, data: { [key: string]: any }) => axios.post(url, data, config)
+    .then((response: AxiosResponse<Response>) => response.data)
+    .catch(err => console.error(err)),
+
+  patch: (url: string, data: { [key: string]: any }) => axios.patch(url, data, config)
     .then((response: AxiosResponse<Response>) => response.data)
     .catch(err => console.error(err)),
 };

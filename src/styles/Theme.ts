@@ -4,6 +4,7 @@ export interface ITheme {
   grayBackGround: string;
   HeaderFont: string;
   BodyFont: string;
+  mainContentWidth: string;
 }
 
 const Theme: ITheme = {
@@ -11,7 +12,8 @@ const Theme: ITheme = {
   fontColor: '#383640',
   grayBackGround: '#e0e0e0',
   HeaderFont: `'Roboto', sans-serif'`,
-  BodyFont:`'Tajawal', sans-serif'`
+  BodyFont: `'Tajawal', sans-serif'`,
+  mainContentWidth: '824px'
 }
 
 export default Theme;

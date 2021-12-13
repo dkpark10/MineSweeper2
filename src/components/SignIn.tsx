@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import ResetButton from './ResetButton';
 import axiosApi, { Response } from '../modules/API';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../reducers';
 import { setLogin } from '../reducers/Login';
 import '../styles/Signin.css';
 
@@ -26,6 +27,16 @@ interface LoginInfo {
 const SignIn = ({ history }: RouteComponentProps) => {
 
   const dispatch = useDispatch();
+
+  const { isLogin } = useSelector((state: RootState) => ({
+    isLogin: state.login.isLogin
+  }));
+
+  useEffect(() => {
+    if (isLogin === true) {
+      history.replace('/');
+    }
+  }, [isLogin, history]);
 
   const msg = {
     id: 'ID is empty Enter your ID.',
@@ -64,8 +75,6 @@ const SignIn = ({ history }: RouteComponentProps) => {
         // Authorization 헤더에 토큰을 박는다.
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
-        console.log(response.loginInfo.id);
-        console.log(inputs.id.value);
         dispatch(setLogin({
           isLogin: true,
           id: inputs.id.value
@@ -74,8 +83,7 @@ const SignIn = ({ history }: RouteComponentProps) => {
         history.goBack();
       })
       .catch(e => {
-        console.log(e);
-        setFailMsg('Server Error');
+        setFailMsg(e);
       })
   }
 

@@ -37,10 +37,12 @@
   display: flex;
   position: relative;
   background-color: white;
+  min-width: 384px;
   margin : 9px 0;
   height: 2.4rem;
   width: 100%;
   border-radius: 7px;
+  box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
 }
 
 .rank-wrapper .rank-header {

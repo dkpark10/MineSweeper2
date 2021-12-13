@@ -29,7 +29,7 @@ const HeaderTitle = () => {
   )
 }
 
-const HeaderMenu = ({ isLogin, selected }: MenuProps) => {
+const HeaderMenu = ({isLogin, selected }: MenuProps) => {
 
   return (
     <div className='menu-container'>
@@ -103,6 +103,7 @@ const LogoutMenu = () => {
         }
 
         dispatch(setLogin({ isLogin: false, id: '' }));
+        // history.push('/');
       })
       .catch(e => console.log(e))
   }

@@ -5,22 +5,32 @@ export interface IButton {
   height: string;
   backgroundColor: string;
   value: string;
+  fontColor?:string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>,
 }
 
 const ButtonStyle = styled.button<Partial<IButton>>`
-  width: ${({ width }) => width}rem;
-  height:${({ height }) => height}rem;
+  cursor:pointer;
+  width: ${({ width }) => width};
+  height:${({ height }) => height};
+  color:${({ fontColor }) => fontColor};
   background-color: ${({ backgroundColor }) => backgroundColor};
   border-radius: 5px;
-  border : 2px solid ${({ theme }) => theme.mainColor};
-
+  border : 1px solid ${({ theme }) => theme.mainColor};
+  font-family :'Roboto', sans-serif;
   &:hover {
     background-color: ${({ theme }) => theme.mainColor};
+    color:white;
   }
 `;
 
-const Button = ({ width, height, backgroundColor, value = '🔎', onClick }: IButton) => {
+const Button = ({
+  width,
+  height,
+  backgroundColor,
+  value,
+  fontColor,
+  onClick }: IButton) => {
 
   return (
     <>
@@ -29,7 +39,8 @@ const Button = ({ width, height, backgroundColor, value = '🔎', onClick }: IBu
         height={height}
         backgroundColor={backgroundColor}
         onClick={onClick}
-      >{'🔎'}
+        fontColor={fontColor}
+      >{value}
       </ButtonStyle >
     </>
   )

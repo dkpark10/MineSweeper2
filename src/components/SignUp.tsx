@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import ResetButton from './ResetButton';
 import InputInvalidChecker, { InvalidStatus } from '../modules/InputCheker'
 import axiosApi, { Response } from '../modules/API';
+import { RootState } from '../reducers';
 import '../styles/Signup.css';
 
 const titleStyle = {
@@ -29,6 +31,16 @@ interface InputList {
 
 const SignUp = ({ history }: RouteComponentProps) => {
 
+  const { isLogin } = useSelector((state: RootState) => ({
+    isLogin: state.login.isLogin
+  }));
+
+  useEffect(() => {
+    if (isLogin === true) {
+      history.replace('/');
+    }
+  }, [isLogin, history]);
+
   const [failmsg, setFailMsg] = useState<boolean>(false);
   const [inputs, setInputs] = useState<InputList>({
     id: { value: '', invalid: true, msg: '' },
@@ -49,12 +61,11 @@ const SignUp = ({ history }: RouteComponentProps) => {
     if (invalid === true)
       return;
 
-    axiosApi.post(`http://localhost:8080/api/user`,
-      {
-        "id": inputs.id.value,
-        "email": inputs.email.value,
-        "pwd": inputs.pwd.value
-      })
+    axiosApi.post(`http://localhost:8080/api/user`, {
+      "id": inputs.id.value,
+      "email": inputs.email.value,
+      "pwd": inputs.pwd.value
+    })
       .then((res: Response) => {
         if (res.result === false) {
           console.log(res.message);
