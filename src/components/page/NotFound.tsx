@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HeaderText } from '../components/atoms/Text';
+import { HeaderText } from '../atoms/Text';
 
 const NotFoundWrapper = styled.div`
   position: absolute; 
@@ -15,12 +15,12 @@ const NotFound = () => {
     <>
       <NotFoundWrapper>
         <HeaderText
-          size={'5.5'}
+          size={'5.5rem'}
           value={'4 💣 4'}
           isColor={false}
         />
         <HeaderText
-          size={'3.5'}
+          size={'3.5rem'}
           value={'Not Found'}
           isColor={false}
         />

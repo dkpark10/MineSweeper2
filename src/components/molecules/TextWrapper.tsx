@@ -2,38 +2,43 @@ import styled from 'styled-components';
 import { InlineText } from '../atoms/Text';
 
 interface ITextWrapper {
-  width: string;
+  width?: string;
   fontSize?: string;
   value?: string;
   isColor?: boolean;
   paddingLeft?: string;
-  justifyContent?: string;
+  textAlign?: string;
   children?: any
 }
 
+// const TextWrapperStyle = styled.span<ITextWrapper>`
+//   display: flex;
+//   justify-content: ${({ justifyContent }) => justifyContent};
+//   align-items: center;
+//   width: ${({ width }) => width};
+//   padding-left: ${({ paddingLeft }) => paddingLeft};
+// `;
+
 const TextWrapperStyle = styled.span<ITextWrapper>`
-  display: flex;
-  justify-content: ${({ justifyContent }) => justifyContent};
-  align-items: center;
+  display: inline-block;
   width: ${({ width }) => width};
-  padding-left: ${({ paddingLeft }) => paddingLeft};
+  text-align: ${({ textAlign }) => textAlign};
+  position:relative;
 `;
 
 const TextWrapper = ({
-  width,
+  width = 'none',
   fontSize,
   value,
   isColor,
-  paddingLeft,
-  justifyContent,
+  textAlign,
   children }: ITextWrapper) => {
 
   return (
     <>
       <TextWrapperStyle
         width={width}
-        paddingLeft={paddingLeft}
-        justifyContent={justifyContent}
+        textAlign={textAlign}
       >
         <InlineText
           size={fontSize}

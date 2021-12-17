@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Input from '../atoms/Inputs';
-import Button from '../atoms/Button';
+import { Button } from '../atoms/Buttons';
 import Select from '../atoms/Select';
 
 interface ISearchInput {
@@ -12,8 +12,8 @@ interface ISearchInput {
 const InputWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 1.6rem;
-  margin-top: 1rem;
+  padding-top: 1.0rem;
+  margin-top: 1.2rem;
   min-width:500px;
 `;
 
@@ -41,9 +41,11 @@ const SearchInput = ({ width, height, backgroundColor }: ISearchInput) => {
         <Button
           width={'2.2rem'}
           height={'1.6rem'}
+          border={true}
           backgroundColor={'white'}
-          value={'🔎'}
-        />
+        >
+          {'🔎'}
+        </Button>
       </InputWrapper>
     </>
   )

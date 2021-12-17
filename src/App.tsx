@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 import './styles/App.css';
-import Game from './components/Game';
-import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import NotFound from './components/NotFound';
+import NotFound from './components/page/NotFound';
+import Loading from './components/page/Loading';
 import Option from './components/Option';
-import Ranking from './components/Ranking';
-import Bulletin from './components/template/Bulletin';
 import NotePad from './Practice/ReduxPrac';
 import axios from 'axios';
 import { setLogin } from './reducers/Login';
@@ -18,10 +15,11 @@ import cookieKey from './config/CookieKey';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/Theme';
 
-// interface TokenCookie {
-//   accessToken: string;
-//   id: string;
-// }
+// 라우팅 또는 페이지 컴포넌트에서 가져와야 한다.
+const Game = lazy(() => import('./components/Game'));
+const SignIn = lazy(() => import('./components/SignIn'));
+const Bulletin = lazy(() => import('./components/route/Community'));
+const Ranking = lazy(() => import('./components/Ranking'));
 
 const parseCookie = (name: string) => {
 
@@ -35,7 +33,6 @@ const parseCookie = (name: string) => {
   return JSON.parse(tokenCookie.slice(2));
 }
 
-
 export default function App() {
 
   const dispatch = useDispatch();
@@ -46,9 +43,7 @@ export default function App() {
     const parsedCookie = parseCookie('accessToken');
 
     if (parsedCookie) {
-
       axios.defaults.headers.common['Authorization'] = `Bearer ${parsedCookie.accessToken}`;
-
       dispatch(setLogin({
         isLogin: true,
         id: parsedCookie.id
@@ -59,16 +54,18 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Switch>
-          <Route exact path="/" component={Game} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/ranking/:level" component={Ranking} />
-          <Route path="/community" component={Bulletin} />
-          <Route path="/option" component={Option} />
-          <Route path="/test" component={NotePad} />
-          <Route component={NotFound} />
-        </Switch>
+        <Suspense fallback={<Loading/>}>
+          <Switch>
+            <Route exact path="/" component={Game} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/ranking/:level" component={Ranking} />
+            <Route path="/community" component={Bulletin} />
+            <Route path="/option" component={Option} />
+            <Route path="/test" component={NotePad} />
+            <Route component={NotFound} />
+          </Switch>
+        </Suspense>
       </ThemeProvider>
     </>
   )

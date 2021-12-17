@@ -49,7 +49,7 @@ const OptionContainer = () => {
     <>
       <main className='option-container'>
         <HeaderText 
-          size={'1.3'}
+          size={'1.4rem'}
           value={'Difficulty'}
           isColor={true}
         />

@@ -18,6 +18,8 @@ const PostStyle = styled.div<IPostWrapper>`
   box-shadow: 5px 5px 8px 0px rgb(175, 175, 175);
   border-top: 0.5px solid white;
   border-left: 0.5px solid #eee;
+  padding-left: 1.0rem;
+  align-items: center;
 
   &:hover{
     border: 2px solid ${({ theme }) => theme.mainColor};

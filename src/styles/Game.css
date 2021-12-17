@@ -6,7 +6,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-  border:2px solid yellow;
+  border:2px solid var(--main-theme-color);
   min-width: 294px;
 }
 

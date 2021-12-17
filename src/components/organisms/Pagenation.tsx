@@ -7,7 +7,7 @@ export interface PageProps {
   itemCountperPage?: number;
   currentPage: number;
   pageRangeDisplayed?: number;
-  match: match<any>;
+  url: string;
 }
 
 const PageWrapper = styled.div`
@@ -55,7 +55,7 @@ const PageNation = ({
   itemCountperPage = 20,
   currentPage,
   pageRangeDisplayed = 9,
-  match
+  url
 }: PageProps) => {
 
   const { beginPage, endPage } = calculPage({
@@ -76,7 +76,7 @@ const PageNation = ({
       return (
         <PageLink
           key={idx}
-          url={`${match.url}?page=${page}`}
+          url={`${url}?page=${page}`}
           isCurrentPage={page === currentPage}
           value={String(page)}
           bold={false}
@@ -88,7 +88,7 @@ const PageNation = ({
     <>
       <PageWrapper>
         <PageLink
-          url={`${match.url}?page=${currentPage - pageRangeDisplayed <= 0 ?
+          url={`${url}?page=${currentPage - pageRangeDisplayed <= 0 ?
             1 :
             currentPage - pageRangeDisplayed}`}
           isCurrentPage={false}
@@ -97,7 +97,7 @@ const PageNation = ({
         />
         {pageList}
         <PageLink
-          url={`${match.url}?page=${currentPage + pageRangeDisplayed > endPage
+          url={`${url}?page=${currentPage + pageRangeDisplayed > endPage
             ? endPage
             : currentPage + pageRangeDisplayed}`}
           isCurrentPage={false}

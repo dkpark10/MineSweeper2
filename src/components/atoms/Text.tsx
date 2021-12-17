@@ -8,7 +8,6 @@ interface ITextStyle {
 }
 
 const HeaderStyle = styled.div<ITextStyle>`
-  font-family: 'Tajawal', sans-serif;
   font-size: ${({ size }) => size};
   color: ${({ isColor, theme }) => {
     return isColor === true ? theme.mainColor : theme.fontColor;

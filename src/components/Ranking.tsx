@@ -82,7 +82,7 @@ const Ranking = ({ match, location }: RouteComponentProps<MatchParams>) => {
       <Pagenation
         totalItemCount={totalItemCount}
         currentPage={Number(page)}
-        match={match}
+        url={match.url}
       />
     </>
   )

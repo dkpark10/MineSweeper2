@@ -23,6 +23,7 @@ const InputTextStyle = styled('input').attrs((props: IInputStyle) => ({
   border:none;
   margin-right: 0.7rem;
   font-size:1.0rem;
+  outline: 1px solid ${({ theme }) => theme.mainColor};
 
   &:focus {
     outline: 2px solid ${({ theme }) => theme.mainColor};

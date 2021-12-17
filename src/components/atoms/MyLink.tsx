@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 interface IMyLink {
   url: string;
+  state?: any;
   children?: any;
 }
 
@@ -10,25 +11,28 @@ interface IMyLink {
 // 링크안에 컴포넌트 집어넣고 싶을 때
 // 주로 텍스트에서 링크를 클릭할테니
 // 텍스트용 !!
-const InnerLinkStyle = styled.span`
-  display:flex;
-  align-items: center;
-  font-family: 'Tajawal', sans-serif;
-  a{
+const MyLinkStyle = styled.span`
+  margin:0 0.2rem;
+  a {
     text-decoration:none;
   }
 `;
 
-const InnerLink = ({ url, children }: IMyLink) => {
+const MyLink = ({ url, state, children }: IMyLink) => {
+
   return (
     <>
-      <InnerLinkStyle>
-        <Link to={url}>
+      <MyLinkStyle>
+        <Link to={{
+          pathname: url,
+          state: state
+        }}
+        >
           {children}
         </Link>
-      </InnerLinkStyle>
+      </MyLinkStyle>
     </>
   )
 }
 
-export default InnerLink;
+export default MyLink;

@@ -23,7 +23,6 @@ const CreatePostWrapper = styled.div`
   height: 724px;
 `;
 
-
 export default function CreatePost({ history }: RouteComponentProps) {
 
   const [title, setTitle] = useState<string>("");
