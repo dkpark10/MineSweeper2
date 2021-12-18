@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { useEffect } from 'react';
 import axiosApi, { Response } from '../../modules/API';
-import { HeaderText, InlineText } from '../atoms/Text';
-import MyLink from '../atoms/MyLink';
+import { HeaderText } from '../atoms/Text';
 import TextWrapper from '../molecules/TextWrapper';
 import { calculTimeAgo } from '../../modules/DateHandler';
+import PostController from '../molecules/PostController';
 import parse from 'html-react-parser';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../reducers';
@@ -37,7 +37,6 @@ const PostArticleWrapper = styled.div`
 
 export default function PostArticle({ match, history }: RouteComponentProps<MatchParams>) {
 
-  console.log(match.url);
   const postid = match.params.postid;
   const [isAuthor, setIsAuthor] = useState<boolean>(false);
   const [post, setPost] = useState<IPost>({
@@ -73,32 +72,6 @@ export default function PostArticle({ match, history }: RouteComponentProps<Matc
       .catch(e => history.goBack());
   }, [postid, history, loginedUser]);
 
-
-  const authorIsMe = () => {
-    return (
-      <>
-        <MyLink
-          url={'/community/update'}
-        >
-          <InlineText
-            size={'1.4rem'}
-            isColor={false}
-            value={'↺'}
-          />
-        </MyLink>
-        <MyLink
-          url={'/community/update'}
-        >
-          <InlineText
-            size={'1.4rem'}
-            isColor={false}
-            value={'ⅹ'}
-          />
-        </MyLink>
-      </>
-    )
-  }
-
   return (
     <>
       <PostArticleWrapper>
@@ -132,16 +105,10 @@ export default function PostArticle({ match, history }: RouteComponentProps<Matc
           width={'20%'}
           textAlign={'left'}
         >
-          <Link
-            to={'/community?page=1'}
-          >
-            <InlineText
-              size={'1.4rem'}
-              isColor={false}
-              value={'≡'}
-            />
-          </Link>
-          {isAuthor && authorIsMe()}
+          <PostController 
+            isAuthor={isAuthor}
+            postid={post.id}
+          />
         </TextWrapper>
       </PostArticleWrapper>
     </>

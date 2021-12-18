@@ -37,6 +37,10 @@ const axiosApi: AxiosInterface = {
   patch: (url: string, data: { [key: string]: any }) => axios.patch(url, data, config)
     .then((response: AxiosResponse<Response>) => response.data)
     .catch(err => console.error(err)),
+
+  delete: (url: string, data: { [key: string]: any }) => axios.delete(url, data)
+    .then((response: AxiosResponse<Response>) => response.data)
+    .catch(err => console.error(err)),
 };
 
 export abstract class AxiosHandler {
@@ -58,20 +62,20 @@ export abstract class AxiosHandler {
 
   public static async post<T>(url: string, data?: any): Promise<T> {
 
-    try{
+    try {
       return await this.instance.post(url, data);
     }
-    catch(e){
+    catch (e) {
       return e;
     }
   }
 
-  public static async patch<T>(url:string, data?:any): Promise<T> {
+  public static async patch<T>(url: string, data?: any): Promise<T> {
 
-    try{
+    try {
       return await this.instance.patch(url, data);
     }
-    catch(e){
+    catch (e) {
       return e;
     }
   }

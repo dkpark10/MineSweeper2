@@ -1,5 +1,5 @@
 import TextWrapper from '../molecules/TextWrapper';
-import PostWrapper from './PostContainer';
+import PostWrapper from '../atoms/PostWrapper';
 
 type TpostTitleTuple = [string, number];
 

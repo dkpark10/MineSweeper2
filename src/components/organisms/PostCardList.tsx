@@ -1,9 +1,10 @@
 import MyLink from '../atoms/MyLink';
 import { InlineText } from '../atoms/Text';
-import PostWrapper from '../organisms/PostContainer';
+import { PostStyle } from '../atoms/PostWrapper';
 import TextWrapper from '../molecules/TextWrapper';
 import { calculTimeAgo } from '../../modules/DateHandler';
 import { IPost } from '../organisms/PostArticle';
+import styled from 'styled-components';
 
 interface IPostCardList {
   postList: IPost[];
@@ -11,6 +12,12 @@ interface IPostCardList {
   url: string;
   page: string;
 }
+
+const PostCardWrapper = styled(PostStyle)`
+  &:hover {
+    border: 2px solid ${({ theme }) => theme.mainColor};
+  }
+`;
 
 export default function PostCardList({ postList, totalItemCount, url, page }: IPostCardList) {
 
@@ -21,7 +28,7 @@ export default function PostCardList({ postList, totalItemCount, url, page }: IP
         const { id, author, title, comments, likenum, time } = ele;
 
         return (
-          <PostWrapper
+          <PostCardWrapper
             key={id}
             backgroundColor={'white'}
             grid_Template_Columnn={'69% 11% 11% 9%'}
@@ -67,7 +74,7 @@ export default function PostCardList({ postList, totalItemCount, url, page }: IP
               value={String(likenum)}
               isColor={true}
             />
-          </PostWrapper >
+          </PostCardWrapper>
         )
       })}
     </>

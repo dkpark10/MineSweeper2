@@ -10,7 +10,7 @@ export interface IButton {
   children?: any;
 }
 
-const ButtonStyle = styled.button<Partial<IButton>>`
+export const ButtonStyle = styled.button<Partial<IButton>>`
   cursor:pointer;
   width: ${({ width }) => width};
   height:${({ height }) => height};
@@ -22,13 +22,9 @@ const ButtonStyle = styled.button<Partial<IButton>>`
   }};
   border-radius: 5px;
   border : ${({ border, theme }) => {
-    return border === true ? `1px solid ${theme.mainColor}` : 'none';
+    return border === true ? `2px solid ${theme.mainColor}` : 'none';
   }};
   font-family :'Roboto', sans-serif;
-  &:hover {
-    background-color: ${({ theme }) => theme.mainColor};
-    color:white;
-  }
 `;
 
 const SkinismButtonStyle = styled.button<Partial<IButton>>`

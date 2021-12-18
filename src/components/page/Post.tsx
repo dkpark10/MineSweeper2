@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PostTitleInfo from '../organisms/PostTitleInfo';
 import Header from '../Header';
 import { RouteComponentProps, useLocation } from 'react-router-dom';
 import PostArticle from '../organisms/PostArticle';
@@ -25,6 +26,7 @@ const PostWrapper = styled.div`
   left:50%;
   transform: translateX(-50%);
   margin: 2.0rem 0;
+  border: 2px solid yellow;
   word-break:break-all;
 `;
 
@@ -47,6 +49,7 @@ export default function Post({ match, history, location }: RouteComponentProps<M
           history={history}
           location={location}
         />
+        <PostTitleInfo />
         <PostCardList
           postList={state.postList}
           totalItemCount={state.totalItemCount}

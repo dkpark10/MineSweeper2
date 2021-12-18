@@ -7,7 +7,7 @@ interface IPostWrapper {
   grid_Template_Columnn: string;
 }
 
-const PostStyle = styled.div<IPostWrapper>`
+export const PostStyle = styled.div<IPostWrapper>`
   display: grid;
   position: relative;
   margin : 9px 0;
@@ -20,11 +20,8 @@ const PostStyle = styled.div<IPostWrapper>`
   border-left: 0.5px solid #eee;
   padding-left: 1.0rem;
   align-items: center;
-
-  &:hover{
-    border: 2px solid ${({ theme }) => theme.mainColor};
-  }
 `;
+
 
 const PostWrapper = ({ children, backgroundColor, grid_Template_Columnn }: IPostWrapper) => {
 

@@ -68,7 +68,6 @@ const SignUp = ({ history }: RouteComponentProps) => {
     })
       .then((res: Response) => {
         if (res.result === false) {
-          console.log(res.message);
           setFailMsg(prev => true);
         } else {
           history.goBack();

@@ -40,6 +40,7 @@
 
 .login-wrapper
 input[type='text'],
+input[type='email'],
 input[type='password'] {
   width:313px;
   background-image:linear-gradient(to bottom, #EEEEEE,#EFEFEF);

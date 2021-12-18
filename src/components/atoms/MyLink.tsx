@@ -4,6 +4,7 @@ import styled from 'styled-components';
 interface IMyLink {
   url: string;
   state?: any;
+  search?: string;
   children?: any;
 }
 
@@ -18,14 +19,15 @@ const MyLinkStyle = styled.span`
   }
 `;
 
-const MyLink = ({ url, state, children }: IMyLink) => {
+const MyLink = ({ url, state, search, children }: IMyLink) => {
 
   return (
     <>
       <MyLinkStyle>
         <Link to={{
           pathname: url,
-          state: state
+          state: state,
+          search: search
         }}
         >
           {children}
