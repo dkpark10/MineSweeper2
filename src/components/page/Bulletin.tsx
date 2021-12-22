@@ -1,7 +1,6 @@
 import Header from '../Header';
 import Pagenation from '../organisms/Pagenation';
 import PostTitleInfo from '../organisms/PostTitleInfo';
-import SearchInput from '../molecules/SearchInput';
 import PageBlock from '../molecules/PageWrapper';
 import { RouteComponentProps } from 'react-router-dom';
 import queryString from 'query-string';
@@ -26,7 +25,7 @@ const BulletinWrapper = styled.div`
   left:50%;
   transform: translateX(-50%);
   word-break:break-all;
-  border:2px solid yellow;
+  margin:2.0rem 0;
 `;
 
 export default function BulletinMain({ match, location }: RouteComponentProps<MatchParams>) {
@@ -58,11 +57,11 @@ export default function BulletinMain({ match, location }: RouteComponentProps<Ma
         selected='Community'
       />
       <BulletinWrapper>
-        <SearchInput
+        {/* <SearchInput
           width={'19.2rem'}
           height={'1.6rem'}
           backgroundColor={'white'}
-        />
+        /> */}
         {isLogin &&
           <PageBlock
             align={'right'}
@@ -72,7 +71,6 @@ export default function BulletinMain({ match, location }: RouteComponentProps<Ma
             bold={true}
             border={true}
           />}
-        <hr style={{ width: '100%', margin: '0.7rem 0' }} />
         <PostTitleInfo />
         <PostCardList
           postList={postList}

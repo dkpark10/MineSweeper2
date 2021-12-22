@@ -16,6 +16,7 @@ const Game = () => {
     else if (level.row === 16 && level.col === 16 && level.numberOfMine === 40)
       return 'Normal';
     else return 'Hard';
+    
   }, [level]);
 
   return (

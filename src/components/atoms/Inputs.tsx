@@ -9,6 +9,7 @@ interface IInputStyle {
   backgroundColor: string;
   placeHolder?: string;
   onChange?: React.Dispatch<React.SetStateAction<any>>;
+  border?: string;
 }
 
 const InputTextStyle = styled('input').attrs((props: IInputStyle) => ({
@@ -24,6 +25,7 @@ const InputTextStyle = styled('input').attrs((props: IInputStyle) => ({
   margin-right: 0.7rem;
   font-size:1.0rem;
   outline: 1px solid ${({ theme }) => theme.mainColor};
+  border-radius: 8px;
 
   &:focus {
     outline: 2px solid ${({ theme }) => theme.mainColor};

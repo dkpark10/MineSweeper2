@@ -5,26 +5,29 @@ interface ITextStyle {
   isColor: boolean;
   value?: string;
   bold?: boolean;
+  margin?: string;
 }
 
 const HeaderStyle = styled.div<ITextStyle>`
+  font-family: 'Roboto', sans-serif;
   font-size: ${({ size }) => size};
   color: ${({ isColor, theme }) => {
     return isColor === true ? theme.mainColor : theme.fontColor;
   }};
-  margin: 18px 0px;
+  margin: ${({margin}) => margin};
   font-weight: ${({ bold }) => {
     return bold === true ? 'bold' : null;
   }};
 `;
 
-const HeaderText = ({ size, value, isColor }: ITextStyle) => {
+const HeaderText = ({ size, value, isColor, margin = '18px 0' }: ITextStyle) => {
 
   return (
     <>
       <HeaderStyle
         size={size}
         isColor={isColor}
+        margin={margin}
       >
         {value}
       </HeaderStyle>
