@@ -13,11 +13,11 @@ export default function MyResponsiveBar({ data }: INivo<BarDatum>) {
         keys={['easy', 'normal', 'hard']}
         indexBy="level"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-        padding={0.3}
+        padding={0.55}
         borderWidth={2}
         valueScale={{ type: 'linear' }}
         maxValue={100}
-        colors={{ scheme: 'paired' }}
+        colors={{ scheme: 'accent' }}
         indexScale={{ type: 'band', round: true }}
         theme={{
           fontSize: 14,
@@ -25,7 +25,7 @@ export default function MyResponsiveBar({ data }: INivo<BarDatum>) {
             "ticks": {
               "line": {
                 "stroke": "black",
-                "strokeWidth": 4
+                "strokeWidth": 8
               }
             }
           },
@@ -59,13 +59,13 @@ export default function MyResponsiveBar({ data }: INivo<BarDatum>) {
         fill={[
           {
             match: {
-              id: 'fries'
+              id: 'easy'
             },
             id: 'dots'
           },
           {
             match: {
-              id: 'sandwich'
+              id: 'hard'
             },
             id: 'lines'
           }

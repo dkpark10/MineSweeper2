@@ -8,12 +8,28 @@ import { setExtraCell } from '../reducers/Game';
 import { RootState } from '../reducers';
 import createClickFactory from '../modules/ClickFactory';
 import Cell from './Cell';
+import styled from 'styled-components';
+
+const GameBoardWrapper = styled.div<{
+  minWidth: string
+}>`
+  background-color: #2e2d2d;
+  border-radius: 5px;
+  padding:20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border:2px solid var(--main-theme-color);
+  min-width: ${({ minWidth }) => minWidth};
+`;
 
 interface GameBoardProps {
   levelInfo: Level;
+  minWidth: string;
 }
 
-const GameBoard = ({ levelInfo }: GameBoardProps) => {
+const GameBoard = ({ levelInfo, minWidth }: GameBoardProps) => {
 
   const dispatch = useDispatch();
   const LEFTCLICK = 0;
@@ -116,14 +132,16 @@ const GameBoard = ({ levelInfo }: GameBoardProps) => {
 
   return (
     <>
-      <div className='game-container'>
+      <GameBoardWrapper
+        minWidth={minWidth}
+      >
         <GameInfo
           firstClick={firstClick}
           numofFlag={numofFlag}
           isGameOver={extraCell <= 0}
         />
         {gameBoard}
-      </div>
+      </GameBoardWrapper>
     </>
   )
 }

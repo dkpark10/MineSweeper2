@@ -47,7 +47,7 @@ const MenuCenter = ({ selected }: { selected: string }) => {
       { title: 'Game', url: '/' },
       { title: 'Ranking', url: '/ranking/easy?page=1' },
       { title: 'Community', url: '/community?page=1' },
-      { title: 'Statistics', url: '/statistics' },
+      { title: 'MyPage', url: '/mypage' },
       { title: 'Option', url: '/option' }
     ];
 

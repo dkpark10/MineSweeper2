@@ -18,7 +18,7 @@ export default function MyResponsivePie({ data }: INivo<PieData>) {
       <ResponsivePie
         data={data}
         margin={{ top: 40, right: 60, bottom: 80, left: 80 }}
-        innerRadius={0.35}
+        innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
@@ -30,7 +30,7 @@ export default function MyResponsivePie({ data }: INivo<PieData>) {
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-        colors={{ scheme: 'paired' }}
+        colors={{ scheme: 'accent' }}
         theme={{ 
           fontSize: 14,
         }}
@@ -57,49 +57,19 @@ export default function MyResponsivePie({ data }: INivo<PieData>) {
         fill={[
           {
             match: {
-              id: 'ruby'
+              id: 'easy'
             },
             id: 'dots'
           },
           {
             match: {
-              id: 'c'
+              id: 'normal'
             },
-            id: 'dots'
+            id: ''
           },
           {
             match: {
-              id: 'go'
-            },
-            id: 'dots'
-          },
-          {
-            match: {
-              id: 'python'
-            },
-            id: 'dots'
-          },
-          {
-            match: {
-              id: 'scala'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-              id: 'lisp'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-              id: 'elixir'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-              id: 'javascript'
+              id: 'hard'
             },
             id: 'lines'
           }

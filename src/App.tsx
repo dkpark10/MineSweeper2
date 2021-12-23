@@ -19,7 +19,7 @@ import theme from './styles/Theme';
 const Game = lazy(() => import('./components/Game'));
 const SignIn = lazy(() => import('./components/SignIn'));
 const Bulletin = lazy(() => import('./components/route/Community'));
-const Statistics = lazy(() => import('./components/route/Statistics'));
+const MyPage = lazy(() => import('./components/route/MyPage'));
 const Ranking = lazy(() => import('./components/Ranking'));
 
 const parseCookie = (name: string) => {
@@ -62,7 +62,7 @@ export default function App() {
             <Route path="/signup" component={SignUp} />
             <Route path="/ranking/:level" component={Ranking} />
             <Route path="/community" component={Bulletin} />
-            <Route path="/statistics" component={Statistics} />
+            <Route path="/mypage" component={MyPage} />
             <Route path="/option" component={Option} />
             <Route path="/test" component={NotePad} />
             <Route component={NotFound} />

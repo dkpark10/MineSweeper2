@@ -8,6 +8,7 @@ import { RootState } from '../Reducers';
 import queryString from 'query-string';
 import Pagenation from './organisms/Pagenation';
 import styled from 'styled-components';
+import { InlineText, MyLink } from './atoms';
 
 export interface MatchParams {
   level: string;
@@ -128,7 +129,11 @@ const RankingList = ({ currentPage, level }: RankListProps) => {
           {ele.ranking}
         </span>
         <span className='rank-row-container' style={{ width: '70%' }}>
-          {ele.id}
+          <MyLink url={`/mypage/${ele.id}`}>
+            <InlineText
+              value={ele.id}
+            />
+          </MyLink>
         </span>
         <span className='rank-row-container' style={{ width: '15%' }}>
           {ele.record}

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 interface ITextStyle {
-  size: string;
-  isColor: boolean;
+  size?: string;
+  isColor?: boolean;
   value?: string;
   bold?: boolean;
   margin?: string;
@@ -46,7 +46,7 @@ const InlineStyle = styled.span<ITextStyle>`
   }};
 `;
 
-const InlineText = ({ size, value, isColor,bold }: ITextStyle) => {
+const InlineText = ({ size = '1.0rem', value, isColor,bold }: ITextStyle) => {
   
   return (
     <>

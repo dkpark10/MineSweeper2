@@ -8,7 +8,8 @@ interface ITextWrapper {
   isColor?: boolean;
   paddingLeft?: string;
   textAlign?: string;
-  children?: any
+  bold?:boolean;
+  children?: any;
 }
 
 // const TextWrapperStyle = styled.span<ITextWrapper>`
@@ -32,6 +33,7 @@ const TextWrapper = ({
   value,
   isColor,
   textAlign,
+  bold,
   children }: ITextWrapper) => {
 
   return (
@@ -44,6 +46,7 @@ const TextWrapper = ({
           size={fontSize}
           value={value}
           isColor={isColor}
+          bold={bold}
         />
         {children}
       </TextWrapperStyle>

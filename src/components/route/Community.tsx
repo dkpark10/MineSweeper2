@@ -13,7 +13,7 @@ interface MatchParams {
   postid: string;
 }
 
-export default function Bulletin({ match }: RouteComponentProps<MatchParams>) {
+export default function BulletinRouter({ match }: RouteComponentProps<MatchParams>) {
 
   return (
     <>
