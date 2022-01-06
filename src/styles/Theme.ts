@@ -7,7 +7,7 @@ export interface ITheme {
   mainContentWidth: string;
 }
 
-const Theme: ITheme = {
+export const theme: ITheme = {
   mainColor: '#1033E3',
   fontColor: '#383640',
   grayBackGround: '#e0e0e0',
@@ -15,5 +15,3 @@ const Theme: ITheme = {
   BodyFont: `'Tajawal', sans-serif'`,
   mainContentWidth: '824px'
 }
-
-export default Theme;

@@ -1,10 +1,10 @@
-import Header from '../Header';
+import Header from '../header';
 import { RouteComponentProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../reducers';
 import React, { useEffect } from 'react';
 
-import Statistics from '../page/Statistics';
+import Statistics from '../page/statistics';
 
 export default function MyPage({ history }: RouteComponentProps) {
 

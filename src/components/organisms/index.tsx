@@ -1,8 +1,8 @@
-import Editor from '../organisms/Editor';
-import StatisticsSummary from '../organisms/StatisticsSummary';
-import StatisticsTotalGame from '../organisms/StatisticsTotalGame';
-import StatisticsWinrate from '../organisms/StatisticsWinrate';
-import StatisticsPastGame from '../organisms/StatisticsPastGame';
+import Editor from '../organisms/editor';
+import StatisticsSummary from '../organisms/statistics_summary';
+import StatisticsTotalGame from '../organisms/statistics_totalgame';
+import StatisticsWinrate from '../organisms/statistics_winrate';
+import StatisticsPastGame from '../organisms/statistics_pastgame';
 
 export {
   Editor,

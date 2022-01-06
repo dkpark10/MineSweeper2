@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { levelList } from '../modules/Common';
-import RadioButton from './atoms/RadioButton';
-import { HeaderText } from './atoms/Text';
-import Header from './Header';
-import '../styles/Option.css';
+import { levelList } from '../modules/common';
+import RadioButton from './atoms/radio_button';
+import { HeaderText } from './atoms/text';
+import Header from './header';
+import '../styles/option.css';
 
 const OptionContainer = () => {
 

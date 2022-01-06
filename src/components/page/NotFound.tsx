@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HeaderText } from '../atoms/Text';
+import { HeaderText } from '../atoms/text';
 
 const NotFoundWrapper = styled.div`
   position: absolute; 
@@ -9,7 +9,7 @@ const NotFoundWrapper = styled.div`
   text-align:center;
 `;
 
-const NotFound = () => {
+export default function NotFound() {
 
   return (
     <>
@@ -28,5 +28,3 @@ const NotFound = () => {
     </>
   )
 }
-
-export default NotFound;

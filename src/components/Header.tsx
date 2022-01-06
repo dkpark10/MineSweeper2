@@ -1,9 +1,9 @@
-import '../styles/Header.css';
+import '../styles/header.css';
 import { Link } from 'react-router-dom';
 import { RootState } from '../reducers';
-import { setLogin } from '../reducers/Login';
+import { setLogin } from '../reducers/login';
 import { useDispatch, useSelector } from 'react-redux';
-import axiosApi, { Response } from '../modules/API';
+import axiosApi, { Response } from '../modules/axiosapi';
 
 interface HeaderProps {
   selected?: string;
@@ -96,7 +96,7 @@ const LogoutMenu = () => {
 
   const dispatch = useDispatch();
   const logout = () => {
-    axiosApi.post(`http://localhost:8080/api/logout`)
+    axiosApi.post(`/api/logout`)
       .then((response: Response) => {
         if (response.result === false) {
           throw new Error('logout error');

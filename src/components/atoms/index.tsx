@@ -1,11 +1,11 @@
-import { Button, SkinismButton } from '../atoms/Buttons';
-import Input from '../atoms/Inputs';
-import MyLink from '../atoms/MyLink';
-import Page from '../atoms/Page';
-import PostWrapper from '../atoms/PostWrapper';
-import RadioButton from '../atoms/RadioButton';
-import Select from '../atoms/Select';
-import { HeaderText, InlineText } from '../atoms/Text';
+import { Button, SkinismButton } from '../atoms/buttons';
+import Input from '../atoms/inputs';
+import MyLink from '../atoms/mylink';
+import Page from '../atoms/page';
+import PostWrapper from '../atoms/post_wrapper';
+import RadioButton from '../atoms/radio_button';
+import Select from '../atoms/select';
+import { HeaderText, InlineText } from '../atoms/text';
 
 export {
   Button,

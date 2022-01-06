@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import ResetButton from './ResetButton';
-import axiosApi, { Response } from '../modules/API';
+import ResetButton from './reset_button';
+import axiosApi, { Response } from '../modules/axiosapi';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../reducers';
-import { setLogin } from '../reducers/Login';
-import '../styles/Signin.css';
+import { setLogin } from '../reducers/login';
+import '../styles/signin.css';
 
 const titleStyle = {
   color: '#1033e3',
@@ -60,7 +60,7 @@ const SignIn = ({ history }: RouteComponentProps) => {
     if (invalid.length > 0)
       return;
 
-    axiosApi.post(`http://localhost:8080/api/login`, {
+    axiosApi.post(`/api/login`, {
       "id": inputs.id.value,
       "pwd": inputs.pwd.value
     })

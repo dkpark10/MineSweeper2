@@ -1,14 +1,14 @@
-import Header from './Header';
+import Header from './header';
 import '../styles/Ranking.css';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axiosApi, { Response } from '../modules/API';
+import axiosApi, { Response } from '../modules/axiosapi';
 import { useSelector } from 'react-redux';
-import { RootState } from '../Reducers';
+import { RootState } from '../reducers/index';
 import queryString from 'query-string';
-import Pagenation from './organisms/Pagenation';
+import Pagenation from './organisms/pagenation';
 import styled from 'styled-components';
-import { InlineText, MyLink } from './atoms';
+import { InlineText, MyLink } from './atoms/index';
 
 export interface MatchParams {
   level: string;
@@ -56,7 +56,7 @@ const Ranking = ({ match, location }: RouteComponentProps<MatchParams>) => {
   const level = match.params.level;
   useEffect(() => {
 
-    axiosApi.get(`http://localhost:8080/api/game/${level}`)
+    axiosApi.get(`api/game/${level}`)
       .then((response: Response) => {
         setTotalItemCount(response.data);
       })
@@ -105,7 +105,7 @@ const RankingList = ({ currentPage, level }: RankListProps) => {
   const [list, setList] = useState<RankItem[]>([]);
   useEffect(() => {
 
-    axiosApi.get(`http://localhost:8080/api/game/${level}?page=${currentPage}`)
+    axiosApi.get(`api/game/${level}?page=${currentPage}`)
       .then((response: Response) => {
         setList(prev => ([
           ...response.data

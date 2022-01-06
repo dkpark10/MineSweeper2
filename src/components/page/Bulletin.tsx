@@ -1,16 +1,16 @@
-import Header from '../Header';
-import Pagenation from '../organisms/Pagenation';
-import PostTitleInfo from '../organisms/PostTitleInfo';
-import PageBlock from '../molecules/PageWrapper';
+import Header from '../header';
+import Pagenation from '../organisms/pagenation';
+import PostTitleInfo from '../organisms/post_title_Info';
+import PageBlock from '../molecules/page_wrapper';
 import { RouteComponentProps } from 'react-router-dom';
 import queryString from 'query-string';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../reducers';
 import React, { useEffect, useState } from 'react';
-import axiosApi, { Response } from '../../modules/API';
-import { IPost } from '../organisms/PostArticle';
-import PostCardList from '../organisms/PostCardList';
+import axiosApi, { Response } from '../../modules/axiosapi';
+import { IPost } from '../organisms/post_article';
+import PostCardList from '../organisms/post_cardlist';
 
 interface MatchParams {
   page: string;
@@ -40,7 +40,7 @@ export default function BulletinMain({ match, location }: RouteComponentProps<Ma
 
   useEffect(() => {
 
-    axiosApi.get(`http://localhost:8080/api/posts?page=${page}`)
+    axiosApi.get(`/api/posts?page=${page}`)
       .then((response: Response) => {
         setPostList(prev => ([
           ...response.data.result

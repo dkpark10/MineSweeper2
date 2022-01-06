@@ -1,4 +1,4 @@
-import PageLink from '../atoms/Page';
+import PageLink from '../atoms/page';
 import styled from 'styled-components';
 
 export interface PageProps {

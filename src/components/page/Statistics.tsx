@@ -1,8 +1,5 @@
-import Header from '../Header';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import axiosApi, { Response } from '../../modules/API';
-import { RootState } from '../../reducers';
+import axiosApi, { Response } from '../../modules/axiosapi';
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -12,7 +9,7 @@ import {
 import {
   TextWrapper
 }from '../molecules/index';
-import { PieData } from '../molecules/NivoPie';
+import { PieData } from '../molecules/nivo_pie';
 
 import {
   StatisticsTotalGame,
@@ -62,7 +59,7 @@ export default function Statisticks({ userid }: { userid: string }) {
   const [winCount, setWinCount] = useState<number[]>([]);
 
   useEffect(() => {
-    axiosApi.get(`http://localhost:8080/api/game?userid=${userid}`)
+    axiosApi.get(`/api/game?userid=${userid}`)
       .then((res: Response) => {
 
         const { easytotal, normaltotal, hardtotal, easywin, normalwin, hardwin, pastGame } = res.data;

@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
-import { levelList } from '../modules/Common';
-import Header from './Header';
-import Modal from './Modal';
-import GameBoard from './GameBoard';
-import '../styles/Game.css';
+import { levelList } from '../modules/common';
+import Header from './header';
+import Modal from './modal';
+import GameBoard from './game_board';
+import '../styles/game.css';
 
 const Game = () => {
 

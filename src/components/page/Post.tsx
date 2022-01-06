@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import PostTitleInfo from '../organisms/PostTitleInfo';
-import Header from '../Header';
+import PostTitleInfo from '../organisms/post_title_Info';
+import Header from '../header';
 import { RouteComponentProps, useLocation } from 'react-router-dom';
-import PostArticle from '../organisms/PostArticle';
+import PostArticle from '../organisms/post_article';
 import styled from 'styled-components';
-import PostCardList from '../organisms/PostCardList';
-import Pagenation from '../organisms/Pagenation';
+import PostCardList from '../organisms/post_cardlist';
+import Pagenation from '../organisms/pagenation';
 
 interface MatchParams {
   postid: string;
@@ -26,7 +26,6 @@ const PostWrapper = styled.div`
   left:50%;
   transform: translateX(-50%);
   margin: 2.0rem 0;
-  border: 2px solid yellow;
   word-break:break-all;
 `;
 

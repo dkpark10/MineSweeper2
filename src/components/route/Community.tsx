@@ -1,12 +1,11 @@
 import { RouteComponentProps } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
 
-import BulletinMain from '../page/Bulletin';
-import CreatePost from '../page/CreatePost';
-import Post from '../page/Post';
-import PostDelete from '../page/PostDelete';
-
-import NotFound from '../page/NotFound';
+import BulletinMain from '../page/bulletin';
+import CreatePost from '../page/create_post';
+import Post from '../page/post';
+import PostDelete from '../page/post_delete';
+import NotFound from '../page/notfound';
 
 interface MatchParams {
   page: string;

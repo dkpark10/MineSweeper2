@@ -1,8 +1,7 @@
-import { RouteComponentProps } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
-import MyPage from '../page/Mypage';
-import Userpage from '../page/Userpage';
-import NotFound from '../page/NotFound';
+import { Route, Switch, RouteComponentProps } from 'react-router-dom';
+import MyPage from '../page/mypage';
+import Userpage from '../page/userpage';
+import NotFound from '../page/notfound';
 
 interface MatchParams {
   userid: string;

@@ -1,7 +1,7 @@
-import Header from '../Header';
+import Header from '../header';
 import { RouteComponentProps } from 'react-router-dom';
 import React from 'react';
-import Statistics from '../page/Statistics';
+import Statistics from '../page/statistics';
 
 interface MatchParams{
   userid:string;

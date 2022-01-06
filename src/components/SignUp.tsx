@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import ResetButton from './ResetButton';
-import InputInvalidChecker, { InvalidStatus } from '../modules/InputCheker'
-import axiosApi, { Response } from '../modules/API';
+import ResetButton from './reset_button';
+import InputInvalidChecker, { InvalidStatus } from '../modules/input_checker'
+import axiosApi, { Response } from '../modules/axiosapi';
 import { RootState } from '../reducers';
-import '../styles/Signup.css';
+import '../styles/signup.css';
 
 const titleStyle = {
   color: '#1033e3',
@@ -61,7 +61,7 @@ const SignUp = ({ history }: RouteComponentProps) => {
     if (invalid === true)
       return;
 
-    axiosApi.post(`http://localhost:8080/api/user`, {
+    axiosApi.post(`/api/user`, {
       "id": inputs.id.value,
       "email": inputs.email.value,
       "pwd": inputs.pwd.value

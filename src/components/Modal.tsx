@@ -1,9 +1,9 @@
-import '../styles/Modal.css';
+import '../styles/modal.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../Reducers';
-import { gameReset, setRecordTime } from '../reducers/Game';
+import { RootState } from '../reducers/index';
+import { gameReset, setRecordTime } from '../reducers/game';
 import { useEffect } from 'react';
-import axiosApi, { Response } from '../modules/API';
+import axiosApi, { Response } from '../modules/axiosapi';
 
 interface ModalProps{
   levelInfo: string;
@@ -26,7 +26,7 @@ const GameModal = ({ levelInfo }: ModalProps) => {
     if (takenTime !== -1 && userId && userId !== '') {
 
       console.log(isGameSuccess);
-      axiosApi.post(`http://localhost:8080/api/auth/game`, {
+      axiosApi.post(`/api/auth/game`, {
         id: userId,
         record: takenTime / 1000,
         success: isGameSuccess,

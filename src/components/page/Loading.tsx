@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from 'styled-components';
-import { InlineText } from '../atoms/Text';
+import { InlineText } from '../atoms/text';
 
 const LoadWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
@@ -10,7 +10,7 @@ const LoadWrapper = styled.div`
   position: absolute;
 `;
 
-const Loading = () => {
+export default function Loading() {
 
   const [count, setCount] = useState(0);
   const tid = useRef(null);
@@ -35,11 +35,11 @@ const Loading = () => {
   return (
     <>
       <LoadWrapper>
-        <InlineText
+        {/* <InlineText
           size={'4.2rem'}
           isColor={false}
           value={"Loading"}
-        />
+        /> */}
         <InlineText
           size={'1.8rem'}
           isColor={false}
@@ -49,5 +49,3 @@ const Loading = () => {
     </>
   );
 }
-
-export default Loading;

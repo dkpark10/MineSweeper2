@@ -1,9 +1,9 @@
-import MyResponsiveBar from '../molecules/NivoBar'
-import MyResponsivePie from '../molecules/NivoPie'
-import PageWrapper from '../molecules/PageWrapper';
-import PostController from '../molecules/PostController';
-import SearchInput from '../molecules/SearchInput';
-import TextWrapper from '../molecules/TextWrapper';
+import MyResponsiveBar from '../molecules/nivo_bar';
+import MyResponsivePie from '../molecules/nivo_pie';
+import PageWrapper from '../molecules/page_wrapper';
+import PostController from '../molecules/post_controller';
+import SearchInput from '../molecules/search_input';
+import TextWrapper from '../molecules/text_wrapper';
 
 export {
   MyResponsiveBar,
