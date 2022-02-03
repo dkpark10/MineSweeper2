@@ -1,32 +1,31 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { levelList } from '../modules/common';
 import Header from './header';
 import Modal from './modal';
 import GameBoard from './game_board';
 import '../styles/game.css';
 
-const Game = () => {
+export default function Game() {
 
   const level = levelList[localStorage.getItem('difficulty')] || levelList.Easy;
- 
   const checkLevel = useMemo(() => {
-    
+
     if (level.row === 10 && level.col === 10 && level.numberOfMine === 10)
       return 'Easy';
     else if (level.row === 16 && level.col === 16 && level.numberOfMine === 40)
       return 'Normal';
     else return 'Hard';
-    
+
   }, [level]);
 
   const checkMinWidth = useMemo(() => {
-    
+
     if (level.row === 10 && level.col === 10 && level.numberOfMine === 10)
       return '294px';
     else if (level.row === 16 && level.col === 16 && level.numberOfMine === 40)
       return '444px';
     else return '794px';
-    
+
   }, [level]);
 
   return (
@@ -34,8 +33,8 @@ const Game = () => {
       <Modal
         levelInfo={checkLevel}
       />
-      <Header 
-        selected={'Game'} 
+      <Header
+        selected={'Game'}
       />
       <GameBoard
         levelInfo={level}
@@ -44,5 +43,3 @@ const Game = () => {
     </>
   )
 }
-
-export default Game;

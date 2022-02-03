@@ -2,7 +2,7 @@ import '../styles/modal.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../reducers/index';
 import { gameReset, setRecordTime } from '../reducers/game';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axiosApi, { Response } from '../modules/axiosapi';
 
 interface ModalProps{

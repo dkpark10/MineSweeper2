@@ -1,7 +1,7 @@
 import { Level, CellData } from './common';
 
 export const initializeCell = (row: number, col: number): CellData[][] => {
-  
+
   const ret: CellData[][] = Array.from({ length: row }, () => Array)
     .map(() => Array.from({ length: col }, () => {
       return {
@@ -23,13 +23,18 @@ export const plantMine = (cellData: CellData[][], numberOfMine: number) => {
   let tmp = numberOfMine;
 
   while (tmp) {
-    
-    // 보안상 이유로 랜덤함수 교체
-    // const ranY = Math.floor(Math.random() * row);
-    // const ranX = Math.floor(Math.random() * col);
 
-    const ranY = window.crypto.getRandomValues(new Uint8Array(1))[0] % row;
-    const ranX = window.crypto.getRandomValues(new Uint8Array(1))[0] % col;
+    let ranY: number = -1;
+    let ranX: number = -1;
+
+    if (process.env.NODE_ENV === 'production') {
+      // 보안상 이유로 랜덤함수 교체
+      ranY = window.crypto.getRandomValues(new Uint8Array(1))[0] % row;
+      ranX = window.crypto.getRandomValues(new Uint8Array(1))[0] % col;
+    } else {
+      ranY = Math.floor(Math.random() * row);
+      ranX = Math.floor(Math.random() * col);
+    }
 
     if (cellData[ranY][ranX].mine === false) {
       cellData[ranY][ranX].mine = true;

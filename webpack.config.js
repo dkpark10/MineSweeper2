@@ -5,7 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
+  // 진입점
   entry: './src/index.tsx',
+  // 빌드파일
   output: {
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/',
@@ -15,7 +17,7 @@ module.exports = {
     port: 3000
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', 'jsx'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   module: {
     rules: [
@@ -35,7 +37,14 @@ module.exports = {
           'ts-loader',
         ],
         exclude: /node_modules/,
-      }
+      },
+      {
+        test: /\.(js|jsx)$/,
+        use: [
+          'babel-loader'
+        ],
+        exclude: /node_modules/,
+      },
     ],
   },
   plugins: [

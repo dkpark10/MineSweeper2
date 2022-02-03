@@ -11,7 +11,9 @@ import { useDispatch } from 'react-redux';
 import axiosApi, { Response } from './modules/axiosapi';
 
 // 라우팅 또는 페이지 컴포넌트에서 가져와야 한다.
-const Game = lazy(() => import('./components/game'));
+
+import Game from './components/game';
+// const Game = lazy(() => import('./components/game'));
 const SignIn = lazy(() => import('./components/signin'));
 const Bulletin = lazy(() => import('./components/route/community'));
 const MyPage = lazy(() => import('./components/route/mypage'));
@@ -37,7 +39,8 @@ export default function App() {
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
+      <Game />
+      {/* <Suspense fallback={<Loading />}>
         <Switch>
           <Route exact path="/" component={Game} />
           <Route path="/signin" component={SignIn} />
@@ -48,7 +51,7 @@ export default function App() {
           <Route path="/option" component={Option} />
           <Route component={NotFound} />
         </Switch>
-      </Suspense>
+      </Suspense> */}
     </>
   )
 }
