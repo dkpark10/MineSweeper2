@@ -1,7 +1,8 @@
 export interface Level {
-  row: number,
-  col: number,
-  numberOfMine: number
+  row: number;
+  col: number;
+  numberOfMine: number;
+  width?: string;
 };
 
 export type LevelType = { [key: string]: Level };
@@ -30,8 +31,8 @@ export interface BoardSize {
   col: number
 }
 
-export interface ClickRenderStatus{
+export interface ClickRenderStatus {
   render: boolean;
-  flag:boolean;
+  flag: boolean;
   removeCell: number;
 }

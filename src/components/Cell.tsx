@@ -14,19 +14,19 @@ const colorofButtonNumber: string[] = [
 
 interface CellProps {
   value: string | number | ReactText,
-  islock: boolean,
+  isLock: boolean,
   onMouseDown: React.MouseEventHandler<HTMLDivElement>,
   onContextMenu: React.MouseEventHandler<HTMLDivElement>
 };
 
 const Cell = (props: CellProps) => {
 
-  const { value, islock, onMouseDown, onContextMenu }: CellProps = props;
+  const { value, isLock, onMouseDown, onContextMenu }: CellProps = props;
   const strColor = colorofButtonNumber[value];
 
   return (
     <div
-      className={islock ? "lock" : "cell"}
+      className={isLock ? "lock" : "cell"}
       onMouseDown={onMouseDown}
       onContextMenu={onContextMenu}
     >

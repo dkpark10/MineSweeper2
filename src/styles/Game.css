@@ -19,7 +19,6 @@
   width: 24px;
   height: 24px;
   background-image:linear-gradient(to bottom, #FFFFFF,#E4E4E4);
-  background-color: white;
   margin: 0px 0.5px;
   display:inline-block;
   border-radius: 2px;
@@ -28,10 +27,11 @@
 
 .cell .cell-text{
   position: absolute;
-  background-image:linear-gradient(to bottom, #FFFFFF,#E4E4E4);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 11px;
 }
 
 .cell:hover{
@@ -45,9 +45,8 @@
 .lock {
   width: 24px;
   height: 24px;
-  background-color: #4a4952;
-  margin-right:0.5px;
-  margin-left:0.5px;
+  background-image:linear-gradient(to bottom, #4a4952,#4a4952);
+  margin: 0px 0.5px;
   display:inline-block;
   border-radius: 2px;
   position: relative;
@@ -55,12 +54,9 @@
 
 .lock div{
   position: absolute;
-  background-color: #4a4952;
-  text-align: center;
-  display: inline;
-  font-weight: bold;
-  font-size: 7px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 11px;
 }

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Level, CellData, Coord, ClickRenderStatus } from '../modules/common';
-import '../styles/game.css';
-import * as cellHandler from '../modules/cell_handler';
-import GameInfo from './game_info';
+import { Level, Coord, CellData, BoardSize } from 'mine-sweeper-type'
 import { useDispatch, useSelector } from 'react-redux';
-import { setExtraCell } from '../reducers/game';
-import { RootState } from '../reducers';
-import createClickFactory from '../modules/click_factory';
-import Cell from './cell';
+
+// import GameInfo from './game_info';
+// import { setExtraCell } from '../../reducers/game';
+import createClickFactory from '../../../modules/mine_sweeper/click_factory';
+import CellHandler from '../../../modules/mine_sweeper/cell_handler';
+import Cell from '../atoms/cell';
 import styled from 'styled-components';
+
+interface Props {
+  level: Level;
+}
 
 const GameBoardWrapper = styled.div<{
   minWidth: string
@@ -24,58 +27,37 @@ const GameBoardWrapper = styled.div<{
   min-width: ${({ minWidth }) => minWidth};
 `;
 
-interface GameBoardProps {
-  levelInfo: Level;
-  minWidth: string;
-}
-
-const GameBoard = ({ levelInfo, minWidth }: GameBoardProps) => {
+export default function MineSweeper({ level }: Props) {
 
   const dispatch = useDispatch();
-  const LEFTCLICK = 0;
 
-  // 처음 2차원 셀을 생성해주어서 렌더가 안되는 일이 없게 한다.
-  const [cellData, setCellData] = useState<CellData[][]>(cellHandler.initializeCell(levelInfo.row, levelInfo.col));
-  const [firstClick, setFirstClick] = useState<boolean>(true);
-  const [numofFlag, setNumofFlag] = useState<number>(levelInfo.numberOfMine);
+  const { row, col, countOfMine } = level;
+  const init = Array.from({ length: row }, () => Array)
+    .map(() => Array.from({ length: col }, () => {
+      return {
+        mine: false,
+        neighbor: 0,
+        visited: false,
+        flaged: false,
+        visible: ' '
+      };
+    }))
 
-  // useSelector는 항상 최상단 함수에 작성한다.
-  const { extraCell, gameRestart } = useSelector((state: RootState) => ({
-    extraCell: state.game.isGameOver,
-    gameRestart: state.game.gameRestart,
-  }));
+  const [cellData, setCellData] = useState<CellData[][]>(new CellHandler(init, { row, col }, countOfMine).getCellData());
+  const [firstClick, setFirstClick] = useState<boolean>(false);
+  const [countOfFlag, setCountOfFlag] = useState<number>(level.countOfMine);
 
   // useeffect를 사용하여 액션발행을 하고 GameInfo 컴포넌트의 렌더링을 방해하지 않도록 한다.
   // useeffect의 내부 수행로직은 렌더링이 된 후 수행을 보장한다. 
   // 그럼으로 setFlag액션을 발행하면 Board가 렌더링이 되었다는 것을
   // 보장한다. 그 후에 GameInfo를 렌더링한다.
 
-  useEffect(() => {
-
-    const { row, col, numberOfMine } = levelInfo;
-    let newCellData: CellData[][] = cellHandler.initializeCell(row, col);
-
-    cellHandler.plantMine(newCellData, numberOfMine);
-    cellHandler.getNeighbor(newCellData, { row, col, numberOfMine });
-
-    setCellData(newCellData);
-    setNumofFlag(numberOfMine);
-    setFirstClick(true);
-    dispatch(setExtraCell((row * col) - numberOfMine));
-
-  }, [gameRestart, levelInfo, dispatch]);
-
-
   const onCellClick = (e: React.MouseEvent<HTMLDivElement>, { y, x }: Coord) => {
 
-    e.preventDefault();
-    // 배열 state를 사용할 때 복사해서 사용하자.
-    const newCellData: CellData[][] = [...cellData];
+    onFirstClick(e.button, { y, x });
+    const { row, col } = level;
 
-    onFirstClick(firstClick, e.button, newCellData, { y, x });
-    const { row, col } = levelInfo;
-
-    let clickController = createClickFactory(e.button, newCellData, { y, x }, { row, col });
+    let clickController = createClickFactory(e.button, [...cellData], { y, x }, { row, col });
     const renderStatus: ClickRenderStatus = clickController.process();
 
     if (renderStatus.render === true) {
@@ -93,18 +75,18 @@ const GameBoard = ({ levelInfo, minWidth }: GameBoardProps) => {
 
 
   // 첫번째 클릭에 대한 이벤트 처리
-  const onFirstClick = (isFirstClick: boolean, buttonType: number, newCellData: CellData[][], coord: Coord) => {
+  const onFirstClick = (buttonType: number, coord: Coord) => {
 
-    const { y, x }: Coord = coord;
+    const { y, x } = coord;
+    const LEFTCLICK = 0 as const;
 
     if (firstClick === true && buttonType === LEFTCLICK) {
-      setFirstClick(false);
+      setFirstClick(true);
 
       // 첫클릭에 지뢰를 밟지 아니 하도록 한다.
-      if (newCellData[y][x].mine === true) {
-        newCellData[y][x].mine = false;
-        cellHandler.plantMine(newCellData, 1);
-        setCellData(newCellData);
+      if (cellData[y][x].mine === true) {
+        cellData[y][x].mine = false;
+        setCellData(new CellHandler([...cellData], { row, col }, 1).getCellData());
       }
     }
   }
@@ -119,7 +101,7 @@ const GameBoard = ({ levelInfo, minWidth }: GameBoardProps) => {
             <Cell
               key={(y * rowItem.length) + x}
               value={data.mine && extraCell <= 0 ? '💣' : data.visible}
-              isLock={data.visited}
+              islock={data.visited}
               onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => onCellClick(e, { y, x })}
               onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
             />
@@ -133,7 +115,7 @@ const GameBoard = ({ levelInfo, minWidth }: GameBoardProps) => {
   return (
     <>
       <GameBoardWrapper
-        minWidth={minWidth}
+        minWidth={level.width}
       >
         <GameInfo
           firstClick={firstClick}
@@ -145,5 +127,3 @@ const GameBoard = ({ levelInfo, minWidth }: GameBoardProps) => {
     </>
   )
 }
-
-export default GameBoard;

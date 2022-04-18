@@ -15,17 +15,15 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 const DefaultComponents = ({ children }) => {
   return (
     <>
-      <React.StrictMode>
-        <BrowserRouter>
-          <Provider store={store}>
-            <ThemeProvider theme={theme}>
-              <App>
-                {children}
-              </App>
-            </ThemeProvider>
-          </Provider>
-        </BrowserRouter>
-      </React.StrictMode>,
+      <BrowserRouter>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <App>
+              {children}
+            </App>
+          </ThemeProvider>
+        </Provider>
+      </BrowserRouter>
     </>
   )
 }
@@ -33,17 +31,10 @@ const DefaultComponents = ({ children }) => {
 describe("button test", () => {
 
   it("button click test", async () => {
-    const { container, getElementsByClassName } = render(DefaultComponents(<Game />));
+    const { container } = render(DefaultComponents(<Game />));
 
-    await waitFor(() => {
-      const buttons = container.getElementsByClassName('cell');
-      expect(buttons.length).toBe(100);
-      expect(buttons.item(23).textContent).toBe(' ');
-      fireEvent.click(buttons.item(23));
-
-      for (let i = 0; i < 24; i++) {
-        console.log(buttons.item(i));
-      }
-    })
+    const buttons = container.getElementsByClassName('cell');
+    expect(buttons.length).toBe(100);
+    expect(buttons.item(23).textContent).toBe(' ');
   });
 });
