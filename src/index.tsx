@@ -8,7 +8,7 @@ import rootReducer from './reducers/index';
 import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './styles/theme';
+import defaultTheme from './styles/theme';
 
 const store: Store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 
@@ -16,7 +16,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={defaultTheme}>
           <App />
         </ThemeProvider>
       </Provider>

@@ -1,12 +1,6 @@
 import { ClickHandler } from './click_handler';
 import { Coord, CellData, ClickRenderStatus } from 'mine-sweeper-type'
 
-const noRender: ClickRenderStatus = {
-  render: false,
-  flag: false,
-  removeCell: -1
-}
-
 class RightClickHandler extends ClickHandler {
 
   public process(): ClickRenderStatus {
@@ -18,19 +12,21 @@ class RightClickHandler extends ClickHandler {
       && (cellData[y][x].neighbor > 0
         || cellData[y][x].neighbor <= 0)) {
 
-      return noRender;
+      return {
+        render: false,
+        flag: false,
+        removeCell: 0
+      };
     }
 
-    let value: boolean = cellData[y][x].flaged;
-    value = !value;
-    cellData[y][x].flaged = value;
-    cellData[y][x].visible = value === true ? '🚩' : ' ';
+    cellData[y][x].flaged = !cellData[y][x].flaged;
+    cellData[y][x].visible = cellData[y][x].flaged === true ? '🚩' : ' ';
 
     return {
       render: true,
       flag: true,
       removeCell: 0
-    } as ClickRenderStatus
+    }
   }
 }
 

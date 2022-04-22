@@ -15,11 +15,16 @@ const CellStyle = styled.div<Partial<CellProps>>`
   display: inline-block;
   border-radius: 2px;
   position: relative;
-  background-image: ${({ isLock }) => {
-    return isLock === true
-      ? 'linear-gradient(to bottom, #4a4952,#4a4952)'
-      : 'linear-gradient(to bottom, #ffffff,#e4e4e4)';
-  }};
+
+  ${({ isLock }) => {
+    return isLock === true 
+      ?  `background: #3b3b3b;
+          box-shadow: inset 2px 2px 0.5px #303030,
+          inset -1px -1px 0.5px #484848;`
+      :  `background: #4e4e50;
+          box-shadow: inset 2px 2px 5px #464649,
+          inset -1px -1px 0.5px #6e6e73;`
+  }}
 `;
 
 const CellTextStyle = styled.div<{
@@ -68,53 +73,3 @@ export default function Cell({
     </CellStyle>
   );
 }
-
-// .cell {
-//   width: 24px;
-//   height: 24px;
-//   background-image:linear-gradient(to bottom, #FFFFFF,#E4E4E4);
-//   background-color: white;
-//   margin: 0px 0.5px;
-//   display:inline-block;
-//   border-radius: 2px;
-//   position: relative;
-// }
-
-// .cell .cell-text{
-//   position: absolute;
-//   background-image:linear-gradient(to bottom, #FFFFFF,#E4E4E4);
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-// }
-
-// .cell:hover{
-//   background-image:linear-gradient(to bottom, #dee6fc, #ffffff);
-// }
-
-// .cell:active{
-//   background-image: linear-gradient(to bottom, #D4F4FA,#BDBDBD);
-// }
-
-// .lock {
-//   width: 24px;
-//   height: 24px;
-//   background-color: #4a4952;
-//   margin-right:0.5px;
-//   margin-left:0.5px;
-//   display:inline-block;
-//   border-radius: 2px;
-//   position: relative;
-// }
-
-// .lock div{
-//   position: absolute;
-//   background-color: #4a4952;
-//   text-align: center;
-//   display: inline;
-//   font-weight: bold;
-//   font-size: 7px;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-// }

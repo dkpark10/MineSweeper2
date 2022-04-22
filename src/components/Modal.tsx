@@ -25,7 +25,6 @@ const GameModal = ({ levelInfo }: ModalProps) => {
 
     if (takenTime !== -1 && userId && userId !== '') {
 
-      console.log(isGameSuccess);
       axiosApi.post(`/api/auth/game`, {
         id: userId,
         record: takenTime / 1000,

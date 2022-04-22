@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import Input from '../atoms/inputs';
 import Editor from '../organisms/editor';
 import styled from 'styled-components';
-import { theme } from "../../styles/theme";
+import defaultTheme from "../../styles/theme";
 import { RouteComponentProps } from 'react-router-dom';
 import axiosApi, { Response } from '../../modules/axiosapi';
 import { RootState } from '../../reducers';
@@ -94,7 +94,7 @@ export default function CreatePost({ history }: RouteComponentProps) {
               value={'Write'}
               width={'4.8rem'}
               height={'1.8rem'}
-              backgroundColor={theme.mainColor}
+              backgroundColor={defaultTheme.mainColor}
             />
           </div>
         </form>

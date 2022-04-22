@@ -1,5 +1,4 @@
 import { CellData, BoardSize } from 'mine-sweeper-type'
-import { isThisTypeNode } from 'typescript';
 
 export default class CellHandler {
 

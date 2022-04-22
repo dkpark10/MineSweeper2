@@ -3,14 +3,8 @@ import { Coord, CellData, ClickRenderStatus } from 'mine-sweeper-type'
 
 const noRender: ClickRenderStatus = {
   render: false,
-  flag: false,
-  removeCell: -1
-}
-
-const gameOver: ClickRenderStatus = {
-  render: true,
-  flag: false,
-  removeCell: 987654321
+  flag:false,
+  removeCell: 0
 }
 
 class LeftClickHandler extends ClickHandler {
@@ -33,27 +27,32 @@ class LeftClickHandler extends ClickHandler {
     // 지뢰면 게임오버다.
     if (cellData[y][x].mine === true) {
       cellData[y][x].visible = '💣';
-      return gameOver;
+      return {
+        render: true,
+        flag:false,
+        removeCell: 987654321
+      };
     }
 
-    // 주위 
+    // 주위 연쇄충돌
     if (cellData[y][x].neighbor > 0) {
+
       cellData[y][x].visible = cellData[y][x].neighbor;
       cellData[y][x].visited = true;
       return {
         render: true,
-        flag: false,
+        flag:false,
         removeCell: 1
-      } as ClickRenderStatus;
+      };
     }
 
     const numofRemoveCell: number = this.depthFirstSearch({ y, x });
-    
+
     return {
       render: true,
       flag: false,
       removeCell: numofRemoveCell
-    } as ClickRenderStatus;
+    };
   }
 }
 

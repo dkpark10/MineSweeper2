@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import '../styles/game_info.css';
 import { useDispatch } from 'react-redux';
 import { setRecordTime } from '../../../reducers/game';
 import styled from 'styled-components';
@@ -15,24 +14,20 @@ const GameHeaderStyle = styled.div`
   height: 26px;
   margin-bottom: 9px;
   display:flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   min-width: 45px;
+  color:white;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
 
- & span{
+  & span{
    width: 3.5rem;
- }
-
- & label{
-   color:white;
-   font-size: 14px;
-   font-family: "Roboto", sans-serif;
  }
 
  & .heart{
    font-size: 18px;
-   color:rgb(202, 15, 46);
-   text-align: center;
   }
 `;
 
@@ -54,35 +49,23 @@ export default function GameHeader({
     }
   }, []);
 
-  const beginTime = useRef<number>(null);
-
   useInterval(() => {
-    if (firstClick === true) {
+    if (firstClick === true && isGameOver === false) {
       setCount(prev => prev + 1);
-      beginTime.current = new Date().getTime();
     }
   }, 1000);
 
   // 게임종료시
   useEffect(() => {
-    if (isGameOver === true) {
-      const endTime = new Date().getTime();
-      dispatch(setRecordTime(endTime - beginTime.current));
-      beginTime.current = null;
-      setCount(count => 0);
-    }
+    setCount(count => 0);
   }, [isGameOver, dispatch]);
 
   return (
     <>
       <GameHeaderStyle>
-        <span> ⏳
-          <label> {getCount(count)}</label>
-        </span>
+        <span> ⏳ {getCount(count)} </span>
         <span className='heart'>💗</span>
-        <span> 🚩
-          <label> {countOfFlag} </label>
-        </span>
+        <span> 🚩{countOfFlag} </span>
       </GameHeaderStyle>
     </>
   )
