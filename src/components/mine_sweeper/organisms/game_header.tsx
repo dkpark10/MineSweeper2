@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { setRecordTime } from '../../../reducers/game';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import useInterval from '../../custom_hook/useInterval';
 
@@ -36,29 +34,25 @@ export default function GameHeader({
   countOfFlag,
   isGameOver }: Props) {
 
-  const dispatch = useDispatch();
   const [count, setCount] = useState<number>(0);
 
-  const getCount = useCallback((count: number): string => {
+  const getCount = (count: number): string => {
     if (count < 10) {
       return `00${count}`;
     } else if (count >= 10 && count < 100) {
       return `0${count}`;
-    } else {
+    } else if (count >= 100 && count <= 999) {
       return `${count}`;
+    } else {
+      return '999';
     }
-  }, []);
+  };
 
   useInterval(() => {
     if (firstClick === true && isGameOver === false) {
       setCount(prev => prev + 1);
     }
   }, 1000);
-
-  // 게임종료시
-  useEffect(() => {
-    setCount(count => 0);
-  }, [isGameOver, dispatch]);
 
   return (
     <>

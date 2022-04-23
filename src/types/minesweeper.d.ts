@@ -26,7 +26,7 @@ declare module 'mine-sweeper-type' {
 
   export interface ClickRenderStatus {
     render: boolean;
-    flag: boolean;
+    clickBomb: boolean;
     removeCell: number;
   }
 }

@@ -8,7 +8,7 @@ import rootReducer from './reducers/index';
 import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './styles/theme';
+import theme from './styles/theme';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 
@@ -27,30 +27,6 @@ const DefaultComponents = ({ children }) => {
     </>
   )
 }
-
-class LocalStorageMock {
-  constructor() {
-    this.store = {};
-  }
-
-  clear() {
-    this.store = {};
-  }
-
-  getItem(key) {
-    return this.store[key] || null;
-  }
-
-  setItem(key, value) {
-    this.store[key] = String(value);
-  }
-
-  removeItem(key) {
-    delete this.store[key];
-  }
-}
-
-global.localStorage = new LocalStorageMock();
 
 describe("메인 게임 테스트", () => {
 
@@ -102,5 +78,25 @@ describe("메인 게임 테스트", () => {
     fireEvent.mouseDown(cells.item(21), { button: 2 });
 
     expect(currentCountOfFlag.textContent).toBe(` 🚩${countOfFlag} `);
+  })
+
+  test("타이머 테스트", async () => {
+
+    const getCount = count => {
+      if (count < 10) {
+        return `00${count}`;
+      } else if (count >= 10 && count < 100) {
+        return `0${count}`;
+      } else if (count >= 100 && count <= 999) {
+        return `${count}`;
+      }else{
+        return '999';
+      }
+    };
+
+    expect(getCount(4)).toBe('004');
+    expect(getCount(53)).toBe('053');
+    expect(getCount(834)).toBe('834');
+    expect(getCount(43243)).toBe('999');
   })
 })

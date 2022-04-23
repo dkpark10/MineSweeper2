@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import createClickFactory from '../../../modules/mine_sweeper/click_factory';
 import CellHandler from '../../../modules/mine_sweeper/cell_handler';
 import Cell from '../atoms/cell';
@@ -54,24 +54,30 @@ export default function MineSweeper({ level }: Props) {
   const [extraCell, setExtraCell] = useState<number>((row * col) - countOfMine);
   const [isGameOver, setGameOver] = useState<boolean>(false);
   const [gameReset, setGameReset] = useState<boolean>(false);
+  const [gameClear, setGameClear] = useState<boolean>(false);
+
   const beginTime = useRef<number>(0);
+  const endTime = useRef<number>(0);
+  console.log('game render');
 
   useEffect(() => {
     const init = Array.from({ length: row }, () => Array)
-    .map(() => Array.from({ length: col }, () => ({
-      mine: false,
-      neighbor: 0,
-      visited: false,
-      flaged: false,
-      visible: ' '
-    })))
+      .map(() => Array.from({ length: col }, () => ({
+        mine: false,
+        neighbor: 0,
+        visited: false,
+        flaged: false,
+        visible: ' '
+      })))
 
     setCellData(new CellHandler(init, { row, col }, countOfMine).getCellData());
     setFirstClick(false);
     setCountOfFlag(countOfMine);
     setExtraCell((row * col) - countOfMine);
     setGameOver(false);
+    setGameClear(false);
   }, [gameReset, row, col, countOfMine]);
+
 
   // useeffect를 사용하여 액션발행을 하고 GameInfo 컴포넌트의 렌더링을 방해하지 않도록 한다.
   // useeffect의 내부 수행로직은 렌더링이 된 후 수행을 보장한다. 
@@ -79,24 +85,32 @@ export default function MineSweeper({ level }: Props) {
   // 보장한다. 그 후에 GameInfo를 렌더링한다.
   const onCellClick = (e: React.MouseEvent<HTMLDivElement>, { y, x }: Coord) => {
 
+    const RIGHTLICK = 2 as const;
     onFirstClick(e.button, { y, x });
 
     let clickController = createClickFactory(e.button, [...cellData], { y, x }, { row, col });
     const clickResult: ClickRenderStatus = clickController.process();
     const newCellData = clickController.getCellData();
 
-    if (clickResult.render === true) {
-      if (clickResult.flag === true) {
-
-        newCellData[y][x].flaged === true
-          ? setCountOfFlag(countOfFlag - 1)
-          : setCountOfFlag(countOfFlag + 1);
-      }
-
-      setExtraCell(extraCell - clickResult.removeCell);
-      setCellData(newCellData);
-      setGameOver(extraCell - clickResult.removeCell <= 0);
+    if (clickResult.render === false) {
+      return;
     }
+
+    if (e.button === RIGHTLICK) {
+      newCellData[y][x].flaged === true ? setCountOfFlag(countOfFlag - 1) : setCountOfFlag(countOfFlag + 1);
+    }
+
+    // 게임 종료 시
+    if (extraCell - clickResult.removeCell <= 0) {
+      endTime.current = new Date().getTime();
+      setGameOver(true);
+      if (clickResult.clickBomb === false) {
+        setGameClear(true);
+      }
+    }
+
+    setExtraCell(extraCell - clickResult.removeCell);
+    setCellData(newCellData);
     clickController = null;
   }
 
@@ -120,14 +134,20 @@ export default function MineSweeper({ level }: Props) {
   }
 
 
+  const clickGameReset = useCallback(() => {
+    setGameReset(prev => !prev);
+  }, []);
+
+
   return (
     <>
       {isGameOver &&
         <ModalWrapper>
           <ModalContent
-            beginTime={beginTime.current}
+            takenTime={endTime.current - beginTime.current}
             level={level}
-            onMouseClick={() => setGameReset(prev => !prev)}
+            isGameSuccess={gameClear}
+            onMouseClick={clickGameReset}
           />
         </ModalWrapper>
       }
@@ -142,15 +162,17 @@ export default function MineSweeper({ level }: Props) {
         {cellData.map((rowItem, y) => {
           return (
             <div className='game-container-row' key={y}>
-              {rowItem.map((data, x) =>
-                <Cell
-                  key={(y * rowItem.length) + x}
-                  value={data.mine && isGameOver ? '💣' : data.visible}
-                  isLock={data.visited}
-                  onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => onCellClick(e, { y, x })}
-                  onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
-                />
-              )}
+              {rowItem.map((data, x) => {
+                return (
+                  <Cell
+                    key={(y * rowItem.length) + x}
+                    value={data.mine && isGameOver ? '💣' : data.visible}
+                    isLock={data.visited}
+                    onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => onCellClick(e, { y, x })}
+                    onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
+                  />
+                )
+              })}
             </div>
           )
         })}

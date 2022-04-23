@@ -3,7 +3,7 @@ import { Coord, CellData, ClickRenderStatus } from 'mine-sweeper-type'
 
 const noRender: ClickRenderStatus = {
   render: false,
-  flag:false,
+  clickBomb: false,
   removeCell: 0
 }
 
@@ -29,7 +29,7 @@ class LeftClickHandler extends ClickHandler {
       cellData[y][x].visible = '💣';
       return {
         render: true,
-        flag:false,
+        clickBomb: true,
         removeCell: 987654321
       };
     }
@@ -41,7 +41,7 @@ class LeftClickHandler extends ClickHandler {
       cellData[y][x].visited = true;
       return {
         render: true,
-        flag:false,
+        clickBomb: false,
         removeCell: 1
       };
     }
@@ -50,7 +50,7 @@ class LeftClickHandler extends ClickHandler {
 
     return {
       render: true,
-      flag: false,
+      clickBomb: false,
       removeCell: numofRemoveCell
     };
   }

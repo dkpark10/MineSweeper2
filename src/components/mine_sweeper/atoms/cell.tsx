@@ -25,6 +25,12 @@ const CellStyle = styled.div<Partial<CellProps>>`
           box-shadow: inset 2px 2px 5px #464649,
           inset -1px -1px 0.5px #6e6e73;`
   }}
+
+  &:hover{
+    ${({ isLock }) => {
+      return isLock === false ? 'background-color: #717180;' : '';
+    }}
+  }
 `;
 
 const CellTextStyle = styled.div<{

@@ -5,18 +5,6 @@ interface WheelClickInterFace {
   isFlagonMine(y: number, x: number): boolean;
 }
 
-const noRender: ClickRenderStatus = {
-  render: false,
-  flag: false,
-  removeCell: -1
-}
-
-const gameOver: ClickRenderStatus = {
-  render: true,
-  flag: false,
-  removeCell: 987654321
-}
-
 class WheelClickHandler extends ClickHandler implements WheelClickInterFace {
 
   public process(): ClickRenderStatus {
@@ -25,11 +13,23 @@ class WheelClickHandler extends ClickHandler implements WheelClickInterFace {
     const cellData: CellData[][] = this.cellData;
     const { y, x }: Coord = this.coord;
 
+
+    const noRender: ClickRenderStatus = {
+      render: false,
+      clickBomb: false,
+      removeCell: 0
+    }
+
+    const gameOver: ClickRenderStatus = {
+      render: true,
+      clickBomb: true,
+      removeCell: 987654321
+    }
+
     if (cellData[y][x].neighbor < 0
       || cellData[y][x].flaged === true
       || cellData[y][x].visited === false) {
 
-      console.log('norender');
       return noRender;
     }
 
@@ -84,9 +84,9 @@ class WheelClickHandler extends ClickHandler implements WheelClickInterFace {
 
     return {
       render: true,
-      flag: false,
+      clickBomb: false,
       removeCell: numofExtraCell
-    } as ClickRenderStatus;
+    };
   }
 
 

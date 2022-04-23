@@ -14,7 +14,7 @@ class RightClickHandler extends ClickHandler {
 
       return {
         render: false,
-        flag: false,
+        clickBomb:false,
         removeCell: 0
       };
     }
@@ -24,7 +24,7 @@ class RightClickHandler extends ClickHandler {
 
     return {
       render: true,
-      flag: true,
+      clickBomb:false,
       removeCell: 0
     }
   }

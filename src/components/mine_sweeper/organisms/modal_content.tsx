@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../reducers/index';
 import styled from 'styled-components';
 import { StyleButton } from '../../common/atoms/button';
 import useAxios from '../../custom_hook/useaxios';
-import axios from 'axios';
 
 interface Props {
-  beginTime: number;
-  endTime?: number;
+  takenTime: number;
   level: string;
+  isGameSuccess: boolean;
   onMouseClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -36,23 +37,28 @@ const CloseButton = styled(StyleButton)`
 `;
 
 export default function ModalContent({
-  beginTime,
-  endTime = new Date().getTime(),
+  takenTime,
   level,
+  isGameSuccess,
   onMouseClick
 }: Props) {
+
+  const userId = useSelector((state: RootState) => state.login.id);
 
   useAxios({
     method:'POST',
     url:'/',
     data:{
-      a:23
+      userId,
+      record: takenTime,
+      success: isGameSuccess,
+      level:level
     }
   })
 
   return (
     <ModalContentStyle>
-      <div> Time : {(endTime - beginTime) / 1000}</div>
+      <div> Time : {(takenTime) / 1000}</div>
       <div> Level : {level}</div>
       <CloseButton
         width={'75px'}
