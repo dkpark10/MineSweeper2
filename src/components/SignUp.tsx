@@ -89,7 +89,7 @@ const SignUp = ({ history }: RouteComponentProps) => {
           ...inputs,
           [name]: {
             value: value,
-            invalid: response.status,
+            invalid: true,
             msg: response.msg
           }
         });

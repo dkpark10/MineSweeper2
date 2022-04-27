@@ -1,7 +1,7 @@
 import React, { useEffect, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './styles/app.css';
-import SignUp from './components/signup';
+// import SignUp from './components/signup';
 import NotFound from './components/page/notfound';
 import Loading from './components/page/loading';
 import Option from './components/option';
@@ -14,20 +14,22 @@ import axiosApi, { Response } from './modules/axiosapi';
 
 // import Game from './components/mine_sweeper/page/index';
 import useLocalStorage from './components/custom_hook/uselocalstorage';
+import SignIn from './components/sign/page/signin';
+import SignUp from './components/sign/page/signup';
 
 
 // import Game from './components/game';
-const Game = lazy(() => import('./components/game'));
-const SignIn = lazy(() => import('./components/signin'));
+const Game = lazy(() => import('./components/mine_sweeper/page/index'));
+// const SignIn = lazy(() => import('./components/signin'));
 const Bulletin = lazy(() => import('./components/route/community'));
 const MyPage = lazy(() => import('./components/route/mypage'));
 const Ranking = lazy(() => import('./components/ranking'));
 
 export default function App() {
 
-  const dispatch = useDispatch();
-  // Authorization 헤더는 새로고침 브라우저 꺼지면 사라지므로
-  // 컴포넌트 새로 마운트 될 때 마다 토큰 박음
+  // const dispatch = useDispatch();
+  // // Authorization 헤더는 새로고침 브라우저 꺼지면 사라지므로
+  // // 컴포넌트 새로 마운트 될 때 마다 토큰 박음
   // useEffect(() => {
 
   //   axiosApi.post(`/api/slientlogin`)
@@ -41,22 +43,17 @@ export default function App() {
   //     .catch(e => { });
   // }, [dispatch])
 
-  // const level = useLocalStorage('difficulty', 'Easy', (val: string) => {
-  //   return ['Easy', 'Normal', 'Hard'].filter(ele => ele === val).length > 0;
-  // })
-
   return (
     <>
-      {/* <Game level={level} /> */}
       <Suspense fallback={<Loading />}>
         <Switch>
           <Route exact path="/" component={Game} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/ranking/:level" component={Ranking} />
+          {/* <Route path="/ranking/:level" component={Ranking} />
           <Route path="/community" component={Bulletin} />
           <Route path="/mypage" component={MyPage} />
-          <Route path="/option" component={Option} />
+          <Route path="/option" component={Option} /> */}
           <Route component={NotFound} />
         </Switch>
       </Suspense>

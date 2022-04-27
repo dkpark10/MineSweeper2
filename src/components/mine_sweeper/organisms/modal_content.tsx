@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../reducers/index';
 import styled from 'styled-components';
 import { StyleButton } from '../../common/atoms/button';
-import useAxios from '../../custom_hook/useaxios';
+import axiosInstance from '../../../modules/default_axios';
 
 interface Props {
   takenTime: number;
@@ -43,18 +43,24 @@ export default function ModalContent({
   onMouseClick
 }: Props) {
 
-  const userId = useSelector((state: RootState) => state.login.id);
+  const userid = useSelector((state: RootState) => state.login.id);
 
-  useAxios({
-    method:'POST',
-    url:'/',
-    data:{
-      userId,
-      record: takenTime,
-      success: isGameSuccess,
-      level:level
+  useEffect(() => {
+
+    const request = async () => {
+      try {
+        await axiosInstance.post('/api/game', {
+          id: userid === '' ? 'anonymous' : userid,
+          record: takenTime / 1000,
+          success: isGameSuccess,
+          level: level
+        })
+      } catch (e) {
+      }
     }
-  })
+
+    request();
+  }, [isGameSuccess, level, takenTime, userid]);
 
   return (
     <ModalContentStyle>

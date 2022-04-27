@@ -1,35 +1,23 @@
-import axiosApi,{Response} from './axiosapi';
+import axiosApi, { Response } from './axiosapi';
 
 export interface InvalidStatus {
+  result: boolean;
   msg: string;
-  status: boolean;
 };
 
 export default class InputInvalidChecker {
 
-  private readonly invalidText: any = {
+  private readonly invalidText = {
     id: ['5~15 characters consisting of English letters(a-zA-Z), numbers, or special characters (_)',
       'id already exists'],
     email: [
       'the email is invalid',
       'email already exists'
-    ],
-    pwd : 'The password must be at least 6 to 15 digits.'
+    ]
   }
 
   public async run(name: string, value: string, pwd: string): Promise<InvalidStatus> {
-
-    let invalid: InvalidStatus;
-
-    if (name === 'id' || name === 'email') {
-      invalid = await this.duplicateCheck({ name, value });
-    } else if (name === 'pwd') {
-      invalid = await this.invalidPasswordCheck(name, value);
-    } else {
-      invalid = await this.confirmPassword(value, pwd);
-    }
-
-    return invalid;
+    return await this.duplicateCheck({ name, value });
   }
 
   public duplicateCheck({ name, value }): Promise<InvalidStatus> {
@@ -44,46 +32,20 @@ export default class InputInvalidChecker {
     return new Promise((resolve) => {
 
       if (regExpList[name].exec(value) === null) {
-        return resolve({ msg: this.invalidText[name][0], status: true });
+        return resolve({ result: false, msg: this.invalidText[name][0] });
       }
 
       axiosApi.get(`/api/user?${name}=${value}`)
         .then((response: Response) => {
           if (response.result === true) {
-            return resolve({ msg: this.invalidText[name][1], status: true });
+            return resolve({ result: false, msg: this.invalidText[name][1] });
           }
-          return resolve({ msg: '', status: false });
+          return resolve({ result: true, msg: '' });
         })
         .catch(err => {
           // 웹서버와 통신 중 장애 발생 시 에러처리 아이디 중복체크로 회원가입 방지
           return { msg: '', status: true };
         });
-    })
-  }
-
-  public invalidPasswordCheck(name: string, value: string): Promise<InvalidStatus> {
-
-    const regPwd: RegExp = /^[A-Za-z0-9]{6,15}$/;
-
-    return new Promise((resolve) => {
-
-      if (regPwd.exec(value) === null) {
-        return resolve({ msg: this.invalidText[name], status: true });
-      } else {
-        return resolve({ msg: '', status: false });
-      }
-    })
-  }
-
-  public confirmPassword(pwd1: string, pwd2:string): Promise<InvalidStatus>{
-    
-    return new Promise((resolve) => {
-
-      if(pwd1 !== pwd2){
-        return resolve({ msg: "The password doesn't match.", status: true });
-      }else{
-        return resolve({ msg: '', status: false });
-      }
     })
   }
 }

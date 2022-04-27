@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor, wait, getByText } from "@testing-library/react";
 import App from './app';
-import Game from './components/mine_sweeper/page/index';
+import Game from './components/mine_sweeper/page/game';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers/index';
