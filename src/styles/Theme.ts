@@ -1,7 +1,8 @@
 import { DefaultTheme } from 'styled-components';
  
 const defaltTheme: DefaultTheme = {
-  mainColor: '#1033E3',
+  mainColor: '#266EFF',
+  grayMainColor: '#2e2d2d',
   gradientColor: '#f74bf7',
   fontColor: '#383640',
   grayBackGround: '#e0e0e0',

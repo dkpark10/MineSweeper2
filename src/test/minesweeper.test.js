@@ -1,32 +1,7 @@
 import React from 'react';
-import { render, fireEvent, waitFor, wait, getByText } from "@testing-library/react";
-import App from './app';
-import Game from './components/mine_sweeper/page/game';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers/index';
-import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
-import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import theme from './styles/theme';
-
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
-
-const DefaultComponents = ({ children }) => {
-  return (
-    <>
-      <BrowserRouter>
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <App>
-              {children}
-            </App>
-          </ThemeProvider>
-        </Provider>
-      </BrowserRouter>
-    </>
-  )
-}
+import { render, fireEvent } from "@testing-library/react";
+import Game from '../components/mine_sweeper/organisms/game';
+import defaultComponent from './default';
 
 describe("메인 게임 테스트", () => {
 
@@ -36,11 +11,12 @@ describe("메인 게임 테스트", () => {
     Hard: { row: 16, col: 30, countOfMine: 99, width: '794' }
   };
 
+  // 이건 왜 테스트 할 때 마다 다름?
   test("셀 길이 테스트", async () => {
 
     global.localStorage.setItem('difficulty', 'Easy');
     const level = global.localStorage.getItem('difficulty');
-    const { container } = render(DefaultComponents(<Game level={level} />));
+    const { container } = render(defaultComponent(<Game level={level} />));
 
     const cells = container.getElementsByClassName('cell');
     expect(cells.length).toBe(levelList[level].row * levelList[level].col);
@@ -50,7 +26,7 @@ describe("메인 게임 테스트", () => {
 
     global.localStorage.setItem('difficulty', 'Easy');
     const level = global.localStorage.getItem('difficulty');
-    const { container } = render(DefaultComponents(<Game level={level} />));
+    const { container } = render(defaultComponent(<Game level={level} />));
 
     const cells = container.getElementsByClassName('cell');
     fireEvent.mouseDown(cells.item(5));
@@ -63,7 +39,7 @@ describe("메인 게임 테스트", () => {
 
     global.localStorage.setItem('difficulty', 'Easy');
     const level = global.localStorage.getItem('difficulty');
-    const { container, getByText } = render(DefaultComponents(<Game level={level} />));
+    const { container, getByText } = render(defaultComponent(<Game level={level} />));
 
     const cells = container.getElementsByClassName('cell');
     const currentCountOfFlag = getByText(/🚩/);

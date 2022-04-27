@@ -15,7 +15,7 @@ const GameHeaderStyle = styled.div`
   justify-content: space-between;
   align-items: center;
   min-width: 45px;
-  color:white;
+  color: #FFF6E3;
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   text-align: center;

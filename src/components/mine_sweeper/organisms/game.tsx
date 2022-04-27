@@ -28,7 +28,7 @@ const GameBoardWrapper = styled.div<{
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-  box-shadow:  6px 6px 15px #272626;
+  box-shadow:  4px 4px 10px #272626;
 
   min-width: ${({ minWidth }) => minWidth};
 
