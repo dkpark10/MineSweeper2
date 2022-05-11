@@ -6,8 +6,7 @@ import Header from '../../common/organisms/header';
 export default function Index() {
 
   const level = useLocalStorage({
-    key: 'difficulty',
-    defaultValue: 'Easy'
+    key: 'difficulty', defaultValue: 'Easy'
   }, (val: string) => {
     return ['Easy', 'Normal', 'Hard'].filter(ele => ele === val).length > 0;
   })

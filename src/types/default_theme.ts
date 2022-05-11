@@ -9,6 +9,9 @@ declare module 'styled-components' {
     grayBackGround: string;
     HeaderFont: string;
     BodyFont: string;
-    mainContentWidth: string;
+    mobile: string;
+    minTablet:string;
+    maxTablet:string;
+    desktop:string;
   }
 }

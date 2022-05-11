@@ -2,56 +2,68 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { RootState } from '../../../reducers';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import HeaderTitle from '../molecules/header_title';
+import SignNavigator from '../atoms/sign_navigator';
 
 const HeaderWrapper = styled.header`
   position: relative;
   width:100%;
-  height:45px;
+  height:51px;
   font-family: 'Roboto', sans-serif;
   background-color: ${({ theme }) => theme.grayMainColor};
-
-  .title{
-    color: ${({theme}) => theme.mainColor};
-    position:absolute;
-    left:2%;
-    top:46%;
-    transform: translate(-2%, -50%);
-  }
-
-  .sign{
-    border:2px solid red;
-    color: ${({theme}) => theme.mainColor};
-    position:absolute;
-    left:98%;
-    top:50%;
-    transform: translate(-98%, -50%);
-    width:40px;
-  }
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const NavigatorWrapper = styled.nav`
-  position: absolute;
-  left:50%;
-  transform:translatex(-50%);
-  display:inline-block;
-  height:100%;
-  display:flex;
-  align-items:center;
-
   a{
     text-decoration: none;
-    color: #FFF6E3;
   }
-`;
 
-const NavigatorContent = styled.ul`
-  list-style: none;
-  display:flex;
-  font-size:0.86rem;
+  a:hover{
+    color: ${({ theme }) => theme.mainColor};
+  }
 
-  li{
-    margin:0px 13px;
+  ul{
+    list-style: none;
+  }
+
+  // 모바일
+  @media screen and (${({ theme }) => theme.mobile}){
+    position: absolute;
+    top:51px;
+    width: 100vw;
+    border:1px solid red;
+
+    a{
+      color: ${({ theme }) => theme.fontColor};
+    }
+  }
+
+  // 데탑
+  @media screen and (${({ theme }) => theme.minTablet}) {
+    position: absolute;
+    left:50%;
+    transform:translatex(-50%);
+    display:inline-block;
+    height:100%;
+    display:flex;
+    align-items:center;
+
+    a{
+      color: #FFF6E3;
+    }
+
+    ul{
+      display:flex;
+      font-size:0.9rem;
+
+      li{
+        margin:0px 12px;
+      }
+    }
   }
 `;
 
@@ -61,19 +73,19 @@ export default function Header() {
 
   const menu =
     [
-      { title: 'Game', url: '/' },
-      { title: 'Ranking', url: '/ranking/easy?page=1' },
-      { title: 'Community', url: '/community?page=1' },
-      { title: 'MyPage', url: '/mypage' },
-      { title: 'Option', url: '/option' }
-    ];
+      { title: 'game', url: '/' },
+      { title: 'ranking', url: '/ranking/easy?page=1' },
+      { title: 'community', url: '/community?page=1' },
+      { title: 'my page', url: '/mypage' },
+      { title: 'options', url: '/option' }
+    ] as const;
 
   return (
     <>
       <HeaderWrapper>
-        <h2 className='title'>Mine Sweeper</h2>
-        <NavigatorWrapper>
-          <NavigatorContent>
+        <HeaderTitle />
+        <NavigatorWrapper className='menu'>
+          <ul>
             {menu.map((ele, idx) =>
               <li key={idx}>
                 <Link
@@ -83,9 +95,9 @@ export default function Header() {
                 </Link>
               </li>
             )}
-          </NavigatorContent>
+          </ul>
         </NavigatorWrapper>
-        <div className='sign'>sign</div>
+        <SignNavigator />
       </HeaderWrapper>
     </>
   )

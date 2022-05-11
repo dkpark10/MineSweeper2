@@ -1,7 +1,3 @@
-import React from 'react';
-import { render, fireEvent } from "@testing-library/react";
-import defaultComponent from './default';
-
 describe("페이지네이션 테스트", () => {
 
   const calculPage = ({
