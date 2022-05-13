@@ -1,7 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from "@testing-library/react";
 import App from '../app';
-import Game from '../components/mine_sweeper/organisms/game';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from '../reducers/index';

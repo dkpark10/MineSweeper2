@@ -11,10 +11,16 @@ export const HeaderTitleWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
 `;
 
-export default function HeaderTitle() {
-  return(
+interface Props {
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+}
+
+export default function HeaderTitle({
+  onClick
+}: Props) {
+  return (
     <>
-      <HeaderTitleWrapper>
+      <HeaderTitleWrapper onClick={onClick}>
         <Hamburger />
         <h2>
           Mine Sweeper

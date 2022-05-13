@@ -9,6 +9,7 @@ const HamStyle = styled.span`
     align-content: space-around;
     flex-wrap: wrap;
     margin: 0px 5px;
+    cursor:pointer;
 
     div{
       display: block;

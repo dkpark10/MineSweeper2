@@ -44,7 +44,7 @@ const SubmitButton = styled.input.attrs(({ value }: ISubmitButton) => ({
     return background === true ? 'white' : theme.mainColor;
   }};
 
-  display: inline;
+  display: inline-block;
   cursor:pointer;
   box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
   width:35%;

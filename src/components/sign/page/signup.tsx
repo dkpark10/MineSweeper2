@@ -11,26 +11,7 @@ import axiosInstance from '../../../modules/default_axios';
 import Input from '../atoms/input';
 import Title from '../atoms/title';
 import useInput from '../../custom_hook/useinput';
-import CenterWrapper from '../../common/atoms/center_wrapper';
-
-const SignWrapper = styled(CenterWrapper)`
-  font-family: 'Roboto', sans-serif;
-  background-color: white;
-  padding:20px;
-  border-radius: 12px;
-  width:378px;
-  box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
-  text-align: center;
-
-  .failmsg{
-    color:red;
-    font-size:0.7rem;
-  }
-
-  & a{
-    text-decoration: none;
-  }
-`;
+import SignWrapper from '../atoms/wrapper';
 
 interface InputProps {
   id: string;

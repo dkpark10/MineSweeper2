@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const SignNavigatorWrapper = styled.div`
-  margin: 0px 20px;
+  margin: 0px 0.75rem;
   font-size:0.9rem;
 
   a{
