@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Hamburger from '../atoms/hamburger';
-import { Link } from "react-router-dom";
+import Title from '../atoms/title';
 
 export const HeaderTitleWrapper = styled.div`
   display: flex;
@@ -9,15 +9,10 @@ export const HeaderTitleWrapper = styled.div`
   justify-content: space-around;
   padding:0px 14px;
   font-family: 'Roboto', sans-serif;
-
-  a{
-    color:${({ theme }) => theme.mainColor};
-    text-decoration: none;
-  }
 `;
 
 interface Props {
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export default function HeaderTitle({
@@ -25,13 +20,11 @@ export default function HeaderTitle({
 }: Props) {
   return (
     <>
-      <HeaderTitleWrapper onClick={onClick}>
-        <Hamburger />
-        <Link to="/">
-          <h2>
-            Mine Sweeper
-          </h2>
-        </Link>
+      <HeaderTitleWrapper>
+        <Hamburger
+          onClick={onClick}
+        />
+        <Title>Mine Sweeper</Title>
       </HeaderTitleWrapper>
     </>
   )

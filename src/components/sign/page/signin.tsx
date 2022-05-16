@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "../../../reducers/login";
 import { Response } from "response-type";
 import Input from "../atoms/input";
-import Title from "../atoms/title";
+import Title from "../../common/atoms/title";
 import SignWrapper from "../atoms/wrapper";
 
 const ForgetHelp = styled.div`
@@ -77,20 +77,18 @@ export default function SignIn({ history }: RouteComponentProps) {
   return (
     <>
       <SignWrapper>
-        <Link to="/">
-          <Title>Mine Sweeper</Title>
-        </Link>
+        <Title>Mine Sweeper</Title>
         <form onSubmit={submintHandler}>
           <Input
             type="text"
-            placeholder="id"
+            placeholder="아이디"
             name="userid"
             value={value.userid}
             onChange={changeValue}
           />
           <Input
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             name="password"
             value={value.password}
             onChange={changeValue}
@@ -100,11 +98,11 @@ export default function SignIn({ history }: RouteComponentProps) {
             <Link to="/">Forgot password</Link>
             <Link to="/">Sign Up</Link>
           </ForgetHelp>
-          {error && <span className="failmsg">id or password is wrong</span>}
+          {error && <span className="failmsg">아이디 또는 비밀번호가 틀립니다.</span>}
           <Input
             type="submit"
             name="login"
-            value="Login"
+            value="로그인"
           />
         </form>
       </SignWrapper>

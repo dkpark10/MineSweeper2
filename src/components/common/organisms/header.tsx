@@ -10,7 +10,7 @@ const HeaderWrapper = styled.header`
   position: relative;
   width:100%;
   height:51px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   background-color: ${({ theme }) => theme.grayMainColor};
   display:flex;
   align-items: center;
@@ -90,7 +90,7 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
 
     ul{
       display:flex;
-      font-size:0.9rem;
+      font-size:1.0rem;
 
       li{
         margin:0px 12px;
@@ -106,11 +106,11 @@ export default function Header() {
 
   const menu =
     [
-      { title: "game", url: "/" },
-      { title: "ranking", url: "/ranking/easy?page=1" },
-      { title: "community", url: "/community?page=1" },
-      { title: "my page", url: "/mypage" },
-      { title: "options", url: "/option" }
+      { title: "게임", url: "/" },
+      { title: "랭킹", url: "/ranking/easy?page=1" },
+      { title: "게시판", url: "/community?page=1" },
+      { title: "나의 페이지", url: "/mypage" },
+      { title: "옵션", url: "/option" }
     ] as const;
 
   const openMenu = () => {
@@ -145,18 +145,20 @@ export default function Header() {
                   </Link>
                 </li>
               )}
-              <span className="sign_navi">
-                <li>
-                  <Link to="signin">
-                    signin
-                  </Link>
-                </li>
-                <li>
-                  <Link to="signin">
-                    signup
-                  </Link>
-                </li>
-              </span>
+              {showMenu &&
+                <>
+                  <li>
+                    <Link to="signin">
+                      로그인
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="signup">
+                      회원가입
+                    </Link>
+                  </li>
+                </>
+              }
             </ul>
           </div>
         </NavigatorWrapper>

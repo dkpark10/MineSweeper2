@@ -1,17 +1,16 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { AxiosResponse } from "axios";
-import { useDispatch } from "react-redux";
-import { setLogin } from "../../../reducers/login";
 import { Response } from "response-type";
 import { debounce } from "lodash";
 
 import Input from "../atoms/input";
-import Title from "../atoms/title";
+import Title from "../../common/atoms/title";
 import useInput from "../../custom_hook/useinput";
 import SignWrapper from "../atoms/wrapper";
 
 import axiosInstance from "../../../modules/default_axios";
+import { invalidMessage } from "../../../modules/static_data";
 
 interface InputProps {
   id: string;
@@ -22,7 +21,6 @@ interface InputProps {
 
 export default function SignUp({ history }: RouteComponentProps) {
 
-  const dispatch = useDispatch();
   const duplicateCheck = useMemo(() =>
     debounce(async ({ name, value }) => {
 
@@ -31,19 +29,9 @@ export default function SignUp({ history }: RouteComponentProps) {
       }
 
       const regList: { [key: string]: RegExp } = {
-        id: /^[A-za-z0-9]{5,15}$/g,  // 영문 대문자 또는 소문자 또는 숫자로 시작 길이는 5 ~ 15
+        id: /^[A-za-z0-9]{5,15}$/g,
         email: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
       };
-
-      const invalidMessage = {
-        id: [
-          "5~15 characters consisting of English letters(a-zA-Z), numbers, or special characters (_).",
-          "id already exists."
-        ],
-        email: [
-          "the email entered is in an invalid format."
-        ]
-      }
 
       if (value && regList[name].exec(value) === null) {
         setValidator(prev => ({
@@ -118,7 +106,7 @@ export default function SignUp({ history }: RouteComponentProps) {
     e.preventDefault();
     const checkValidValue = Object.entries(validator).filter(([_, value]) => value.result === false).length > 0;
     if (checkValidValue) {
-      alert("The registration form is invalid");
+      alert("양식에 맞게 다시 작성해 주세요.");
       return;
     }
 
@@ -133,29 +121,25 @@ export default function SignUp({ history }: RouteComponentProps) {
         if (data.result === true) {
           history.goBack();
         } else {
-          // 회원가입 실패하면 어찌 처리할까?
-          throw new Error("sorry member registration failed");
+          throw new Error("유저 등록에 실패하였습니다.");
         }
       } catch (e) {
         alert(e.message);
       }
     }
-
     request();
   }
 
   return (
     <>
       <SignWrapper>
-        <Link to="/">
-          <Title>Mine Sweeper</Title>
-        </Link>
+        <Title>Mine Sweeper</Title>
         <form onSubmit={submintHandler}>
           <div>
             <label htmlFor="id" />
             <Input
               type="text"
-              placeholder="id"
+              placeholder="아이디"
               name="id"
               id="id"
               value={value.id}
@@ -172,7 +156,7 @@ export default function SignUp({ history }: RouteComponentProps) {
             <label htmlFor="email" />
             <Input
               type="eamil"
-              placeholder="email"
+              placeholder="이메일"
               name="email"
               id="email"
               value={value.email}
@@ -189,7 +173,7 @@ export default function SignUp({ history }: RouteComponentProps) {
             <label htmlFor="password" />
             <Input
               type="password"
-              placeholder="password"
+              placeholder="비밀번호"
               name="password"
               id="password"
               value={value.password}
@@ -197,7 +181,7 @@ export default function SignUp({ history }: RouteComponentProps) {
             />
             {validator.password.result === false &&
               <div className="failmsg" id="invalid_password">
-              The password must be at least 6 to 15 digits.
+              {invalidMessage.password}
               </div>
             }
           </div>
@@ -205,7 +189,7 @@ export default function SignUp({ history }: RouteComponentProps) {
             <label htmlFor="repeat-password" />
             <Input
               type="password"
-              placeholder="repeat password"
+              placeholder="비밀번호 확인"
               name="repeatPassword"
               id="repeat-password"
               value={value.repeatPassword}
@@ -213,14 +197,14 @@ export default function SignUp({ history }: RouteComponentProps) {
             />
             {validator.repeatPassword.result === false &&
               <div className="failmsg" id="invalid_repeat_password">
-              The password doesn't match.
+              {invalidMessage.repeatPassword}
               </div>
             }
           </div>
           <Input
             type="submit"
             name="signup"
-            value="Sign Up"
+            value="회원가입"
           />
         </form>
       </SignWrapper>

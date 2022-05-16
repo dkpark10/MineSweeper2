@@ -22,9 +22,17 @@ const HamStyle = styled.span`
   }
 `;
 
-export default function Hamburger() {
+interface Props {
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+}
+
+export default function Hamburger({
+  onClick
+}: Props) {
   return (
-    <HamStyle>
+    <HamStyle 
+      onClick={onClick}
+    >
       <div></div>
       <div></div>
       <div></div>

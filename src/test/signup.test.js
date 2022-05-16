@@ -5,12 +5,11 @@ import { invalidMessage } from "../modules/static_data";
 
 describe("회원가입 입력 검증 테스트", () => {
 
-
   test("아이디 이메일 입력 검증", async () => {
     const { container, getByText } = render(defaultComponent());
 
     await waitFor(() => {
-      fireEvent.click(getByText("sign up"));
+      fireEvent.click(getByText("회원가입"));
     })
 
     const inputId = container.querySelector("#id");
@@ -25,7 +24,7 @@ describe("회원가입 입력 검증 테스트", () => {
     fireEvent.change(inputEmail, { target: { value: "asd" } });
     await waitFor(() => {
       const failMessage = container.querySelector("#invalid_email");
-      expect(failMessage.textContent).toBe(invalidMessage.email);
+      expect(failMessage.textContent).toBe(invalidMessage.email[0]);
     })
   })
 

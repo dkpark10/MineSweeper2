@@ -34,7 +34,9 @@ const Input = styled('input').attrs(({ type, value }: Props) => ({
   &:hover{
     background-image: ${({ type }) => {
       if(type === 'submit'){
-        return type === 'submit' ? 'linear-gradient(70deg,#1033e3, #f74bf7)' : '';
+        return type === 'submit' ? 
+        `linear-gradient(70deg,#1033e3, #f74bf7);
+         cursor:pointer` : '';
       }
     }};
   }

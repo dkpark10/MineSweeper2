@@ -68,10 +68,10 @@ export default function SignNavigator({
         {isLogin === false ?
           <>
             <Link to="/signin">
-              sign in
+              로그인
             </Link>
             <Link to="/signup">
-              sign up
+              회원가입
             </Link>
           </>
           :
@@ -79,7 +79,7 @@ export default function SignNavigator({
             className="signout"
             onClick={logout}
           >
-            sign out
+            로그아웃
           </div>
         }
       </SignNavigatorWrapper>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import CenterWrapper from '../../common/atoms/center_wrapper';
 
 const SignWrapper = styled(CenterWrapper)`
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   background-color: white;
   padding:20px;
   border-radius: 12px;
@@ -16,7 +16,7 @@ const SignWrapper = styled(CenterWrapper)`
     color:red;
   }
 
-  & a{
+  a{
     text-decoration: none;
   }
 
