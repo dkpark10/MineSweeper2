@@ -41,9 +41,9 @@ const GameBoardWrapper = styled.div<{
 export default function MineSweeper({ level }: Props) {
 
   const levelList: { [key: string]: Level } = {
-    Easy: { row: 9, col: 9, countOfMine: 10, width: '265px' },
-    Normal: { row: 16, col: 16, countOfMine: 40, width: '444px' },
-    Hard: { row: 16, col: 30, countOfMine: 99, width: '794px' }
+    easy: { row: 9, col: 9, countOfMine: 10, width: '265px' },
+    normal: { row: 16, col: 16, countOfMine: 40, width: '444px' },
+    hard: { row: 16, col: 30, countOfMine: 99, width: '794px' }
   };
 
   const { row, col, countOfMine, width } = levelList[level];

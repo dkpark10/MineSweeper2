@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { RootState } from "../../../reducers";
 import { useSelector } from "react-redux";
 import HeaderTitle from "../molecules/header_title";
-import SignNavigator from "../atoms/sign_navigator";
+import SignNavigator from "../molecules/sign_navigator";
 
 const HeaderWrapper = styled.header`
   position: relative;
@@ -43,6 +43,7 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
     left:-100vw;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index:98;
     animation: ${({ show }) =>
     show === true ?
       css`${MenuMoveAnimation(0)} 0.1s linear forwards` : ''};
@@ -53,7 +54,7 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
       width:65vw;
       height:93vh;
       justify-content: center;
-      z-index:1;
+      z-index:99;
       background-color: white;
       align-content: space-around;
       flex-wrap: wrap;
@@ -99,12 +100,12 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
   }
 `;
 
-export default function Header() {
+export default function Header(){
 
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const isLogin = useSelector((state: RootState) => state.login.isLogin);
 
-  const menu =
+  const menus =
     [
       { title: "게임", url: "/" },
       { title: "랭킹", url: "/ranking/easy?page=1" },
@@ -136,12 +137,12 @@ export default function Header() {
         >
           <div className="menu_content">
             <ul>
-              {menu.map((ele, idx) =>
+              {menus.map((menu, idx) =>
                 <li key={idx}>
                   <Link
-                    to={ele.url}
+                    to={menu.url}
                   >
-                    {ele.title}
+                    {menu.title}
                   </Link>
                 </li>
               )}

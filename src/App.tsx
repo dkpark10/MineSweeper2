@@ -4,31 +4,23 @@ import './styles/app.css';
 // import SignUp from './components/signup';
 import NotFound from './components/page/notfound';
 import Loading from './components/page/loading';
-import Option from './components/option';
 import axios from 'axios';
 import { setLogin } from './reducers/login';
 import { useDispatch } from 'react-redux';
 import axiosApi, { Response } from './modules/axiosapi';
 
-
-// 라우팅 또는 페이지 컴포넌트에서 가져와야 한다.
-
-// import Game from './components/mine_sweeper/page/index';
-
-// import Game from './components/game';
 const Game = lazy(() => import('./components/mine_sweeper/page/index'));
 const SignIn = lazy(() => import("./components/sign/page/signin"));
 const SignUp = lazy(() => import("./components/sign/page/signup"));
-// const SignIn = lazy(() => import('./components/signin'));
 const Bulletin = lazy(() => import('./components/route/community'));
 const MyPage = lazy(() => import('./components/route/mypage'));
 const Ranking = lazy(() => import('./components/ranking'));
+const Option = lazy(() => import('./components/options/page/index'));
 
 export default function App() {
-
-  // const dispatch = useDispatch();
-  // // Authorization 헤더는 새로고침 브라우저 꺼지면 사라지므로
-  // // 컴포넌트 새로 마운트 될 때 마다 토큰 박음
+  const dispatch = useDispatch();
+  // Authorization 헤더는 새로고침 브라우저 꺼지면 사라지므로
+  // 컴포넌트 새로 마운트 될 때 마다 토큰 박음
   // useEffect(() => {
 
   //   axiosApi.post(`/api/slientlogin`)
@@ -49,10 +41,10 @@ export default function App() {
           <Route exact path="/" component={Game} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
-          {/* <Route path="/ranking/:level" component={Ranking} />
+          <Route path="/ranking/:level" component={Ranking} />
           <Route path="/community" component={Bulletin} />
           <Route path="/mypage" component={MyPage} />
-          <Route path="/option" component={Option} /> */}
+          <Route path="/option" component={Option} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>

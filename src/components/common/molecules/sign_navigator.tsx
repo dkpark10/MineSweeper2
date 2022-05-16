@@ -8,13 +8,13 @@ import { AxiosResponse } from "axios";
 import { Response } from "response-type";
 
 const SignNavigatorWrapper = styled.div`
-  // 모바일
   @media screen and (${({ theme }) => theme.mobile}){
     display:none;
   }
 
   margin: 0px 1.05rem;
   font-size:0.9rem;
+  cursor:pointer;
 
   a{
     color: #FFF6E3;
@@ -37,6 +37,10 @@ const SignNavigatorWrapper = styled.div`
   .signout{
     color: #FFF6E3;
     margin: 0px 1.65rem;
+  }
+
+  .signout:hover{
+    color: ${({ theme }) => theme.mainColor};
   }
 `;
 

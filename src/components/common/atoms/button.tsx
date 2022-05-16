@@ -5,15 +5,16 @@ interface Props {
   width: string;
   height: string;
   children: JSX.Element | string | number;
+  color?:string;
   border?:string;
   radius?:string;
 };
 
-export const DefaultButton = styled.button<Props>`
+export default styled.button<Props>`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   border: ${({ border }) => border || "none"};
   border-radius: ${({ radius }) => radius || "0px"};
-  color: black;
+  color: ${({ color }) => color || "black"};
   cursor:pointer;
 `;

@@ -4,15 +4,13 @@ import defaultComponent from "./default";
 
 describe("메인 게임 테스트", () => {
   const levelList = {
-    Easy: { row: 9, col: 9, countOfMine: 10, width: "294" },
-    Normal: { row: 16, col: 16, countOfMine: 40, width: "444" },
-    Hard: { row: 16, col: 30, countOfMine: 99, width: "794" }
+    easy: { row: 9, col: 9, countOfMine: 10, width: "294" },
+    normal: { row: 16, col: 16, countOfMine: 40, width: "444" },
+    hard: { row: 16, col: 30, countOfMine: 99, width: "794" }
   };
 
-  // 첫번째 테스트만 waitFor 함수를 사용해서 테스트 해야 정상
-  // 처음 렌더링은 lazy load라서 그런가 ???
   test("쉬움 난이도 테스트", async () => {
-    global.localStorage.setItem("difficulty", "Easy");
+    global.localStorage.setItem("difficulty", "easy");
     let level = global.localStorage.getItem("difficulty");
 
     const { container } = render(defaultComponent());
@@ -24,7 +22,7 @@ describe("메인 게임 테스트", () => {
   })
 
   test("보통 길이 테스트", async () => {
-    global.localStorage.setItem("difficulty", "Normal");
+    global.localStorage.setItem("difficulty", "normal");
     let level = global.localStorage.getItem("difficulty");
 
     const { container } = render(defaultComponent());
@@ -36,7 +34,7 @@ describe("메인 게임 테스트", () => {
   })
 
   test("어려움 길이 테스트", async () => {
-    global.localStorage.setItem("difficulty", "Hard");
+    global.localStorage.setItem("difficulty", "hard");
     let level = global.localStorage.getItem("difficulty");
 
     const { container } = render(defaultComponent());
@@ -48,7 +46,7 @@ describe("메인 게임 테스트", () => {
   })
 
   test("좌클릭 테스트", async () => {
-    global.localStorage.setItem("difficulty", "Easy");
+    global.localStorage.setItem("difficulty", "easy");
     const { container } = render(defaultComponent());
 
     const cells = container.getElementsByClassName("cell");
@@ -59,7 +57,7 @@ describe("메인 게임 테스트", () => {
   })
 
   test("우클릭 테스트", async () => {
-    global.localStorage.setItem("difficulty", "Easy");
+    global.localStorage.setItem("difficulty", "easy");
     const level = global.localStorage.getItem("difficulty");
     const { container, getByText } = render(defaultComponent());
 
