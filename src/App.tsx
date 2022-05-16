@@ -10,16 +10,15 @@ import { setLogin } from './reducers/login';
 import { useDispatch } from 'react-redux';
 import axiosApi, { Response } from './modules/axiosapi';
 
+
 // 라우팅 또는 페이지 컴포넌트에서 가져와야 한다.
 
 // import Game from './components/mine_sweeper/page/index';
-import useLocalStorage from './components/custom_hook/uselocalstorage';
-import SignIn from './components/sign/page/signin';
-import SignUp from './components/sign/page/signup';
-
 
 // import Game from './components/game';
 const Game = lazy(() => import('./components/mine_sweeper/page/index'));
+const SignIn = lazy(() => import("./components/sign/page/signin"));
+const SignUp = lazy(() => import("./components/sign/page/signup"));
 // const SignIn = lazy(() => import('./components/signin'));
 const Bulletin = lazy(() => import('./components/route/community'));
 const MyPage = lazy(() => import('./components/route/mypage'));

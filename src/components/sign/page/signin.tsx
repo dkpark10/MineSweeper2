@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import useInput from '../../custom_hook/useinput';
-import axios, { AxiosResponse } from 'axios';
-import { useDispatch } from 'react-redux';
-import { setLogin } from '../../../reducers/login';
-import { Response } from 'response-type';
-import Input from '../atoms/input';
-import Title from '../atoms/title';
-import SignWrapper from '../atoms/wrapper';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link, RouteComponentProps } from "react-router-dom";
+import useInput from "../../custom_hook/useinput";
+import { AxiosResponse } from "axios";
+import axiosInstance from '../../../modules/default_axios';
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../../reducers/login";
+import { Response } from "response-type";
+import Input from "../atoms/input";
+import Title from "../atoms/title";
+import SignWrapper from "../atoms/wrapper";
 
 const ForgetHelp = styled.div`
   display:flex;
@@ -32,8 +33,8 @@ export default function SignIn({ history }: RouteComponentProps) {
 
   const dispatch = useDispatch();
   const [value, changeValue] = useInput<InputProps>({
-    userid:'',
-    password:''
+    userid: "",
+    password: ""
   });
   const [error, setError] = useState<boolean>(false);
 
@@ -48,18 +49,18 @@ export default function SignIn({ history }: RouteComponentProps) {
     }
 
     try {
-      const { data }: AxiosResponse<Response> = await axios.post('/api/login', {
+      const { data }: AxiosResponse<Response> = await axiosInstance.post("/api/login", {
         "id": value.userid,
         "pwd": value.password
       })
 
       if (data.result === false) {
-        throw new Error('로그인 실패');
+        throw new Error("로그인 실패");
       }
 
       const accessToken = data.loginInfo.accessToken;
       // Authorization 헤더에 토큰을 박는다.
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
       dispatch(setLogin({
         isLogin: true,
@@ -81,16 +82,16 @@ export default function SignIn({ history }: RouteComponentProps) {
         </Link>
         <form onSubmit={submintHandler}>
           <Input
-            type='text'
-            placeholder='id'
-            name='userid'
+            type="text"
+            placeholder="id"
+            name="userid"
             value={value.userid}
             onChange={changeValue}
           />
           <Input
-            type='password'
-            placeholder='Password'
-            name='password'
+            type="password"
+            placeholder="Password"
+            name="password"
             value={value.password}
             onChange={changeValue}
           />
@@ -99,11 +100,11 @@ export default function SignIn({ history }: RouteComponentProps) {
             <Link to="/">Forgot password</Link>
             <Link to="/">Sign Up</Link>
           </ForgetHelp>
-          {error && <span className='failmsg'>id or password is wrong</span>}
+          {error && <span className="failmsg">id or password is wrong</span>}
           <Input
-            type='submit'
-            name='login'
-            value='Login'
+            type="submit"
+            name="login"
+            value="Login"
           />
         </form>
       </SignWrapper>

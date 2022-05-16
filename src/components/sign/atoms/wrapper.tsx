@@ -13,6 +13,7 @@ const SignWrapper = styled(CenterWrapper)`
   .failmsg{
     text-align:center;
     font-size:0.9rem;
+    color:red;
   }
 
   & a{

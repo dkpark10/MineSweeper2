@@ -9,6 +9,7 @@ const ModalWrapperStyle = styled.div<Props>`
   position: fixed;
   width:100%;
   height:100%;
+  top:0;
   z-index: 1;
   font-size:0.92rem;
   font-family: 'Noto Sans KR', sans-serif;
@@ -31,9 +32,8 @@ export default function ModalWrapper({
     document.body.style.overflow = 'hidden';
   })
 
-
   // 모달 바깥을 클릭하면 닫는다.
-  const overlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
     // 자식한테 이벤트 전파 방지
     if (e.target === e.currentTarget) {
     }
@@ -43,11 +43,9 @@ export default function ModalWrapper({
     <>
       <ModalWrapperStyle>
         <div className='overlay'
-          onClick={overlayClick}
+          onClick={closeModal}
         >
-          <div className='modal-content'>
-            {children}
-          </div>
+          {children}
         </div>
       </ModalWrapperStyle>
     </>

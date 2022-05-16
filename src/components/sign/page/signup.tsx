@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import styled from 'styled-components';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { AxiosResponse } from 'axios';
-import { useDispatch } from 'react-redux';
-import { setLogin } from '../../../reducers/login';
-import { Response } from 'response-type';
-import { debounce } from 'lodash';
-import axiosInstance from '../../../modules/default_axios';
+import React, { useEffect, useState, useMemo } from "react";
+import { Link, RouteComponentProps } from "react-router-dom";
+import { AxiosResponse } from "axios";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../../reducers/login";
+import { Response } from "response-type";
+import { debounce } from "lodash";
 
-import Input from '../atoms/input';
-import Title from '../atoms/title';
-import useInput from '../../custom_hook/useinput';
-import SignWrapper from '../atoms/wrapper';
+import Input from "../atoms/input";
+import Title from "../atoms/title";
+import useInput from "../../custom_hook/useinput";
+import SignWrapper from "../atoms/wrapper";
+
+import axiosInstance from "../../../modules/default_axios";
 
 interface InputProps {
   id: string;
@@ -20,13 +20,13 @@ interface InputProps {
   repeatPassword: string;
 }
 
-export default function SignIn({ history }: RouteComponentProps) {
+export default function SignUp({ history }: RouteComponentProps) {
 
   const dispatch = useDispatch();
   const duplicateCheck = useMemo(() =>
     debounce(async ({ name, value }) => {
 
-      if (name !== 'id' && name !== 'email') {
+      if (name !== "id" && name !== "email") {
         return;
       }
 
@@ -37,11 +37,11 @@ export default function SignIn({ history }: RouteComponentProps) {
 
       const invalidMessage = {
         id: [
-          '5~15 characters consisting of English letters(a-zA-Z), numbers, or special characters (_).',
-          'id already exists.'
+          "5~15 characters consisting of English letters(a-zA-Z), numbers, or special characters (_).",
+          "id already exists."
         ],
         email: [
-          'the email entered is in an invalid format.'
+          "the email entered is in an invalid format."
         ]
       }
 
@@ -72,22 +72,22 @@ export default function SignIn({ history }: RouteComponentProps) {
         ...prev,
         [name]: {
           result: true,
-          msg: ''
+          msg: ""
         }
       }))
     }, 350), []
   )
 
   const [value, changeValue] = useInput<InputProps>({
-    id: '',
-    email: '',
-    password: '',
-    repeatPassword: ''
+    id: "",
+    email: "",
+    password: "",
+    repeatPassword: ""
   }, duplicateCheck);
 
   const [validator, setValidator] = useState({
-    id: { result: true, msg: '' },
-    email: { result: true, msg: '' },
+    id: { result: true, msg: "" },
+    email: { result: true, msg: "" },
     password: { result: true },
     repeatPassword: { result: true }
   });
@@ -118,13 +118,13 @@ export default function SignIn({ history }: RouteComponentProps) {
     e.preventDefault();
     const checkValidValue = Object.entries(validator).filter(([_, value]) => value.result === false).length > 0;
     if (checkValidValue) {
-      alert('The registration form is invalid');
+      alert("The registration form is invalid");
       return;
     }
 
     const request = async () => {
       try {
-        const { data }: AxiosResponse<Response> = await axiosInstance.post('/api/user', {
+        const { data }: AxiosResponse<Response> = await axiosInstance.post("/api/user", {
           id: value.id,
           email: value.email,
           pwd: value.password
@@ -134,7 +134,7 @@ export default function SignIn({ history }: RouteComponentProps) {
           history.goBack();
         } else {
           // 회원가입 실패하면 어찌 처리할까?
-          throw new Error('sorry member registration failed');
+          throw new Error("sorry member registration failed");
         }
       } catch (e) {
         alert(e.message);
@@ -144,7 +144,6 @@ export default function SignIn({ history }: RouteComponentProps) {
     request();
   }
 
-
   return (
     <>
       <SignWrapper>
@@ -152,72 +151,76 @@ export default function SignIn({ history }: RouteComponentProps) {
           <Title>Mine Sweeper</Title>
         </Link>
         <form onSubmit={submintHandler}>
+          <div>
+            <label htmlFor="id" />
+            <Input
+              type="text"
+              placeholder="id"
+              name="id"
+              id="id"
+              value={value.id}
+              onChange={changeValue}
+            />
+            {validator.id.result === false &&
+              value.id &&
+              <div className="failmsg" id="invalid_id">
+              {validator.id.msg}
+              </div>
+            }
+          </div>
+          <div>
+            <label htmlFor="email" />
+            <Input
+              type="eamil"
+              placeholder="email"
+              name="email"
+              id="email"
+              value={value.email}
+              onChange={changeValue}
+            />
+            {validator.email.result === false &&
+              value.email &&
+              <div className="failmsg" id="invalid_email">
+              {validator.email.msg}
+              </div>
+            }
+          </div>
+          <div>
+            <label htmlFor="password" />
+            <Input
+              type="password"
+              placeholder="password"
+              name="password"
+              id="password"
+              value={value.password}
+              onChange={changeValue}
+            />
+            {validator.password.result === false &&
+              <div className="failmsg" id="invalid_password">
+              The password must be at least 6 to 15 digits.
+              </div>
+            }
+          </div>
+          <div>
+            <label htmlFor="repeat-password" />
+            <Input
+              type="password"
+              placeholder="repeat password"
+              name="repeatPassword"
+              id="repeat-password"
+              value={value.repeatPassword}
+              onChange={changeValue}
+            />
+            {validator.repeatPassword.result === false &&
+              <div className="failmsg" id="invalid_repeat_password">
+              The password doesn't match.
+              </div>
+            }
+          </div>
           <Input
-            type='text'
-            placeholder='id'
-            name='id'
-            id='id'
-            value={value.id}
-            onChange={changeValue}
-          />
-          {validator.id.result === false &&
-            value.id &&
-            <div className='failmsg'>
-              <label htmlFor='id'>
-                {validator.id.msg}
-              </label>
-            </div>
-          }
-          <Input
-            type='text'
-            placeholder='email'
-            name='email'
-            id='email'
-            value={value.email}
-            onChange={changeValue}
-          />
-          {validator.email.result === false &&
-            value.email &&
-            <div className='failmsg'>
-              <label htmlFor='email'>
-                {validator.email.msg}
-              </label>
-            </div>
-          }
-          <Input
-            type='password'
-            placeholder='password'
-            name='password'
-            id='password'
-            value={value.password}
-            onChange={changeValue}
-          />
-          {validator.password.result === false &&
-            <div className='failmsg'>
-              <label htmlFor='password'>
-                The password must be at least 6 to 15 digits.
-              </label>
-            </div>
-          }
-          <Input
-            type='password'
-            placeholder='repeat password'
-            name='repeatPassword'
-            id='repeat-password'
-            value={value.repeatPassword}
-            onChange={changeValue}
-          />
-          {validator.repeatPassword.result === false &&
-            <div className='failmsg'>
-              <label htmlFor='repeat-password'>
-                The password doesn't match.
-              </label>
-            </div>
-          }
-          <Input
-            type='submit'
-            name='signup'
-            value='Sign Up'
+            type="submit"
+            name="signup"
+            value="Sign Up"
           />
         </form>
       </SignWrapper>

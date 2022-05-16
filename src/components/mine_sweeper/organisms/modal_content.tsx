@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../reducers/index';
 import styled from 'styled-components';
-import { StyleButton } from '../../common/atoms/button';
+import { DefaultButton } from '../../common/atoms/button';
 import axiosInstance from '../../../modules/default_axios';
 
 interface Props {
@@ -23,7 +23,7 @@ const ModalContentStyle = styled.div`
          -1px -1px 3px #ffffff;
 `;
 
-const CloseButton = styled(StyleButton)`
+const CloseButton = styled(DefaultButton)`
   margin-top: 20px;
   font-family: 'Noto Sans KR', sans-serif;
   background-color: ${({ theme }) => theme.mainColor};

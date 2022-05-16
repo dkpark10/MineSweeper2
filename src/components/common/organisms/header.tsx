@@ -80,6 +80,10 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
     display:flex;
     align-items:center;
 
+    .sign_navi{
+      display:none;
+    }
+
     a{
       color: #FFF6E3;
     }
@@ -141,10 +145,24 @@ export default function Header() {
                   </Link>
                 </li>
               )}
+              <span className="sign_navi">
+                <li>
+                  <Link to="signin">
+                    signin
+                  </Link>
+                </li>
+                <li>
+                  <Link to="signin">
+                    signup
+                  </Link>
+                </li>
+              </span>
             </ul>
           </div>
         </NavigatorWrapper>
-        <SignNavigator />
+        <SignNavigator
+          isLogin={isLogin}
+        />
       </HeaderWrapper>
     </>
   )
