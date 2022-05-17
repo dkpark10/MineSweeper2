@@ -9,8 +9,8 @@ import Title from "../../common/atoms/title";
 import useInput from "../../custom_hook/useinput";
 import SignWrapper from "../atoms/wrapper";
 
-import axiosInstance from "../../../modules/default_axios";
-import { invalidMessage } from "../../../modules/static_data";
+import axiosInstance from "../../../utils/default_axios";
+import { invalidMessage } from "../../../utils/static_data";
 
 interface InputProps {
   id: string;

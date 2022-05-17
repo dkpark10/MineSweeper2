@@ -2,7 +2,7 @@ import Header from './header';
 import '../styles/Ranking.css';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axiosApi, { Response } from '../modules/axiosapi';
+import axiosApi, { Response } from '../utils/axiosapi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../reducers/index';
 import queryString from 'query-string';

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../reducers/index';
 import styled from 'styled-components';
 import Button from '../../common/atoms/button';
-import axiosInstance from '../../../modules/default_axios';
+import axiosInstance from '../../../utils/default_axios';
 
 interface Props {
   takenTime: number;

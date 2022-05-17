@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import axiosApi, { Response } from '../../modules/axiosapi';
+import axiosApi, { Response } from '../../utils/axiosapi';
 import React, { useEffect, useState } from 'react';
 
 import {

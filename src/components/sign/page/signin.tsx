@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link, RouteComponentProps } from "react-router-dom";
 import useInput from "../../custom_hook/useinput";
 import { AxiosResponse } from "axios";
-import axiosInstance from '../../../modules/default_axios';
+import axiosInstance from '../../../utils/default_axios';
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../../reducers/login";
 import { Response } from "response-type";

@@ -3,8 +3,7 @@ const ONEHOUR = 3600 as const;
 const ONEDAY = 86400 as const;
 const ONEMONTH = 30 * ONEDAY;
 
-// 얼마나 지났나??
-const calculTimeAgo = (time: number): string => {
+const calculPassedTime = (time: number): string => {
 
   const currentTime = Math.floor(new Date().getTime() / 1000);
   const gap = currentTime - time;
@@ -36,4 +35,4 @@ const timeToDate = (time: number) => {
   return `${year}/${month}/${day}`;
 }
 
-export {calculTimeAgo, timeToDate};
+export { calculPassedTime, timeToDate };

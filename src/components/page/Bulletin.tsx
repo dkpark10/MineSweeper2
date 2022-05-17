@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../reducers';
 import React, { useEffect, useState } from 'react';
-import axiosApi, { Response } from '../../modules/axiosapi';
+import axiosApi, { Response } from '../../utils/axiosapi';
 import { IPost } from '../organisms/post_article';
 import PostCardList from '../organisms/post_cardlist';
 

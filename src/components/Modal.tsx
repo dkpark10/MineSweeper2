@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../reducers/index';
 import { gameReset, setRecordTime } from '../reducers/game';
 import React, { useEffect } from 'react';
-import axiosApi, { Response } from '../modules/axiosapi';
+import axiosApi, { Response } from '../utils/axiosapi';
 
 interface ModalProps{
   levelInfo: string;

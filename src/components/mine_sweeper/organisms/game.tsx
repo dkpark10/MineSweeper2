@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import createClickFactory from '../../../modules/mine_sweeper/click_factory';
-import CellHandler from '../../../modules/mine_sweeper/cell_handler';
 import Cell from '../atoms/cell';
 import GameHeader from '../molecules/game_header';
 import ModalWrapper from '../../common/organisms/modal_wrapper';
 import ModalContent from './modal_content';
+
+import createClickFactory from '../../../utils/mine_sweeper/click_factory';
+import CellHandler from '../../../utils/mine_sweeper/cell_handler';
 
 import styled from 'styled-components';
 import {
@@ -13,10 +14,6 @@ import {
   CellData,
   ClickRenderStatus
 } from 'mine-sweeper-type'
-
-interface Props {
-  level: string;
-}
 
 const GameBoardWrapper = styled.div<{
   minWidth: string
@@ -38,7 +35,7 @@ const GameBoardWrapper = styled.div<{
   }
 `;
 
-export default function MineSweeper({ level }: Props) {
+export default function MineSweeper({ level }: { level: string }) {
 
   const levelList: { [key: string]: Level } = {
     easy: { row: 9, col: 9, countOfMine: 10, width: '265px' },

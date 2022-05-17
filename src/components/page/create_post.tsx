@@ -6,7 +6,7 @@ import Editor from '../organisms/editor';
 import styled from 'styled-components';
 import defaultTheme from "../../styles/theme";
 import { RouteComponentProps } from 'react-router-dom';
-import axiosApi, { Response } from '../../modules/axiosapi';
+import axiosApi, { Response } from '../../utils/axiosapi';
 import { RootState } from '../../reducers';
 import { useSelector } from 'react-redux';
 

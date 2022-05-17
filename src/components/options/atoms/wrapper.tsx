@@ -10,8 +10,8 @@ const OptionWrapper = styled(CenterWrapper)`
   box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
 
   @media screen and (${({theme}) => theme.mobile}){
-    width: 100vw;
-    padding:12px;
+    width: 90vw;
+    padding:20px;
   }
 `;
 

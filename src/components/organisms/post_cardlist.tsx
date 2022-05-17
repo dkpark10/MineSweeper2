@@ -2,7 +2,7 @@ import MyLink from '../atoms/mylink';
 import { InlineText } from '../atoms/text';
 import { PostStyle } from '../atoms/post_wrapper';
 import TextWrapper from '../molecules/text_wrapper';
-import { calculTimeAgo } from '../../modules/date_handler';
+import { calculPassedTime } from '../../utils/date_handler';
 import { IPost } from './post_article';
 import styled from 'styled-components';
 
@@ -65,7 +65,7 @@ export default function PostCardList({ postList, totalItemCount, url, page }: IP
             <TextWrapper
               textAlign={'center'}
               fontSize={'0.85rem'}
-              value={calculTimeAgo(time)}
+              value={calculPassedTime(time)}
               isColor={false}
             />
             <TextWrapper

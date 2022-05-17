@@ -3,7 +3,7 @@ import Header from '../header';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import queryString from 'query-string';
-import axiosApi, { Response } from '../../modules/axiosapi';
+import axiosApi, { Response } from '../../utils/axiosapi';
 import { RootState } from '../../reducers';
 import { useSelector } from 'react-redux';
 import TextWrapper from '../molecules/text_wrapper';

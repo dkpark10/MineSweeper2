@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps } from 'react-router-dom';
 import { useEffect } from 'react';
-import axiosApi, { Response } from '../../modules/axiosapi';
+import axiosApi, { Response } from '../../utils/axiosapi';
 import { HeaderText } from '../atoms/text';
 import TextWrapper from '../molecules/text_wrapper';
-import { calculTimeAgo } from '../../modules/date_handler';
+import { calculPassedTime } from '../../utils/date_handler';
 import PostController from '../molecules/post_controller';
 import parse from 'html-react-parser';
 import { useSelector } from 'react-redux';
@@ -88,7 +88,7 @@ export default function PostArticle({ match, history }: RouteComponentProps<Matc
         <TextWrapper
           width={'50%'}
           fontSize={'0.9rem'}
-          value={`${calculTimeAgo(post.time)}`}
+          value={`${calculPassedTime(post.time)}`}
         />
         <TextWrapper
           width={'50%'}

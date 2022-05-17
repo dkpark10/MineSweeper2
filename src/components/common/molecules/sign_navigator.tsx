@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import axiosInstance from "../../../modules/default_axios";
 import { setLogin } from "../../../reducers/login";
 import { useDispatch } from "react-redux";
 import { AxiosResponse } from "axios";
 import { Response } from "response-type";
+import axiosInstance from "../../../utils/default_axios";
 
 const SignNavigatorWrapper = styled.div`
   @media screen and (${({ theme }) => theme.mobile}){
