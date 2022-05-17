@@ -40,7 +40,6 @@ const PageStyle = styled.span<IPageStyle>`
     &:hover{
       color:${({ theme }) => theme.mainColor};
   }};
-}
 `;
 
 const PageLink = ({

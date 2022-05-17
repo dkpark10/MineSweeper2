@@ -40,7 +40,8 @@ export default function MineSweeper({ level }: { level: string }) {
   const levelList: { [key: string]: Level } = {
     easy: { row: 9, col: 9, countOfMine: 10, width: '265px' },
     normal: { row: 16, col: 16, countOfMine: 40, width: '444px' },
-    hard: { row: 16, col: 30, countOfMine: 99, width: '794px' }
+    hard: { row: 16, col: 30, countOfMine: 99, width: '794px' },
+    mhard: { row: 30, col: 16, countOfMine: 99, width: '444px' }
   };
 
   const { row, col, countOfMine, width } = levelList[level];

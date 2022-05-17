@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../reducers/index';
-import styled from 'styled-components';
-import Button from '../../common/atoms/button';
-import axiosInstance from '../../../utils/default_axios';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../reducers/index";
+import styled from "styled-components";
+import Button from "../../common/atoms/button";
+import axiosInstance from "../../../utils/default_axios";
 
 interface Props {
   takenTime: number;
@@ -25,7 +25,7 @@ const ModalContentStyle = styled.div`
 
 const CloseButton = styled(Button)`
   margin-top: 20px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   background-color: ${({ theme }) => theme.mainColor};
   color: white;
 
@@ -49,8 +49,8 @@ export default function ModalContent({
 
     const request = async () => {
       try {
-        await axiosInstance.post('/api/game', {
-          id: userid === '' ? 'anonymous' : userid,
+        await axiosInstance.post("/api/game", {
+          id: userid === "" ? "anonymous" : userid,
           record: takenTime / 1000,
           success: isGameSuccess,
           level: level
@@ -58,7 +58,7 @@ export default function ModalContent({
       } catch (e) {
       }
     }
-
+    
     request();
   }, [isGameSuccess, level, takenTime, userid]);
 
@@ -67,10 +67,10 @@ export default function ModalContent({
       <div> Time : {(takenTime) / 1000}</div>
       <div> Level : {level}</div>
       <CloseButton
-        width={'75px'}
-        height={'25px'}
-        radius={'5px'}
-        border={'none'}
+        width={"75px"}
+        height={"25px"}
+        radius={"5px"}
+        border={"none"}
         onClick={onMouseClick}
       >
         close

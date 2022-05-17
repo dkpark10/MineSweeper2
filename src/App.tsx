@@ -8,13 +8,14 @@ import axios from 'axios';
 import { setLogin } from './reducers/login';
 import { useDispatch } from 'react-redux';
 import axiosApi, { Response } from './utils/axiosapi';
+import useRequest from './components/custom_hook/useaxios';
 
 const Game = lazy(() => import('./components/mine_sweeper/page/index'));
 const SignIn = lazy(() => import("./components/sign/page/signin"));
 const SignUp = lazy(() => import("./components/sign/page/signup"));
 const Bulletin = lazy(() => import('./components/route/community'));
 const MyPage = lazy(() => import('./components/route/mypage'));
-const Ranking = lazy(() => import('./components/ranking'));
+const Ranking = lazy(() => import('./components/ranking/page/index'));
 const Option = lazy(() => import('./components/options/page/index'));
 
 export default function App() {
