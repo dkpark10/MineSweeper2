@@ -4,10 +4,11 @@ import PageNationItem from "../atoms/page_nation_item";
 import {
   calculBeginPage,
   calculPrevButtonBeginPage,
-  calculNextButtonBeginPage
+  calculNextButtonBeginPage,
+  isMobile
 } from "../../../utils/common";
 
-const PageNationWrapper = styled.div`
+const PageNationWrapper = styled.nav`
   display:flex;
   justify-content: space-between;
   align-items: center;
@@ -29,10 +30,10 @@ export default function PageNation({
   totalItemCount,
   currentPage,
   itemCountperPage = 20,
-  pageRangeDisplayed = 9
+  pageRangeDisplayed = isMobile() ? 7 : 9
 }: Props) {
 
-  const [beginPage, lastPage] = calculBeginPage({
+  const [beginPage, lastPage, countPageShow] = calculBeginPage({
     totalItemCount,
     itemCountperPage,
     currentPage,
@@ -43,9 +44,9 @@ export default function PageNation({
     <PageNationWrapper>
       <PageNationItem
         value={"◀"}
-        url={`${url}?page=${calculPrevButtonBeginPage({ pageRangeDisplayed, currentPage })}`}
+        url={`${url}?page=${calculPrevButtonBeginPage({ countPageShow, currentPage })}`}
       />
-      {Array.from({ length: pageRangeDisplayed }, (_, i) => i + beginPage)
+      {Array.from({ length: countPageShow }, (_, i) => i + beginPage)
         .map((page, idx) =>
           <PageNationItem
             key={idx}
@@ -56,7 +57,7 @@ export default function PageNation({
         )}
       <PageNationItem
         value={"▶"}
-        url={`${url}?page=${calculNextButtonBeginPage({ pageRangeDisplayed, currentPage, lastPage })}`}
+        url={`${url}?page=${calculNextButtonBeginPage({ countPageShow, currentPage, lastPage })}`}
       />
     </PageNationWrapper>
   )

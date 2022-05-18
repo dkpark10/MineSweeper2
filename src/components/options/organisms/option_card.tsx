@@ -1,7 +1,7 @@
 import Content from "../../common/atoms/content";
 import RadioButton from "../../common/atoms/radio_button";
 import styled from "styled-components";
-import useLocalStorage from '../../custom_hook/uselocalstorage';
+import useLocalStorage from '../../custom_hooks/uselocalstorage';
 
 interface Props {
   name: string;

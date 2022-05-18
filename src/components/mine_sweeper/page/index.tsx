@@ -1,5 +1,5 @@
 import React from "react";
-import useLocalStorage from "../../custom_hook/uselocalstorage";
+import useLocalStorage from "../../custom_hooks/uselocalstorage";
 import Game from "../organisms/game";
 import Header from "../../common/organisms/header";
 import { isMobile } from "../../../utils/common";

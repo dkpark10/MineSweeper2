@@ -7,7 +7,7 @@ export const calculBeginPage = ({
   itemCountperPage,
   pageRangeDisplayed,
   currentPage
-}): [number, number] => {
+}): [number, number, number] => {
 
   const half = Math.floor(pageRangeDisplayed / 2);
 
@@ -16,28 +16,32 @@ export const calculBeginPage = ({
     lastPage++;
   }
 
+  if (lastPage < pageRangeDisplayed) {
+    return [1, lastPage, lastPage];
+  }
+
   if (currentPage - half <= 1) {
-    return [1, lastPage];
+    return [1, lastPage, pageRangeDisplayed];
   }
 
   if (currentPage > lastPage - half) {
-    return [lastPage - pageRangeDisplayed + 1, lastPage];
+    return [lastPage - pageRangeDisplayed + 1, lastPage, pageRangeDisplayed];
   }
 
-  return [currentPage - half, lastPage];
+  return [currentPage - half, lastPage, pageRangeDisplayed];
 }
 
 export const calculPrevButtonBeginPage = ({
-  pageRangeDisplayed,
+  countPageShow,
   currentPage
 }): number => {
-  return currentPage - pageRangeDisplayed <= 0 ? 1 : currentPage - pageRangeDisplayed;
+  return currentPage - countPageShow <= 0 ? 1 : currentPage - countPageShow;
 }
 
 export const calculNextButtonBeginPage = ({
-  pageRangeDisplayed,
+  countPageShow,
   currentPage,
   lastPage
 }): number => {
-  return currentPage + pageRangeDisplayed > lastPage ? lastPage : currentPage + pageRangeDisplayed;
+  return currentPage + countPageShow > lastPage ? lastPage : currentPage + countPageShow;
 }

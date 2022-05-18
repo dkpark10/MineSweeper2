@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useInterval from '../../custom_hook/useInterval';
+import useInterval from '../../custom_hooks/useInterval';
 
 interface Props {
   firstClick: boolean;

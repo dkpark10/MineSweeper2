@@ -8,7 +8,7 @@ import axios from 'axios';
 import { setLogin } from './reducers/login';
 import { useDispatch } from 'react-redux';
 import axiosApi, { Response } from './utils/axiosapi';
-import useRequest from './components/custom_hook/useaxios';
+import useRequest from './components/custom_hooks/useaxios';
 
 const Game = lazy(() => import('./components/mine_sweeper/page/index'));
 const SignIn = lazy(() => import("./components/sign/page/signin"));

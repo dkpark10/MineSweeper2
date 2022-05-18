@@ -9,7 +9,7 @@ import SignNavigator from "../molecules/sign_navigator";
 const HeaderWrapper = styled.header`
   position: relative;
   width:100%;
-  height:51px;
+  height:59px;
   font-family: 'Noto Sans KR', sans-serif;
   background-color: ${({ theme }) => theme.grayMainColor};
   display:flex;
@@ -36,7 +36,6 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
     list-style: none;
   }
 
-  // 모바일
   @media screen and (${({ theme }) => theme.mobile}){
     position: absolute;
     top:51px;
@@ -58,12 +57,12 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
       background-color: white;
       align-content: space-around;
       flex-wrap: wrap;
-      font-size:1.25rem;
       color: ${({ theme }) => theme.fontColor};
     }
 
     a{
       color: ${({ theme }) => theme.fontColor};
+      font-size:1.25rem;
     }
 
     li{
@@ -87,6 +86,7 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
 
     a{
       color: #FFF6E3;
+      font-size:1.02rem;
     }
 
     ul{
