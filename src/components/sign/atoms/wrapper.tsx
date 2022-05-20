@@ -4,7 +4,7 @@ import CenterWrapper from '../../common/atoms/center_wrapper';
 const SignWrapper = styled(CenterWrapper)`
   font-family: 'Noto Sans KR', sans-serif;
   background-color: white;
-  padding:20px;
+  padding:10px;
   border-radius: 12px;
   width:378px;
   box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);

@@ -44,13 +44,13 @@ export default function BulletionNavi({ url }: Props) {
           onChange={setValue}
         />
         <Button
-          width={"10%"}
+          width={"20%"}
           height={"100%"}
           backgroundColor={"white"}
         >
           <Content
             fontColor={false}
-            fontSize={"0.9rem"}
+            fontSize={"0.95rem"}
           >
             검색
           </Content>

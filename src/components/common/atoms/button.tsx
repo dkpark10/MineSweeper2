@@ -11,6 +11,7 @@ interface Props {
 };
 
 export default styled.button<Props>`
+  font-family: 'Noto Sans KR', sans-serif;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   border: ${({ border }) => border || "none"};

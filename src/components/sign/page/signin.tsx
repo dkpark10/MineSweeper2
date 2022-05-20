@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { useObjectInput } from "../../custom_hooks/useinput";
 import { AxiosResponse } from "axios";
 import axiosInstance from '../../../utils/default_axios';
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../../reducers/login";
 import { Response } from "response-type";
+
 import Input from "../atoms/input";
 import Title from "../../common/atoms/title";
+import Content from "../../common/atoms/content";
+import Button from "../../common/atoms/button";
 import SignWrapper from "../atoms/wrapper";
 
 const ForgetHelp = styled.div`
@@ -16,12 +19,6 @@ const ForgetHelp = styled.div`
   justify-content: space-around;
   align-items: center;
   margin:7px 0px;
-
-  a{
-    color:#aaaaaa;
-    text-decoration: none;
-    font-size: 0.7rem;
-  }
 `;
 
 interface InputProps {
@@ -32,18 +29,14 @@ interface InputProps {
 export default function SignIn({ history }: RouteComponentProps) {
 
   const dispatch = useDispatch();
-  const [value, changeValue] = useObjectInput<InputProps>({
+  const [value, changeValue, setChangeValue] = useObjectInput<InputProps>({
     userid: "",
     password: ""
   });
   const [error, setError] = useState<boolean>(false);
 
   const submintHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-
-    // post 방식으로 보낼 때 이벤트를 막아야 한다.
-    // 민감한 정보가 쿼리스트링으로 전달 
     e.preventDefault();
-    // 유효하지 않거나 입력이 없을 때
     if (value.userid.length <= 0 || value.password.length <= 0) {
       return;
     }
@@ -74,6 +67,14 @@ export default function SignIn({ history }: RouteComponentProps) {
     }
   }
 
+  const setGeustId = () => {
+    setChangeValue((prev) => ({
+      ...prev,
+      userid:"guestid",
+      password:"123456"
+    }))
+  }
+
   return (
     <>
       <SignWrapper>
@@ -94,9 +95,19 @@ export default function SignIn({ history }: RouteComponentProps) {
             onChange={changeValue}
           />
           <ForgetHelp>
-            <Link to="/">Forgot id</Link>
-            <Link to="/">Forgot password</Link>
-            <Link to="/">Sign Up</Link>
+            <Button 
+              width={"100%"}
+              height={"100%"}
+              backgroundColor={"white"}
+              type="submit"
+              onClick={setGeustId}
+            >
+              <Content
+                fontSize={"0.8rem"}
+              >
+                게스트 로그인
+              </Content>
+            </Button>
           </ForgetHelp>
           {error && <span className="failmsg">아이디 또는 비밀번호가 틀립니다.</span>}
           <Input

@@ -6,7 +6,8 @@ interface CallbackProps {
   value?: string;
 }
 
-export const useObjectInput = <T>(init: T, callback?: (props: CallbackProps) => void): [T, ChangeReturnType] => {
+export const useObjectInput = <T>(init: T, callback?: (props: CallbackProps) => void):
+  [T, ChangeReturnType, React.Dispatch<React.SetStateAction<T>>] => {
   const [data, setData] = useState<T>(init);
   const change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,7 +23,7 @@ export const useObjectInput = <T>(init: T, callback?: (props: CallbackProps) => 
       });
     }
   };
-  return [data, change];
+  return [data, change, setData];
 };
 
 export const useStringInput = (init: string, callback?: (props: CallbackProps) => void): [string, ChangeReturnType] => {

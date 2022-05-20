@@ -10,8 +10,8 @@ import { useStringInput } from "../../custom_hooks/useinput";
 const PostCreatePageWrapper = styled(DefaultBulletinWrapper)`
   position:relative;
   top:20px;
-  height:90vh;
   background-color:white;
+  border:2px solid red;
 `;
 
 const InputWrapper = styled.div`
@@ -20,24 +20,40 @@ const InputWrapper = styled.div`
   padding: 5px;
 `;
 
+const SubmitButton = styled(Button)`
+  color:white;
+  border-radius:8px;
+  font-weight: bold;
+  margin:8px 0px;
+`;
+
 export default function PostCreatePage() {
   const [value, setValue] = useStringInput("");
   return (
     <>
       <Header />
       <PostCreatePageWrapper>
-        <InputWrapper>
-          <Input
-            type={"text"}
-            name={"post_title"}
-            width={"100%"}
-            height={"40px"}
-            value={value}
-            onChange={setValue}
-            placeholder={"제목을 입력하세요."}
-          />
-        </InputWrapper>
-        <Editor />
+        <form>
+          <InputWrapper>
+            <Input
+              type={"text"}
+              name={"post_title"}
+              width={"100%"}
+              height={"40px"}
+              value={value}
+              onChange={setValue}
+              placeholder={"제목을 입력하세요."}
+            />
+          </InputWrapper>
+          <Editor />
+          <SubmitButton 
+            type="submit"
+            width={"80px"}
+            height={"33px"}
+          >
+            등록
+          </SubmitButton>
+        </form>
       </PostCreatePageWrapper>
     </>
   )

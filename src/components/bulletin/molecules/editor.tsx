@@ -1,6 +1,7 @@
 import React, { useRef, useMemo, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import styled from "styled-components";
 
 const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -16,6 +17,10 @@ const toolbarOptions = [
   ['clean']                                         // remove formatting button
 ];
 
+const EditorWrapper = styled.div`
+  height:574px;
+`;
+
 const Editor = () => {
   const [contents, setContents] = useState<string>("");
   const quillRef = useRef<ReactQuill>();
@@ -24,7 +29,7 @@ const Editor = () => {
   }), []);
 
   return (
-    <>
+    <EditorWrapper>
       <ReactQuill
         ref={element => {
           if (element !== null)
@@ -35,10 +40,10 @@ const Editor = () => {
         modules={modules}
         theme="snow"
         style={{
-          height: "80%"
+          height: "88%"
         }}
       />
-    </>
+    </EditorWrapper>
   )
 };
 
