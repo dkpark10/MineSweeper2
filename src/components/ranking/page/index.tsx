@@ -20,7 +20,7 @@ interface GameProps {
   id: string;
   record: string;
   ranking: number;
-  successGameCount: number;
+  totalItemCount: number;
 }
 
 export default function Ranking({
@@ -29,7 +29,7 @@ export default function Ranking({
 
   const { page } = queryString.parse(location.search);
   const level = match.params.level;
-  const [response, loading] = useAxios<GameProps[]>(`/api/game/test?page=${page}`);
+  const [response, loading] = useAxios<GameProps[]>(`/api/game/${level}?page=${page}`);
 
   return (
     <>
@@ -44,7 +44,6 @@ export default function Ranking({
             {response.map((rank, idx) =>
               <li key={idx}>
                 <RankItem
-                  key={idx}
                   rank={String(rank.ranking)}
                   id={rank.id}
                   record={rank.record}
@@ -54,7 +53,7 @@ export default function Ranking({
           </ul>
           <PageNation
             url={match.url}
-            totalItemCount={response.length === 0 ? 1 : response[0].successGameCount}
+            totalItemCount={response.length === 0 ? 1 : response[0].totalItemCount}
             currentPage={Number(page)}
           />
         </RankWrapper>}

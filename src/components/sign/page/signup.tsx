@@ -6,7 +6,7 @@ import { debounce } from "lodash";
 
 import Input from "../atoms/input";
 import Title from "../../common/atoms/title";
-import useInput from "../../custom_hooks/useinput";
+import { useObjectInput } from "../../custom_hooks/useinput";
 import SignWrapper from "../atoms/wrapper";
 
 import axiosInstance from "../../../utils/default_axios";
@@ -66,7 +66,7 @@ export default function SignUp({ history }: RouteComponentProps) {
     }, 350), []
   )
 
-  const [value, changeValue] = useInput<InputProps>({
+  const [value, changeValue] = useObjectInput<InputProps>({
     id: "",
     email: "",
     password: "",

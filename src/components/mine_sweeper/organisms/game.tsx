@@ -15,9 +15,7 @@ import {
   ClickRenderStatus
 } from 'mine-sweeper-type'
 
-const GameBoardWrapper = styled.div<{
-  minWidth: string
-}>`
+const MineSweeperWrapper = styled.div<{ minWidth: string }>`
   background-color: #2e2d2d;
   border-radius: 5px;
   padding:20px;
@@ -33,6 +31,12 @@ const GameBoardWrapper = styled.div<{
     margin-bottom: 0px;
     height:25px;
   }
+
+  /* @media screen and (${({ theme }) => theme.mobile}) {
+    position:relative;
+    width:100vw;
+    padding:10px;
+  } */
 `;
 
 export default function MineSweeper({ level }: { level: string }) {
@@ -111,8 +115,6 @@ export default function MineSweeper({ level }: { level: string }) {
     clickController = null;
   }
 
-
-  // 첫번째 클릭에 대한 이벤트 처리
   const onFirstClick = (buttonType: number, coord: Coord) => {
 
     const LEFTCLICK = 0 as const;
@@ -122,7 +124,6 @@ export default function MineSweeper({ level }: { level: string }) {
       setFirstClick(true);
       beginTime.current = new Date().getTime();
 
-      // 첫클릭에 지뢰를 밟지 아니 하도록 한다.
       if (cellData[y][x].mine === true) {
         cellData[y][x].mine = false;
         setCellData(new CellHandler([...cellData], { row, col }, 1).getCellData());
@@ -148,7 +149,7 @@ export default function MineSweeper({ level }: { level: string }) {
           />
         </ModalWrapper>
       }
-      <GameBoardWrapper
+      <MineSweeperWrapper
         minWidth={width}
       >
         <GameHeader
@@ -173,7 +174,7 @@ export default function MineSweeper({ level }: { level: string }) {
             </div>
           )
         })}
-      </GameBoardWrapper>
+      </MineSweeperWrapper>
     </>
   )
 }

@@ -5,9 +5,9 @@ interface Props {
   width: string;
   height: string;
   children: JSX.Element | string | number;
-  color?:string;
   border?:string;
   radius?:string;
+  backgroundColor?: string;
 };
 
 export default styled.button<Props>`
@@ -15,6 +15,6 @@ export default styled.button<Props>`
   height: ${({ height }) => height};
   border: ${({ border }) => border || "none"};
   border-radius: ${({ radius }) => radius || "0px"};
-  color: ${({ color }) => color || "black"};
+  background-color: ${({ theme, backgroundColor }) => backgroundColor || theme.mainColor};
   cursor:pointer;
 `;

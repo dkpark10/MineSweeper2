@@ -1,6 +1,6 @@
-const ONEMINUTE = 60 as const;
-const ONEHOUR = 3600 as const;
-const ONEDAY = 86400 as const;
+const ONEMINUTE = 60;
+const ONEHOUR = 3600;
+const ONEDAY = 86400;
 const ONEMONTH = 30 * ONEDAY;
 
 const calculPassedTime = (time: number): string => {
@@ -24,7 +24,6 @@ const calculPassedTime = (time: number): string => {
   return timeToDate(time * 1000);
 }
 
-// 날짜를 시간으로 변환
 const timeToDate = (time: number) => {
 
   const date = new Date(time);
@@ -32,7 +31,7 @@ const timeToDate = (time: number) => {
   const month = date.getMonth();
   const year = date.getFullYear();
 
-  return `${year}/${month}/${day}`;
+  return `${year}/${month < 10 ? `0${month}` : month}/${day < 10 ? `0${day}` : day}`;
 }
 
 export { calculPassedTime, timeToDate };

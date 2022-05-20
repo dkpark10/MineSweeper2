@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, RouteComponentProps } from "react-router-dom";
-import useInput from "../../custom_hooks/useinput";
+import { useObjectInput } from "../../custom_hooks/useinput";
 import { AxiosResponse } from "axios";
 import axiosInstance from '../../../utils/default_axios';
 import { useDispatch } from "react-redux";
@@ -32,7 +32,7 @@ interface InputProps {
 export default function SignIn({ history }: RouteComponentProps) {
 
   const dispatch = useDispatch();
-  const [value, changeValue] = useInput<InputProps>({
+  const [value, changeValue] = useObjectInput<InputProps>({
     userid: "",
     password: ""
   });

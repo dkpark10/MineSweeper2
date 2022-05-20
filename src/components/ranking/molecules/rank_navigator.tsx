@@ -15,6 +15,7 @@ const LevelNationWrapper = styled.div<Props>`
   position: relative;
   background-color: white;
   box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
+  border-radius: 8px;
 
   a{
     font-size:0.95rem;
