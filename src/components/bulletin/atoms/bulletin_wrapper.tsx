@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 const DefaultBulletinWrapper = styled.main`
   font-family: 'Noto Sans KR', sans-serif;
-  position:relative;
-  left:50%;
-  transform: translateX(-50%);
+  margin:auto;
   border:1px solid yellow;
 
   @media screen and (${({ theme }) => theme.minTablet}){

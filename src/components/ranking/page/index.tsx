@@ -31,34 +31,37 @@ export default function Ranking({
   const level = match.params.level;
   const [response, loading] = useAxios<GameProps[]>(`/api/game/${level}?page=${page}`);
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <Header />
-      {loading ? <Loading /> :
-        <div>
-          <RankWrapper>
-            <RankNavigator
-              currentLevel={level}
-            />
-            <RankItem />
-            <ul>
-              {response.map((rank, idx) =>
-                <li key={idx}>
-                  <RankItem
-                    rank={String(rank.ranking)}
-                    id={rank.id}
-                    record={rank.record}
-                  />
-                </li>
-              )}
-            </ul>
-            <PageNation
-              url={match.url}
-              totalItemCount={response.length === 0 ? 1 : response[0].totalItemCount}
-              currentPage={Number(page)}
-            />
-          </RankWrapper>
-        </div>}
+      <div>
+        <RankWrapper>
+          <RankNavigator
+            currentLevel={level}
+          />
+          <RankItem />
+          <ul>
+            {response.map((rank, idx) =>
+              <li key={idx}>
+                <RankItem
+                  rank={String(rank.ranking)}
+                  id={rank.id}
+                  record={rank.record}
+                />
+              </li>
+            )}
+          </ul>
+          <PageNation
+            url={match.url}
+            totalItemCount={response.length === 0 ? 1 : response[0].totalItemCount}
+            currentPage={Number(page)}
+          />
+        </RankWrapper>
+      </div>
     </>
   )
 }

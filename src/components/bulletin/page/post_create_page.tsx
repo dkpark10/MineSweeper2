@@ -59,32 +59,34 @@ export default function PostCreatePage({
   return (
     <>
       <Header />
-      <PostCreatePageWrapper>
-        <form onSubmit={submit}>
-          <InputWrapper>
-            <Input
-              type={"text"}
-              name={"post_title"}
-              width={"100%"}
-              height={"40px"}
-              value={title}
-              onChange={setTitle}
-              placeholder={"제목을 입력하세요."}
+      <div>
+        <PostCreatePageWrapper>
+          <form onSubmit={submit}>
+            <InputWrapper>
+              <Input
+                type={"text"}
+                name={"post_title"}
+                width={"100%"}
+                height={"40px"}
+                value={title}
+                onChange={setTitle}
+                placeholder={"제목을 입력하세요."}
+              />
+            </InputWrapper>
+            <Editor
+              contents={contents}
+              setContents={setContetns}
             />
-          </InputWrapper>
-          <Editor
-            contents={contents}
-            setContents={setContetns}
-          />
-          <SubmitButton
-            type="submit"
-            width={"80px"}
-            height={"33px"}
-          >
-            등록
-          </SubmitButton>
-        </form>
-      </PostCreatePageWrapper>
+            <SubmitButton
+              type="submit"
+              width={"80px"}
+              height={"33px"}
+            >
+              등록
+            </SubmitButton>
+          </form>
+        </PostCreatePageWrapper>
+      </div>
     </>
   )
 }

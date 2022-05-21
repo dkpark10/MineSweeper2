@@ -44,10 +44,14 @@ export default function Bulletion({ match, location }: RouteComponentProps) {
   const [response, loading] = useAxios<PostProps[]>(`/api/posts?page=${page}`);
   const widthRatio = ["68%", "20%", "12%"];
 
+  if (loading) {
+    return < Loading />;
+  }
+
   return (
     <>
       <Header />
-      {loading ? <Loading /> :
+      <div>
         <BulletionWrapper>
           <BuelltinNavi
             url={location.pathname}
@@ -74,7 +78,8 @@ export default function Bulletion({ match, location }: RouteComponentProps) {
             totalItemCount={response.length === 0 ? 1 : response[0].totalItemCount}
             currentPage={Number(page)}
           />
-        </BulletionWrapper>}
+        </BulletionWrapper>
+      </div>
     </>
   )
 }

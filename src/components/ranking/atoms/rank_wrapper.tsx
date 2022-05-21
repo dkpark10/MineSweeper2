@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 const RankWrapper = styled.main`
   font-family: 'Noto Sans KR', sans-serif;
-  position:relative;
-  left:50%;
-  transform: translateX(-50%);
+  margin:auto;
 
   ul{
     list-style: none;

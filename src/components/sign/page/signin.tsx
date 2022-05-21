@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 import { useObjectInput } from "../../custom_hooks/useinput";
 import { AxiosResponse } from "axios";
 import axiosInstance from '../../../utils/default_axios';
@@ -78,7 +78,9 @@ export default function SignIn({ history }: RouteComponentProps) {
   return (
     <>
       <SignWrapper>
-        <Title>Mine Sweeper</Title>
+        <Link to="/">
+          <Title>Mine Sweeper</Title>
+        </Link>
         <form onSubmit={submintHandler}>
           <Input
             type="text"

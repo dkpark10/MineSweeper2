@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Hamburger from '../atoms/hamburger';
 import Title from '../atoms/title';
+import { Link } from "react-router-dom";
 
 export const HeaderTitleWrapper = styled.div`
   display: flex;
@@ -24,7 +25,9 @@ export default function HeaderTitle({
         <Hamburger
           onClick={onClick}
         />
-        <Title>Mine Sweeper</Title>
+        <Link to="/">
+          <Title>Mine Sweeper</Title>
+        </Link>
       </HeaderTitleWrapper>
     </>
   )

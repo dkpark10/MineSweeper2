@@ -14,7 +14,6 @@ const LoadingStyle = styled.div`
     height: 80px;
   }
   .lds-ring div {
-    box-sizing: border-box;
     display: block;
     position: absolute;
     width: 64px;

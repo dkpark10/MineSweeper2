@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 import { AxiosResponse } from "axios";
 import { Response } from "response-type";
 import { debounce } from "lodash";
@@ -133,7 +133,9 @@ export default function SignUp({ history }: RouteComponentProps) {
   return (
     <>
       <SignWrapper>
-        <Title>Mine Sweeper</Title>
+        <Link to="/">
+          <Title>Mine Sweeper</Title>
+        </Link>
         <form onSubmit={submintHandler}>
           <div>
             <label htmlFor="id" />
