@@ -30,7 +30,6 @@ const PostWrapper = styled.div`
 `;
 
 export default function Post({ match, history, location }: RouteComponentProps<MatchParams>) {
-
   const { state } = useLocation<State>();
 
   useEffect(() => {

@@ -13,7 +13,7 @@ import useRequest from './components/custom_hooks/useaxios';
 const Game = lazy(() => import('./components/mine_sweeper/page/index'));
 const SignIn = lazy(() => import("./components/sign/page/signin"));
 const SignUp = lazy(() => import("./components/sign/page/signup"));
-const Bulletin = lazy(() => import('./components/bulletin/page/index'));
+const Bulletin = lazy(() => import('./components/bulletin/router/index'));
 // import Bulletin from "./components/route/community";
 const MyPage = lazy(() => import('./components/route/mypage'));
 const Ranking = lazy(() => import('./components/ranking/page/index'));

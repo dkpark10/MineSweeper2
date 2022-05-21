@@ -60,7 +60,7 @@ export default function MineSweeper({ level }: { level: string }) {
 
   const beginTime = useRef<number>(0);
   const endTime = useRef<number>(0);
-
+  
   useEffect(() => {
     const init = Array.from({ length: row }, () => Array)
       .map(() => Array.from({ length: col }, () => ({

@@ -9,7 +9,7 @@ import Loading from "../../common/atoms/loading";
 import DefaultBulletinWrapper from "../atoms/bulletin_wrapper";
 import PostCardItem from "../molecules/post_card_item";
 import PostCardHeader from "../molecules/post_card_header";
-import BuelltinNavi from "../molecules/bulletin_navi";
+import BuelltinNavi from "../molecules/post_navigator";
 
 import useAxios from "../../custom_hooks/useaxios";
 import { calculPassedTime } from "../../../utils/date_handler";
@@ -38,7 +38,7 @@ const BulletionWrapper = styled(DefaultBulletinWrapper)`
   }
 `;
 
-export default function Bulletion({ location }: RouteComponentProps) {
+export default function Bulletion({ match, location }: RouteComponentProps) {
 
   const { page } = queryString.parse(location.search);
   const [response, loading] = useAxios<PostProps[]>(`/api/posts?page=${page}`);
@@ -63,6 +63,8 @@ export default function Bulletion({ location }: RouteComponentProps) {
                   title={post.title}
                   author={post.author}
                   date={calculPassedTime(post.time)}
+                  url={match.url}
+                  postid={post.id}
                 />
               </li>
             )}

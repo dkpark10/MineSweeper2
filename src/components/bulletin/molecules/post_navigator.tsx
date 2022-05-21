@@ -38,13 +38,13 @@ export default function BulletionNavi({ url }: Props) {
         <SearchInput
           type={"text"}
           name={"post_search"}
-          width={"80%"}
+          width={"70%"}
           height={"100%"}
           value={value}
           onChange={setValue}
         />
         <Button
-          width={"20%"}
+          width={"40px"}
           height={"100%"}
           backgroundColor={"white"}
         >
@@ -56,7 +56,7 @@ export default function BulletionNavi({ url }: Props) {
           </Content>
         </Button>
       </div>
-      {!isLogin &&
+      {isLogin &&
         <Link to={`${url}/create`}>
           <Content
             fontColor={false}

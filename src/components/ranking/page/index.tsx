@@ -35,28 +35,30 @@ export default function Ranking({
     <>
       <Header />
       {loading ? <Loading /> :
-        <RankWrapper>
-          <RankNavigator
-            currentLevel={level}
-          />
-          <RankItem />
-          <ul>
-            {response.map((rank, idx) =>
-              <li key={idx}>
-                <RankItem
-                  rank={String(rank.ranking)}
-                  id={rank.id}
-                  record={rank.record}
-                />
-              </li>
-            )}
-          </ul>
-          <PageNation
-            url={match.url}
-            totalItemCount={response.length === 0 ? 1 : response[0].totalItemCount}
-            currentPage={Number(page)}
-          />
-        </RankWrapper>}
+        <div>
+          <RankWrapper>
+            <RankNavigator
+              currentLevel={level}
+            />
+            <RankItem />
+            <ul>
+              {response.map((rank, idx) =>
+                <li key={idx}>
+                  <RankItem
+                    rank={String(rank.ranking)}
+                    id={rank.id}
+                    record={rank.record}
+                  />
+                </li>
+              )}
+            </ul>
+            <PageNation
+              url={match.url}
+              totalItemCount={response.length === 0 ? 1 : response[0].totalItemCount}
+              currentPage={Number(page)}
+            />
+          </RankWrapper>
+        </div>}
     </>
   )
 }

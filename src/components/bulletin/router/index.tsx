@@ -1,15 +1,16 @@
 import { RouteComponentProps } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
-import BulletinMain from "./bulletin_list"
-import PostCreatePage from "./post_create_page"
+import BulletinMain from "../page/bulletin_list"
+import PostCreatePage from "../page/post_create_page"
+import PostPage from "../page/post_page";
 
-export default function BulletinRouter({ location, match }: RouteComponentProps) {
+export default function BulletinRouter({ match }: RouteComponentProps) {
   return (
     <Switch>
       <Route exact path={match.url} component={BulletinMain} />
       <Route path={`${match.url}/create`} component={PostCreatePage} />
+      <Route path={`${match.url}/:postid`} component={PostPage} />
       {/* <Route path={`${match.url}/delete`} component={PostDelete} />
-      <Route path={`${match.url}/:postid`} component={Post} />
       <Route component={NotFound} /> */}
     </Switch>
   )

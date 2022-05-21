@@ -41,11 +41,11 @@ export default function BulletinMain({ match, location }: RouteComponentProps<Ma
   useEffect(() => {
 
     axiosApi.get(`/api/posts?page=${page}`)
-      .then((response: Response) => {
+      .then((response) => {
         setPostList(prev => ([
-          ...response.data.result
+          ...response
         ]))
-        return response.data.totalContentSize;
+        return response[0].titalItemCount;
       })
       .then((res: number) => setTotalItemCount(res))
       .catch(e => { });

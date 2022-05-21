@@ -2,6 +2,7 @@ import React, { useRef, useMemo, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
+import { isMobile } from "../../../utils/common";
 
 const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -18,11 +19,18 @@ const toolbarOptions = [
 ];
 
 const EditorWrapper = styled.div`
-  height:574px;
+  height:554px;
 `;
 
-const Editor = () => {
-  const [contents, setContents] = useState<string>("");
+interface Props{
+  contents:string;
+  setContents: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const Editor = ({
+  contents,
+  setContents
+}: Props) => {
   const quillRef = useRef<ReactQuill>();
   const modules = useMemo(() => ({
     toolbar: toolbarOptions
@@ -40,7 +48,7 @@ const Editor = () => {
         modules={modules}
         theme="snow"
         style={{
-          height: "88%"
+          height: isMobile() ? "79%" : "86%"
         }}
       />
     </EditorWrapper>

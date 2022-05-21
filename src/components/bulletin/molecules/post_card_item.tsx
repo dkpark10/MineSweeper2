@@ -37,13 +37,17 @@ interface Props {
   author?: string;
   date?: string;
   widthRatio:string[];
+  url: string;
+  postid: number;
 }
 
 export default function PostCardItem({
   title,
   author,
   date,
-  widthRatio
+  widthRatio,
+  url,
+  postid
 }: Props) {
 
   const defaultFontSize = "0.9rem";
@@ -55,7 +59,7 @@ export default function PostCardItem({
         center={false}
         fontSize={defaultFontSize}
       >
-        <Link to="/">
+        <Link to={`${url}/${postid}`}>
           {title}
         </Link>
       </PostItem>

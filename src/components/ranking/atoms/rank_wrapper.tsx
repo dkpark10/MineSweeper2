@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const RankWrapper = styled.div`
+const RankWrapper = styled.main`
   font-family: 'Noto Sans KR', sans-serif;
   position:relative;
   left:50%;
@@ -20,7 +20,7 @@ const RankWrapper = styled.div`
 
   @media screen and (${({ theme }) => theme.minTablet}){
     border-radius: 12px;
-    width:624px;
+    width:784px;
     padding:24px;
   }
 

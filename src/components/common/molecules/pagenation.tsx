@@ -15,6 +15,7 @@ const PageNationWrapper = styled.nav`
   background-color: white;
   height:46px;
   box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
+  margin-bottom: 14px;
 `;
 
 interface Props {
