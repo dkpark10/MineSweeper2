@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useInterval from '../../custom_hooks/useinterval';
 
@@ -53,6 +53,10 @@ export default function GameHeader({
       setCount(prev => prev + 1);
     }
   }, 1000);
+
+  useEffect(() => {
+    setCount(0);
+  },[isGameOver]);
 
   return (
     <>

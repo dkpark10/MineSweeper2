@@ -38,7 +38,6 @@ export default function OptionCard({
         <Content
           fontColor={true}
           bold={true}
-          block={true}
           fontSize={"1.1rem"}
         >
           {name}

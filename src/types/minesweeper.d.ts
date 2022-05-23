@@ -1,4 +1,4 @@
-declare module 'mine-sweeper-type' {
+declare module "mine-sweeper-type" {
   export interface Level {
     row: number;
     col: number;

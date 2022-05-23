@@ -8,8 +8,4 @@ const CenterWrapperStyle = styled.main`
   transform:translate(-50%,-50%);
 `;
 
-export const MarginCenterWrapper = styled.div`
-  margin:auto;
-`;
-
 export default CenterWrapperStyle;

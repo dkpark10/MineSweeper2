@@ -4,12 +4,10 @@ type CallBack = () => void;
 const useInterval = (callback: CallBack, delay: number = 1000) => {
   const savedCallback = useRef<CallBack>(null);
 
-  // Remember the latest callback.
   useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 
-  // Set up the interval.
   useEffect(() => {
     function tick() {
       savedCallback.current();

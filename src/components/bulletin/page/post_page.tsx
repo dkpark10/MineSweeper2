@@ -5,7 +5,6 @@ import Header from "../../common/organisms/header";
 import DefaultBulletinWrapper from "../atoms/bulletin_wrapper";
 import PostArticle from "../molecules/post_article";
 
-import Loading from "../../common/atoms/loading";
 import PostCardHeader from "../molecules/post_card_header";
 import PostList from "../molecules/post_list";
 import BuelltinNavi from "../molecules/post_navigator";
@@ -32,6 +31,7 @@ interface PostProps {
 
 const PostPageWrapper = styled(DefaultBulletinWrapper)`
   background-color: white;
+  padding:20px;
 `;
 
 export default function Post({

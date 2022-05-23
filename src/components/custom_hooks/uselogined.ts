@@ -7,8 +7,8 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
 
 export default function UseIsLogined(history: RouteComponentProps["history"]) {
-  const { author, isLogin } = useSelector((root: RootState) => ({
-    author: root.login.id,
+  const { userid, isLogin } = useSelector((root: RootState) => ({
+    userid: root.login.id,
     isLogin: root.login.isLogin
   }));
 
@@ -18,5 +18,5 @@ export default function UseIsLogined(history: RouteComponentProps["history"]) {
     }
   }, [isLogin]);
 
-  return [author, isLogin];
+  return [userid, isLogin];
 }

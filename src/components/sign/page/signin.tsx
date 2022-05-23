@@ -81,6 +81,7 @@ export default function SignIn({ history }: RouteComponentProps) {
         <Link to="/">
           <Title
             fontColor={true}
+            margin={"1.2rem 0px"}
           >
             Mine Sweeper
           </Title>

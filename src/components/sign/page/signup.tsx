@@ -136,6 +136,7 @@ export default function SignUp({ history }: RouteComponentProps) {
         <Link to="/">
           <Title
             fontColor={true}
+            margin={"1.2rem 0px"}
           >
             Mine Sweeper
           </Title>

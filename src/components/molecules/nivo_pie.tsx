@@ -27,6 +27,7 @@ export default function MyResponsivePie({ data }: INivo<PieData>) {
         arcLinkLabelsSkipAngle={10}
         arcLinkLabelsTextColor="#333333"
         arcLinkLabelsThickness={2}
+        
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
