@@ -70,8 +70,8 @@ export default function SignIn({ history }: RouteComponentProps) {
   const setGeustId = () => {
     setChangeValue((prev) => ({
       ...prev,
-      userid:"guestid",
-      password:"123456"
+      userid: "guestid",
+      password: "123456"
     }))
   }
 
@@ -79,7 +79,11 @@ export default function SignIn({ history }: RouteComponentProps) {
     <>
       <SignWrapper>
         <Link to="/">
-          <Title>Mine Sweeper</Title>
+          <Title
+            fontColor={true}
+          >
+            Mine Sweeper
+          </Title>
         </Link>
         <form onSubmit={submintHandler}>
           <Input
@@ -97,7 +101,7 @@ export default function SignIn({ history }: RouteComponentProps) {
             onChange={changeValue}
           />
           <ForgetHelp>
-            <Button 
+            <Button
               width={"100%"}
               height={"100%"}
               backgroundColor={"white"}

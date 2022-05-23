@@ -4,8 +4,8 @@ import axiosInstance from "../../utils/default_axios";
 
 axios.defaults.baseURL = "http://localhost:8080";
 
-export default <T>(url: string): [T, boolean] => {
-  const [response, setResponse] = useState<T>();
+export default <T>(url: string, init : T): [T, boolean] => {
+  const [response, setResponse] = useState<T>(init);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

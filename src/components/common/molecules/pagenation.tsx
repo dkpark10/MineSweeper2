@@ -8,14 +8,26 @@ import {
   isMobile
 } from "../../../utils/common";
 
-const PageNationWrapper = styled.nav`
+const PageNationWrapper = styled.div`
+  position:relative;
+  height:46px;
+`;
+
+const PageNationStyle = styled.nav`
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%);
   display:flex;
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  height:46px;
+  height:100%;
   box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
   margin-bottom: 14px;
+
+  @media screen and (${({ theme }) => theme.mobile}){
+    width:100vw;
+  }
 `;
 
 interface Props {
@@ -31,7 +43,7 @@ export default function PageNation({
   totalItemCount,
   currentPage,
   itemCountperPage = 20,
-  pageRangeDisplayed = isMobile() ? 7 : 9
+  pageRangeDisplayed = isMobile() ? 5 : 9
 }: Props) {
 
   const [beginPage, lastPage, countPageShow] = calculBeginPage({
@@ -43,23 +55,25 @@ export default function PageNation({
 
   return (
     <PageNationWrapper>
-      <PageNationItem
-        value={"◀"}
-        url={`${url}?page=${calculPrevButtonBeginPage({ countPageShow, currentPage })}`}
-      />
-      {Array.from({ length: countPageShow }, (_, i) => i + beginPage)
-        .map((page, idx) =>
-          <PageNationItem
-            key={idx}
-            value={String(page)}
-            url={`${url}?page=${page}`}
-            currentPage={currentPage === page}
-          />
-        )}
-      <PageNationItem
-        value={"▶"}
-        url={`${url}?page=${calculNextButtonBeginPage({ countPageShow, currentPage, lastPage })}`}
-      />
+      <PageNationStyle>
+        <PageNationItem
+          value={"◀"}
+          url={`${url}?page=${calculPrevButtonBeginPage({ countPageShow, currentPage })}`}
+        />
+        {Array.from({ length: countPageShow }, (_, i) => i + beginPage)
+          .map((page, idx) =>
+            <PageNationItem
+              key={idx}
+              value={String(page)}
+              url={`${url}?page=${page}`}
+              currentPage={currentPage === page}
+            />
+          )}
+        <PageNationItem
+          value={"▶"}
+          url={`${url}?page=${calculNextButtonBeginPage({ countPageShow, currentPage, lastPage })}`}
+        />
+      </PageNationStyle>
     </PageNationWrapper>
   )
 }

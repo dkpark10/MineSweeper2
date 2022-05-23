@@ -29,7 +29,7 @@ export default function Ranking({
 
   const { page } = queryString.parse(location.search);
   const level = match.params.level;
-  const [response, loading] = useAxios<GameProps[]>(`/api/game/${level}?page=${page}`);
+  const [response, loading] = useAxios<GameProps[]>(`/api/game/${level}?page=${page}`,[]);
 
   if (loading) {
     return <Loading />;

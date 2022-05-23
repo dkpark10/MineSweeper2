@@ -1,6 +1,6 @@
 import { RouteComponentProps } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
-import Bulletin from "../page/bulletin_list"
+import Bulletin from "../page/bulletin"
 import PostCreatePage from "../page/post_create_page"
 import PostPage from "../page/post_page";
 

@@ -26,7 +26,11 @@ export default function HeaderTitle({
           onClick={onClick}
         />
         <Link to="/">
-          <Title>Mine Sweeper</Title>
+          <Title
+            fontColor={true}
+          >
+            Mine Sweeper
+          </Title>
         </Link>
       </HeaderTitleWrapper>
     </>

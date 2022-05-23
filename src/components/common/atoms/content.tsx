@@ -14,7 +14,7 @@ export default styled.span<Props>`
   font-family: 'Noto Sans KR', sans-serif;
   display:${({ block }) => block === true ? "block" : ""};
   color: ${({ fontColor, theme }) => fontColor === true ? theme.mainColor : theme.fontColor};
-  font-size: ${({ fontSize }) => fontSize || "1.0rem"};
+  font-size: ${({ fontSize }) => fontSize || "0.9rem"};
   font-weight: ${({ bold }) => bold === true ? "bold" : ""};
   margin: ${({margin}) => margin};
 

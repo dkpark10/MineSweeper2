@@ -36,9 +36,10 @@ interface Props {
   title?: string;
   author?: string;
   date?: string;
-  widthRatio:string[];
+  widthRatio: string[];
   url: string;
   postid: number;
+  page: string;
 }
 
 export default function PostCardItem({
@@ -47,9 +48,9 @@ export default function PostCardItem({
   date,
   widthRatio,
   url,
-  postid
+  postid,
+  page
 }: Props) {
-
   const defaultFontSize = "0.9rem";
 
   return (
@@ -59,7 +60,12 @@ export default function PostCardItem({
         center={false}
         fontSize={defaultFontSize}
       >
-        <Link to={`${url}/${postid}`}>
+        <Link to={{
+          pathname: `${url}/${postid}`,
+          state: {
+            page
+          }
+        }}>
           {title}
         </Link>
       </PostItem>

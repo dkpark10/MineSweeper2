@@ -134,7 +134,11 @@ export default function SignUp({ history }: RouteComponentProps) {
     <>
       <SignWrapper>
         <Link to="/">
-          <Title>Mine Sweeper</Title>
+          <Title
+            fontColor={true}
+          >
+            Mine Sweeper
+          </Title>
         </Link>
         <form onSubmit={submintHandler}>
           <div>
@@ -150,7 +154,7 @@ export default function SignUp({ history }: RouteComponentProps) {
             {validator.id.result === false &&
               value.id &&
               <div className="failmsg" id="invalid_id">
-              {validator.id.msg}
+                {validator.id.msg}
               </div>
             }
           </div>
@@ -167,7 +171,7 @@ export default function SignUp({ history }: RouteComponentProps) {
             {validator.email.result === false &&
               value.email &&
               <div className="failmsg" id="invalid_email">
-              {validator.email.msg}
+                {validator.email.msg}
               </div>
             }
           </div>
@@ -183,7 +187,7 @@ export default function SignUp({ history }: RouteComponentProps) {
             />
             {validator.password.result === false &&
               <div className="failmsg" id="invalid_password">
-              {invalidMessage.password}
+                {invalidMessage.password}
               </div>
             }
           </div>
@@ -199,7 +203,7 @@ export default function SignUp({ history }: RouteComponentProps) {
             />
             {validator.repeatPassword.result === false &&
               <div className="failmsg" id="invalid_repeat_password">
-              {invalidMessage.repeatPassword}
+                {invalidMessage.repeatPassword}
               </div>
             }
           </div>
