@@ -95,25 +95,6 @@ export default function Statistics({
             )}
         </ContentWrapper>
       </ContentOuterWrapper>
-      <ContentOuterWrapper>
-        <ContentHeader>
-          승률:
-        </ContentHeader>
-        <ContentWrapper>
-          {[
-            Math.floor(easyGameWinCount / easyGameTotalCount * 100),
-            Math.floor(normalGameWinCount / normalGameTotalCount * 100),
-            Math.floor(hardGameWinCount / hardGameTotalCount * 100)
-          ].map((winRate, idx) =>
-            <StatisticsContent
-              key={idx}
-              fontSize={"1.00rem"}
-            >
-              {winRate}%
-            </StatisticsContent>
-          )}
-        </ContentWrapper>
-      </ContentOuterWrapper>
     </>
   )
 }

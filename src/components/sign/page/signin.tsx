@@ -43,8 +43,8 @@ export default function SignIn({ history }: RouteComponentProps) {
 
     try {
       const { data }: AxiosResponse<Response> = await axiosInstance.post("/api/login", {
-        "id": value.userid,
-        "pwd": value.password
+        "userid": value.userid,
+        "password": value.password
       })
 
       if (data.result === false) {

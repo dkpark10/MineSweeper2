@@ -39,7 +39,7 @@ export default function App() {
     <>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Route exact path="/" component={MyPage} />
+          <Route exact path="/" component={Game} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
           <Route path="/ranking/:level" component={Ranking} />
