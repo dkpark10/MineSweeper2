@@ -23,7 +23,6 @@ export default function App() {
   // Authorization 헤더는 새로고침 브라우저 꺼지면 사라지므로
   // 컴포넌트 새로 마운트 될 때 마다 토큰 박음
   useEffect(() => {
-
     axiosApi.post(`/api/slientlogin`)
       .then((response: Response) => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.accessToken}`;

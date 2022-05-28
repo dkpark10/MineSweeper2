@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import useAxios from "../../custom_hooks/useaxios";
 import Loading from "../../common/atoms/loading";
@@ -7,6 +8,8 @@ import Content from "../../common/atoms/content";
 import UnderLine from "../../common/atoms/under_line";
 import parse from 'html-react-parser';
 import { calculPassedTime } from "../../../utils/date_handler";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../reducers/index";
 
 interface Props {
   postid: string;
@@ -29,6 +32,7 @@ const PostContentWrapper = styled.div`
 `;
 
 interface PostProps {
+  id: string;
   author: string;
   content: string;
   title: string;
@@ -39,13 +43,8 @@ interface PostProps {
 export default function PostArticle({
   postid
 }: Props) {
-  const [response, loading] = useAxios<PostProps>(`api/posts/${postid}`, {
-    author:"",
-    content:"",
-    title:"",
-    views:0,
-    time:0
-  });
+  const [response, loading] = useAxios<PostProps>(`api/posts/${postid}`);
+  const userid = useSelector((state: RootState) => state.login.id);
 
   if (loading) {
     return <Loading />;
@@ -77,6 +76,17 @@ export default function PostArticle({
           {parse(response.content)}
         </Content>
       </PostContentWrapper>
+      <UnderLine />
+      {userid === response.author &&
+        <Link to={{
+          pathname: "/community/delete",
+          state: {
+            postid: response.id
+          }
+        }}>
+          삭제
+        </Link>
+      }
     </PostArticleWrapper>
   )
 }

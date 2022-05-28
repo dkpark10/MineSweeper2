@@ -1,6 +1,7 @@
 import React from "react";
 import { RouteComponentProps, useLocation } from "react-router-dom";
 import styled from "styled-components";
+
 import Header from "../../common/organisms/header";
 import DefaultBulletinWrapper from "../atoms/bulletin_wrapper";
 import PostArticle from "../molecules/post_article";

@@ -34,7 +34,7 @@ export default function BulletionNavi({ url }: Props) {
 
   return (
     <BulletionNaviWrapper>
-      <div style={{ height: "100%", width:"64%" }}>
+      <div style={{ height: "100%", width: "64%" }}>
         <SearchInput
           type={"text"}
           name={"post_search"}
@@ -56,16 +56,15 @@ export default function BulletionNavi({ url }: Props) {
           </Content>
         </Button>
       </div>
-      {isLogin &&
-        <Link to={`${url}/create`}>
-          <Content
-            fontColor={false}
-            bold={true}
-            fontSize={"0.85rem"}
-          >
-            글쓰기
-          </Content>
-        </Link>}
+      <Link to={`${url}/create`}>
+        <Content
+          fontColor={false}
+          bold={true}
+          fontSize={"0.85rem"}
+        >
+          글쓰기
+        </Content>
+      </Link>
     </BulletionNaviWrapper>
   )
 }

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { RouteComponentProps } from "react-router-dom";
 
 import Editor from "../molecules/editor";
-import DefaultBulletinWrapper from "../atoms/bulletin_wrapper";
+import DefaultBulletinWrapper, { AlignCenterWrapper } from "../atoms/bulletin_wrapper";
 import Header from "../../common/organisms/header";
 import Input from "../../common/atoms/input";
 import Button from "../../common/atoms/button";
@@ -19,8 +19,11 @@ const PostCreatePageWrapper = styled(DefaultBulletinWrapper)`
 
 const InputWrapper = styled.div`
   border:1px solid #ccc;
-  margin: 10px 0px;
   padding: 5px;
+
+  @media screen and (${({ theme }) => theme.minTablet}){
+    margin: 10px 0px;
+  }
 `;
 
 const SubmitButton = styled(Button)`
@@ -29,12 +32,16 @@ const SubmitButton = styled(Button)`
   font-weight: bold;
 `;
 
+interface Props {
+  author: string;
+}
+
 export default function PostCreatePage({
-  history
-}: RouteComponentProps) {
+  author,
+}: Props) {
   const [title, setTitle] = useStringInput("");
   const [contents, setContetns] = useState<string>("");
-  const [author,] = useIsLogined(history);
+  console.log(author);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,13 +51,12 @@ export default function PostCreatePage({
 
     const request = async () => {
       try {
-        const result = await axiosInstance.post(`/api/auth/posts`, {
-          "author": "author",
+        await axiosInstance.post(`/api/auth/posts`, {
+          "author": author,
           "title": title,
           "contents": contents
         })
       } catch (e) {
-
       }
     }
     request();
@@ -77,13 +83,15 @@ export default function PostCreatePage({
               contents={contents}
               setContents={setContetns}
             />
-            <SubmitButton
-              type="submit"
-              width={"80px"}
-              height={"33px"}
-            >
-              등록
-            </SubmitButton>
+            <AlignCenterWrapper>
+              <SubmitButton
+                type="submit"
+                width={"80px"}
+                height={"33px"}
+              >
+                등록
+              </SubmitButton>
+            </AlignCenterWrapper>
           </form>
         </PostCreatePageWrapper>
       </div>
