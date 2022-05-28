@@ -32,11 +32,13 @@ export default function PastGameRecord({ pastGame }: Props) {
   const theme = useTheme();
 
   if (pastGame.length === 0) {
-    <Content
-      fontSize={"2.0rem"}
-    >
-      "기록이 없습니다."
-    </Content>
+    return (
+      <Content
+        fontSize={"2.0rem"}
+      >
+        "기록이 없습니다."
+      </Content>
+    )
   }
 
   return (

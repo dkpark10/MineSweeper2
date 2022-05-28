@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import defaultComponent from "./default";
-import { invalidMessage } from "../modules/static_data";
+import { invalidMessage } from "../utils/static_data";
 
 describe("회원가입 입력 검증 테스트", () => {
 

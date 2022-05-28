@@ -16,7 +16,7 @@ export default function MyPageRouter({ match }: RouteComponentProps) {
         <PrivateRoute
           path={`${match.url}`}
           render={() => <MyPage userid={userid} />}
-          isLogin={isLogin}
+          authentication={isLogin}
         />
         {/* <Route exact path={`${match.url}/:userid`} component={Userpage} />
         <Route component={NotFound} /> */}

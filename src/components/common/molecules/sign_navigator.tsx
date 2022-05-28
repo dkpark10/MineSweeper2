@@ -1,11 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { setLogin } from "../../../reducers/login";
-import { useDispatch } from "react-redux";
-import { AxiosResponse } from "axios";
-import { Response } from "response-type";
-import axiosInstance from "../../../utils/default_axios";
 
 const SignNavigatorWrapper = styled.div`
   @media screen and (${({ theme }) => theme.mobile}){
@@ -35,6 +30,7 @@ const SignNavigatorWrapper = styled.div`
   }
 
   .signout{
+    font-size: 0.86rem;
     color: #FFF6E3;
     margin: 0px 1.65rem;
   }
@@ -44,31 +40,23 @@ const SignNavigatorWrapper = styled.div`
   }
 `;
 
-interface Props {
+interface Props{
+  userid: string;
   isLogin: boolean;
+  logout: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export default function SignNavigator({
-  isLogin
+  userid,
+  isLogin,
+  logout
 }: Props) {
-  const dispatch = useDispatch();
-  const logout = async () => {
-    try {
-      const { data }: AxiosResponse<Response> = await axiosInstance.post("/api/logout");
-      if (data.result === true) {
-        dispatch(setLogin({
-          isLogin: false,
-          id: ""
-        }));
-      }
-    } catch (e) {
-    }
-  }
 
   return (
     <>
       <SignNavigatorWrapper>
-        {isLogin === false ?
+        {isLogin === false
+          ?
           <>
             <Link to="/signin">
               로그인
@@ -82,7 +70,7 @@ export default function SignNavigator({
             className="signout"
             onClick={logout}
           >
-            로그아웃
+            {userid}님 | 로그아웃
           </div>
         }
       </SignNavigatorWrapper>

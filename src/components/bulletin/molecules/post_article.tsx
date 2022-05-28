@@ -44,7 +44,7 @@ export default function PostArticle({
   postid
 }: Props) {
   const [response, loading] = useAxios<PostProps>(`api/posts/${postid}`);
-  const userid = useSelector((state: RootState) => state.login.id);
+  const loginedUser = useSelector((state: RootState) => state.login.id);
 
   if (loading) {
     return <Loading />;
@@ -77,14 +77,19 @@ export default function PostArticle({
         </Content>
       </PostContentWrapper>
       <UnderLine />
-      {userid === response.author &&
+      {loginedUser === response.author &&
         <Link to={{
           pathname: "/community/delete",
           state: {
-            postid: response.id
+            postid: response.id,
+            author: response.author
           }
         }}>
+        <Content
+          fontSize={"0.86rem"}
+        >
           삭제
+        </Content>
         </Link>
       }
     </PostArticleWrapper>

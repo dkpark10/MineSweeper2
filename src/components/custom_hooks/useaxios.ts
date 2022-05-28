@@ -15,9 +15,9 @@ export default <T>(url: string, init? : T): [T, boolean] => {
         if (status === 200) {
           setResponse(data);
         }
+        setLoading(false);
       } catch (e) {
       } finally {
-        setLoading(false);
       }
     }
     request();

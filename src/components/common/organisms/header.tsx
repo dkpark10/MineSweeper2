@@ -3,8 +3,15 @@ import styled, { css, keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../reducers";
 import { useSelector } from "react-redux";
+import { setLogin } from "../../../reducers/login";
+import { useDispatch } from "react-redux";
+import { AxiosResponse } from "axios";
+import { Response } from "response-type";
+
 import HeaderTitle from "../molecules/header_title";
 import SignNavigator from "../molecules/sign_navigator";
+
+import axiosInstance from "../../../utils/default_axios";
 
 const HeaderWrapper = styled.header`
   position: relative;
@@ -28,7 +35,11 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
     text-decoration: none;
   }
 
-  a:hover{
+  li{
+    cursor:pointer;
+  }
+  
+  a:hover, li:hover{
     color: ${({ theme }) => theme.mainColor};
   }
 
@@ -38,11 +49,12 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
 
   @media screen and (${({ theme }) => theme.mobile}){
     position: absolute;
-    top:51px;
+    top:59px;
     left:-100vw;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.5);
     z-index:98;
+    font-size:1.25rem;
     animation: ${({ show }) =>
     show === true ?
       css`${MenuMoveAnimation(0)} 0.1s linear forwards` : ''};
@@ -50,7 +62,7 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
     .menu_content{
       position:relative;
       display:flex;
-      width:65vw;
+      width:76vw;
       height:93vh;
       justify-content: center;
       z-index:99;
@@ -62,7 +74,6 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
 
     a{
       color: ${({ theme }) => theme.fontColor};
-      font-size:1.25rem;
     }
 
     li{
@@ -70,7 +81,6 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
     }
   }
 
-  // 데탑
   @media screen and (${({ theme }) => theme.minTablet}) {
     position: absolute;
     left:50%;
@@ -86,7 +96,6 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
 
     a{
       color: #FFF6E3;
-      font-size:1.02rem;
     }
 
     ul{
@@ -100,11 +109,12 @@ const NavigatorWrapper = styled.nav<{ show: boolean }>`
   }
 `;
 
-export default function Header(){
-
-  const [showMenu, setShowMenu] = useState<boolean>(false);
-  const isLogin = useSelector((state: RootState) => state.login.isLogin);
-
+export default function Header() {
+  const { userid, isLogin } = useSelector((state: RootState) => ({
+    userid: state.login.id,
+    isLogin: state.login.isLogin,
+  }));
+  const [mobileShowMenu, setMobileShowMenu] = useState<boolean>(false);
   const menus =
     [
       { title: "게임", url: "/" },
@@ -115,12 +125,26 @@ export default function Header(){
     ] as const;
 
   const openMenu = () => {
-    setShowMenu((prev) => !prev);
+    setMobileShowMenu((prev) => !prev);
   }
 
   const closeMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) {
-      setShowMenu(false);
+      setMobileShowMenu(false);
+    }
+  }
+
+  const dispatch = useDispatch();
+  const logout = async () => {
+    try {
+      const { data }: AxiosResponse<Response> = await axiosInstance.post("/api/logout");
+      if (data.result === true) {
+        dispatch(setLogin({
+          isLogin: false,
+          id: ""
+        }));
+      }
+    } catch (e) {
     }
   }
 
@@ -133,7 +157,7 @@ export default function Header(){
         <NavigatorWrapper
           className="menu"
           onClick={closeMenu}
-          show={showMenu}
+          show={mobileShowMenu}
         >
           <div className="menu_content">
             <ul>
@@ -146,7 +170,15 @@ export default function Header(){
                   </Link>
                 </li>
               )}
-              {showMenu &&
+              {mobileShowMenu && (isLogin
+                ?
+                <li
+                  className="signout"
+                  onClick={logout}
+                >
+                  로그아웃
+                </li>
+                :
                 <>
                   <li>
                     <Link to="signin">
@@ -159,12 +191,14 @@ export default function Header(){
                     </Link>
                   </li>
                 </>
-              }
+              )}
             </ul>
           </div>
         </NavigatorWrapper>
         <SignNavigator
+          userid={userid}
           isLogin={isLogin}
+          logout={logout}
         />
       </HeaderWrapper>
     </>
