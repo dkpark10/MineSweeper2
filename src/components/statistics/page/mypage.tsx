@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import styled from "styled-components";
 import { GameStatisticsProps } from "statistics-type";
 
 import Loading from "../../common/atoms/loading";
@@ -8,15 +8,21 @@ import Statistics from "../molecules/statistics";
 import PastGameRecord from "../molecules/pastgame_record";
 import WinRateRecord from "../molecules/winrate_record";
 
-import useIsLogined from "../../custom_hooks/uselogined";
 import useAxios from "../../custom_hooks/useaxios";
 import MyPageWrapper from "../atoms/wrapper";
-import UserHeader from "../atoms/user_header";
+import Title from "../../common/atoms/title";
+
+const TitleHeaderStyle = styled.div`
+  text-align:center;
+`;
+
+interface Props {
+  userid: string;
+}
 
 export default function MyPage({
-  history
-}: RouteComponentProps) {
-  const [userid,] = useIsLogined(history);
+  userid
+}: Props) {
   const [response, loading] = useAxios<GameStatisticsProps>(`/api/game?userid=${userid}`);
 
   if (loading) {
@@ -28,9 +34,14 @@ export default function MyPage({
       <Header />
       <main>
         <MyPageWrapper>
-          <UserHeader
-            id={"dkpark10"}
-          />
+          <TitleHeaderStyle>
+            <Title
+              fontSize={"1.28rem"}
+              fontBold={true}
+            >
+              {userid}
+            </Title>
+          </TitleHeaderStyle>
         </MyPageWrapper>
         <MyPageWrapper>
           <Statistics
@@ -38,6 +49,9 @@ export default function MyPage({
           />
         </MyPageWrapper>
         <MyPageWrapper>
+          <TitleHeaderStyle>
+            {"승률"}
+          </TitleHeaderStyle>
           <WinRateRecord
             gameRecord={response}
           />

@@ -15,7 +15,10 @@ const WinRateRecordItem = styled.div`
 `;
 
 const WinRateText = styled(CenterWrapperStyle)`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  @media screen and (${({ theme }) => theme.mobile}){
+    font-size: 0.89rem;
+  }
 `
 
 interface Props {
@@ -43,7 +46,7 @@ export default function WinRateRecord({ gameRecord }: Props) {
       {winRateList.map((winRate, idx) =>
         <WinRateRecordItem key={idx}>
           <WinRateText>
-            {winRate}%
+            {isNaN(winRate) ? "0%" : `${winRate}%`}
           </WinRateText>
           <Doughnut
             winRate={winRate}

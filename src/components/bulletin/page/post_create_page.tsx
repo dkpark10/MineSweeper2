@@ -9,7 +9,6 @@ import Input from "../../common/atoms/input";
 import Button from "../../common/atoms/button";
 import axiosInstance from '../../../utils/default_axios';
 import { useStringInput } from "../../custom_hooks/useinput";
-import useIsLogined from "../../custom_hooks/uselogined";
 
 const PostCreatePageWrapper = styled(DefaultBulletinWrapper)`
   position:relative;
@@ -41,7 +40,6 @@ export default function PostCreatePage({
 }: Props) {
   const [title, setTitle] = useStringInput("");
   const [contents, setContetns] = useState<string>("");
-  console.log(author);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

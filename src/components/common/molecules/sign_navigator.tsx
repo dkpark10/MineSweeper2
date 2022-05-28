@@ -51,7 +51,6 @@ interface Props {
 export default function SignNavigator({
   isLogin
 }: Props) {
-
   const dispatch = useDispatch();
   const logout = async () => {
     try {

@@ -11,6 +11,10 @@ interface Props {
 const StatisticsContent = styled(Content)`
   display:inline-block;
   width:54px;
+
+  @media screen and (${({ theme }) => theme.mobile}){
+    font-size:0.86rem;
+  }
 `;
 
 export default function Statistics({
@@ -54,7 +58,7 @@ export default function Statistics({
             hardGameTotalCount].map((totalItemCount, idx) =>
               <StatisticsContent
                 key={idx}
-                fontSize={"1.00rem"}
+                fontSize={"0.9rem"}
               >
                 {totalItemCount}
               </StatisticsContent>
@@ -71,7 +75,7 @@ export default function Statistics({
             hardGameWinCount].map((winCount, idx) =>
               <StatisticsContent
                 key={idx}
-                fontSize={"1.00rem"}
+                fontSize={"0.9rem"}
               >
                 {winCount}
               </StatisticsContent>
@@ -88,9 +92,9 @@ export default function Statistics({
             hardBestRecord].map((bestRecord, idx) =>
               <StatisticsContent
                 key={idx}
-                fontSize={"1.00rem"}
+                fontSize={"0.9rem"}
               >
-                {bestRecord}
+                {bestRecord === null ? "기록없음" : bestRecord}
               </StatisticsContent>
             )}
         </ContentWrapper>

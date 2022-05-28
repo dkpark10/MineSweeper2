@@ -18,8 +18,8 @@ const DefaultBulletinWrapper = styled.div`
 
   @media screen and (${({ theme }) => theme.mobile}){
     width:100vw;
-    border-radius: 10px;
-    position: relative;
+    border-radius:10px;
+    margin-top:10px;
     padding:10px;
   }
 `
@@ -38,6 +38,7 @@ export const ContentHeader = styled.div`
 
   @media screen and (${({ theme }) => theme.mobile}){
     left:0%;
+    font-size:0.72rem;
   }
 `;
 
