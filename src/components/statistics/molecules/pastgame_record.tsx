@@ -47,7 +47,7 @@ export default function PastGameRecord({ pastGame }: Props) {
         labels: pastGame.map((game) => game.date.slice(2)),
         datasets: [
           {
-            label: "시간",
+            label: "시간(sec)",
             data: pastGame.map((game) => Math.floor(Number(game.record))),
             borderColor: theme.mainColor,
             backgroundColor: theme.mainColor

@@ -58,6 +58,9 @@ export default function MyPage({
           />
         </MyPageWrapper>
         <MyPageWrapper>
+          <TitleHeaderStyle>
+            {"최근 게임 기록"}
+          </TitleHeaderStyle>
           <PastGameRecord
             pastGame={response.pastGame}
           />
