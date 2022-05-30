@@ -58,7 +58,7 @@ export default function PostDeletePage({
         history.replace('/community?page=1');
       }
     }
-    catch (e) {
+    catch (error) {
     }
   }
 

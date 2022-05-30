@@ -13,9 +13,10 @@ const useSlientLogin = () => {
   useEffect(() => {
     const request = async () => {
       try {
-        const { status, data: { userid, accessToken } } = await axiosInstance.post(`/api/slientlogin`);
+        const { status, data: { userid, accessToken } } = await axiosInstance.post("/api/slientlogin");
+
         if (status === 201) {
-          axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+          axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
           dispatch(setLogin({
             isLogin: true,
             id: userid

@@ -40,7 +40,7 @@ const SignNavigatorWrapper = styled.div`
   }
 `;
 
-interface Props{
+interface Props {
   userid: string;
   isLogin: boolean;
   logout: React.MouseEventHandler<HTMLDivElement>;

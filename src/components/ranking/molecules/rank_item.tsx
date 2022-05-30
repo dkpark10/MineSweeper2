@@ -7,6 +7,10 @@ const RankItemWrapper = styled.div`
   align-items: center;
   height:39px;
   font-size:0.86rem;
+
+  &:hover{
+    border:1px solid ${({ theme }) => theme.mainColor};
+  }
 `;
 
 const RankItem = styled.span<{ width: string, center?: boolean, fontColor?: boolean }>`
@@ -18,7 +22,7 @@ const RankItem = styled.span<{ width: string, center?: boolean, fontColor?: bool
 `;
 
 interface Props {
-  rank?: string;
+  rank?: number | string;
   id?: string;
   record?: string;
 }

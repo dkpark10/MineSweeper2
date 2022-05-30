@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import React from "react";
+import { RouteComponentProps, Link } from "react-router-dom";
 import queryString from 'query-string';
 
 import Header from "../../common/organisms/header";
@@ -30,8 +30,7 @@ export default function Ranking({
 
   const { page } = queryString.parse(location.search);
   const level = match.params.level;
-  const [response, loading] = useAxios<GameProps[]>(`/api/game/${level}?page=${page}`, []);
-
+  const [data, loading] = useAxios<GameProps[]>(`/api/game/${level}?page=${page}`, []);
   if (loading) {
     return <Loading />;
   }
@@ -46,19 +45,21 @@ export default function Ranking({
           />
           <RankItem />
           <ul>
-            {response.map((rank, idx) =>
+            {data.map((rank, idx) =>
               <li key={idx}>
-                <RankItem
-                  rank={String(rank.ranking)}
-                  id={rank.id}
-                  record={rank.record}
-                />
+                <Link to={`/mypage/${rank.id}`} replace>
+                  <RankItem
+                    rank={Number(page) + idx}
+                    id={rank.id}
+                    record={rank.record}
+                  />
+                </Link>
               </li>
             )}
           </ul>
           <PageNation
             url={match.url}
-            totalItemCount={response.length === 0 ? 1 : response[0].totalItemCount}
+            totalItemCount={data.length === 0 ? 1 : data[0].totalItemCount}
             currentPage={Number(page)}
           />
         </RankWrapper>

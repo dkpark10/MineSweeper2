@@ -42,12 +42,12 @@ export default function SignIn({ history }: RouteComponentProps) {
     }
 
     try {
-      const { data }: AxiosResponse<Response> = await axiosInstance.post("/api/login", {
+      const { status, data }: AxiosResponse<Response> = await axiosInstance.post("/api/login", {
         "userid": value.userid,
         "password": value.password
       })
 
-      if (data.result === false) {
+      if (status === 202){
         throw new Error("로그인 실패");
       }
 
@@ -62,7 +62,7 @@ export default function SignIn({ history }: RouteComponentProps) {
 
       history.goBack();
     }
-    catch (e) {
+    catch (error) {
       setError(true);
     }
   }

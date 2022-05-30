@@ -1,12 +1,18 @@
 import { Route, Switch, RouteComponentProps } from 'react-router-dom';
-import MyPage from "../page/mypage";
+import UserPage from "../page/user_page";
 import { PrivateRoute } from "../../common/router/index";
+import NotFound from "../../common/page/notfound";
+
 import { RootState } from '../../../reducers';
 import { useSelector } from 'react-redux';
 
-export default function MyPageRouter({ match }: RouteComponentProps) {
-  const { userid, isLogin } = useSelector((state: RootState) => ({
-    userid: state.login.id,
+interface MatchParams {
+  userid: string;
+}
+
+export default function MyPageRouter({ match }: RouteComponentProps<MatchParams>) {
+  const { loginedId, isLogin } = useSelector((state: RootState) => ({
+    loginedId: state.login.id,
     isLogin: state.login.isLogin
   }));
 
@@ -14,12 +20,16 @@ export default function MyPageRouter({ match }: RouteComponentProps) {
     <>
       <Switch>
         <PrivateRoute
+          exact
           path={`${match.url}`}
-          render={() => <MyPage userid={userid} />}
+          render={() => <UserPage userid={loginedId} />}
           authentication={isLogin}
         />
-        {/* <Route exact path={`${match.url}/:userid`} component={Userpage} />
-        <Route component={NotFound} /> */}
+        <Route
+          path={`${match.url}/:userid`}
+          render={({ match }) => <UserPage userid={match.params.userid} />}
+        />
+        <Route component={NotFound} />
       </Switch>
     </>
   )

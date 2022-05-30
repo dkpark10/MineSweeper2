@@ -123,8 +123,8 @@ export default function SignUp({ history }: RouteComponentProps) {
         } else {
           throw new Error("유저 등록에 실패하였습니다.");
         }
-      } catch (e) {
-        alert(e.message);
+      } catch (error) {
+        alert(error.message);
       }
     }
     request();

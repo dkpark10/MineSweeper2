@@ -16,6 +16,10 @@ const RankWrapper = styled.main`
     margin-bottom: 10px;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   @media screen and (${({ theme }) => theme.minTablet}){
     border-radius: 12px;
     width:784px;
