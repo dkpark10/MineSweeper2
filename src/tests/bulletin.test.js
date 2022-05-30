@@ -10,9 +10,5 @@ describe("게시판 테스트", () => {
     await waitFor(() => {
       fireEvent.click(getByText("게시판"));
     })
-
-    await waitFor(() => {
-      console.log(container.textContent);
-    })
   })
 })

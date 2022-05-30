@@ -36,11 +36,10 @@ export default function BulletinRouter({ match }: RouteComponentProps) {
         authentication={isLogin}
       />
       <PrivateRoute
-        path={`${match.url}/delete`}
-        render={() => <PostDeletePage postid={state.postid} />}
+        path={`${match.url}/delete/:postid`}
+        render={(props: RouteComponentProps<{ postid: string }>) => <PostDeletePage {...props} />}
         authentication={state && state.author && state.author === userid}
       />
-      <Route path={`${match.url}/delete`} component={PostDeletePage} />
       <Route path={`${match.url}/:postid`} component={PostPage} />
       {/* <Route component={NotFound} /> */}
     </Switch>

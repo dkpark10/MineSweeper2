@@ -3,6 +3,7 @@ import { RouteComponentProps } from "react-router-dom";
 import queryString from 'query-string';
 
 import Header from "../../common/organisms/header";
+import Footer from "../../common/organisms/footer";
 import PageNation from "../../common/molecules/pagenation";
 import Loading from "../../common/atoms/loading";
 import RankWrapper from "../atoms/rank_wrapper";
@@ -29,7 +30,7 @@ export default function Ranking({
 
   const { page } = queryString.parse(location.search);
   const level = match.params.level;
-  const [response, loading] = useAxios<GameProps[]>(`/api/game/${level}?page=${page}`,[]);
+  const [response, loading] = useAxios<GameProps[]>(`/api/game/${level}?page=${page}`, []);
 
   if (loading) {
     return <Loading />;
@@ -62,6 +63,7 @@ export default function Ranking({
           />
         </RankWrapper>
       </div>
+      <Footer />
     </>
   )
 }

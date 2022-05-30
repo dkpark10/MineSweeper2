@@ -30,7 +30,10 @@ export default function PostList({
   return (
     <ul>
       {postData.map((post, idx) =>
-        <li key={idx}>
+        <li
+          className="post_item" 
+          key={idx}
+        >
           <PostCardItem
             widthRatio={widthRatio}
             title={post.title}

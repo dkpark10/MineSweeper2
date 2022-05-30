@@ -1,8 +1,10 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import queryString from 'query-string';
+
 import Loading from "../../common/atoms/loading";
 import Header from "../../common/organisms/header";
+import Footer from "../../common/organisms/footer";
 import DefaultBulletinWrapper from "../atoms/bulletin_wrapper";
 import PostCardHeader from "../molecules/post_card_header";
 import PostList from "../molecules/post_list";
@@ -56,6 +58,7 @@ export default function Bulletion({
           />
         </DefaultBulletinWrapper>
       </div>
+      <Footer />
     </>
   )
 }

@@ -3,6 +3,7 @@ import { RouteComponentProps, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "../../common/organisms/header";
+import Footer from "../../common/organisms/footer";
 import DefaultBulletinWrapper from "../atoms/bulletin_wrapper";
 import PostArticle from "../molecules/post_article";
 
@@ -12,14 +13,6 @@ import BuelltinNavi from "../molecules/post_navigator";
 import PageNation from "../../common/molecules/pagenation";
 import useAxios from "../../custom_hooks/useaxios";
 
-interface MatchParams {
-  postid: string;
-}
-
-interface State {
-  page: string;
-}
-
 interface PostProps {
   id: number;
   author: string;
@@ -28,6 +21,14 @@ interface PostProps {
   likenum: number;
   time: number;
   totalItemCount: number;
+}
+
+interface MatchParams {
+  postid: string;
+}
+
+interface State {
+  page: string;
 }
 
 const PostPageWrapper = styled(DefaultBulletinWrapper)`
@@ -74,6 +75,7 @@ export default function Post({
           />
         </DefaultBulletinWrapper>
       </div>
+      <Footer />
     </>
   )
 }

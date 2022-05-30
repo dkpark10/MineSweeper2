@@ -4,6 +4,7 @@ import { GameStatisticsProps } from "statistics-type";
 
 import Loading from "../../common/atoms/loading";
 import Header from "../../common/organisms/header";
+import Footer from "../../common/organisms/footer";
 import Statistics from "../molecules/statistics";
 import PastGameRecord from "../molecules/pastgame_record";
 import WinRateRecord from "../molecules/winrate_record";
@@ -62,6 +63,7 @@ export default function MyPage({
           />
         </MyPageWrapper>
       </main>
+      <Footer />
     </>
   )
 }

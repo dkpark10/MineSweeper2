@@ -30,7 +30,6 @@ interface Props {
 
 export default function BulletionNavi({ url }: Props) {
   const [value, setValue] = useStringInput("");
-  const isLogin = useSelector((state: RootState) => state.login.isLogin);
 
   return (
     <BulletionNaviWrapper>

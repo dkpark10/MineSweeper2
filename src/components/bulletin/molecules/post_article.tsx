@@ -79,17 +79,17 @@ export default function PostArticle({
       <UnderLine />
       {loginedUser === response.author &&
         <Link to={{
-          pathname: "/community/delete",
+          pathname: `/community/delete/${postid}`,
           state: {
             postid: response.id,
             author: response.author
           }
         }}>
-        <Content
-          fontSize={"0.86rem"}
-        >
-          삭제
-        </Content>
+          <Content
+            fontSize={"0.86rem"}
+          >
+            삭제
+          </Content>
         </Link>
       }
     </PostArticleWrapper>

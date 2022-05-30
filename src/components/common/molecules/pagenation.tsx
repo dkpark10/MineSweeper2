@@ -11,6 +11,7 @@ import {
 const PageNationWrapper = styled.div`
   position:relative;
   height:46px;
+  margin:16px 0px;
 `;
 
 const PageNationStyle = styled.nav`
@@ -23,7 +24,6 @@ const PageNationStyle = styled.nav`
   background-color: white;
   height:100%;
   box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
-  margin-bottom: 14px;
 
   @media screen and (${({ theme }) => theme.mobile}){
     width:100vw;
