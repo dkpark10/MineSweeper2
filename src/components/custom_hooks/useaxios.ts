@@ -1,17 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import axiosInstance from "../../utils/default_axios";
 
 axios.defaults.baseURL = "http://localhost:8080";
+type ReturnType<T> = [T, boolean, React.Dispatch<React.SetStateAction<T>>];
 
-export default <T>(url: string, init? : T): [T, boolean] => {
+export default <T>(initUrl: string, init?: T): ReturnType<T> => {
   const [response, setResponse] = useState<T | undefined>(init);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const request = async () => {
       try {
-        const { data, status } = await axiosInstance.get(url);
+        const { data, status } = await axiosInstance.get(initUrl);
         if (status === 200) {
           setResponse(data);
         }
@@ -21,7 +22,7 @@ export default <T>(url: string, init? : T): [T, boolean] => {
       }
     }
     request();
-  }, [url])
+  }, [initUrl])
 
-  return [response, loading];
+  return [response, loading, setResponse];
 }

@@ -10,6 +10,8 @@ import Button from "../../common/atoms/button";
 import axiosInstance from '../../../utils/default_axios';
 import { useStringInput } from "../../custom_hooks/useinput";
 
+import { AxiosResponse } from "axios";
+
 const PostCreatePageWrapper = styled(DefaultBulletinWrapper)`
   position:relative;
   background-color:white;
@@ -31,12 +33,13 @@ const SubmitButton = styled(Button)`
   font-weight: bold;
 `;
 
-interface Props {
+interface Props extends RouteComponentProps {
   author: string;
 }
 
 export default function PostCreatePage({
   author,
+  history
 }: Props) {
   const [title, setTitle] = useStringInput("");
   const [contents, setContetns] = useState<string>("");
@@ -49,11 +52,15 @@ export default function PostCreatePage({
 
     const request = async () => {
       try {
-        await axiosInstance.post(`/api/auth/posts`, {
-          "author": author,
-          "title": title,
-          "contents": contents
+        const { status }: AxiosResponse = await axiosInstance.post(`/api/auth/posts`, {
+          author: author,
+          title: title,
+          contents: contents
         })
+
+        if (status === 201) {
+          history.replace("/community?page=1");
+        } 
       } catch (e) {
       }
     }

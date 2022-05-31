@@ -10,7 +10,9 @@ import Bulletin from "../page/bulletin"
 import PostPage from "../page/post_page";
 import PostCreatePage from "../page/post_create_page"
 import PostDeletePage from "../page/post_delete_page";
+
 import { PrivateRoute } from "../../common/router/index";
+import NotFound from "../../common/page/notfound";
 
 import { RootState } from '../../../reducers';
 import { useSelector } from 'react-redux';
@@ -32,7 +34,7 @@ export default function BulletinRouter({ match }: RouteComponentProps) {
       <Route exact path={match.url} component={Bulletin} />
       <PrivateRoute
         path={`${match.url}/create`}
-        render={() => <PostCreatePage author={userid} />}
+        render={(props) => <PostCreatePage {...props} author={userid} />}
         authentication={isLogin}
       />
       <PrivateRoute
@@ -41,7 +43,7 @@ export default function BulletinRouter({ match }: RouteComponentProps) {
         authentication={state && state.author && state.author === userid}
       />
       <Route path={`${match.url}/:postid`} component={PostPage} />
-      {/* <Route component={NotFound} /> */}
+      <Route component={NotFound} />
     </Switch>
   )
 }

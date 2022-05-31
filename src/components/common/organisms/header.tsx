@@ -136,7 +136,6 @@ export default function Header() {
 
   const dispatch = useDispatch();
   const logout = async () => {
-    console.log("???");
     try {
       const { data }: AxiosResponse<Response> = await axiosInstance.post("/api/auth/logout");
       if (data.result === true) {

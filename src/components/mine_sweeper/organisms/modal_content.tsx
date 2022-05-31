@@ -52,7 +52,7 @@ export default function ModalContent({
         await axiosInstance.post("/api/game", {
           id: userid === "" ? "anonymous" : userid,
           record: takenTime / 1000,
-          success: isGameSuccess,
+          success: isGameSuccess ? "success" : "fail",
           level: level
         })
       } catch (e) {

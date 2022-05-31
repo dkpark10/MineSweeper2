@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps, Link } from "react-router-dom";
+import { RouteComponentProps, Link, Redirect } from "react-router-dom";
 import queryString from 'query-string';
 
 import Header from "../../common/organisms/header";
@@ -9,8 +9,12 @@ import Loading from "../../common/atoms/loading";
 import RankWrapper from "../atoms/rank_wrapper";
 import RankNavigator from "../molecules/rank_navigator";
 import RankItem from "../molecules/rank_item";
+import SearchInput from "../atoms/search_input";
 
+import axiosInstance from "../../../utils/default_axios";
 import useAxios from "../../custom_hooks/useaxios";
+import { useStringInput } from "../../custom_hooks/useinput";
+import { AxiosResponse } from "axios";
 
 interface MatchParams {
   level: string;
@@ -27,10 +31,23 @@ interface GameProps {
 export default function Ranking({
   match,
   location }: RouteComponentProps<MatchParams>) {
-
   const { page } = queryString.parse(location.search);
   const level = match.params.level;
-  const [data, loading] = useAxios<GameProps[]>(`/api/game/${level}?page=${page}`, []);
+  const INITURL = `/api/game/${level}?page=${page}`;
+  const [rankData, loading, setRankData] = useAxios<GameProps[]>(INITURL);
+  const [value, setValue] = useStringInput("");
+
+  const searchUser = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const url = value.length === 0 ? INITURL : `/api/game/${level}?user=${value}`;
+
+    const { data }: AxiosResponse<GameProps[]> = await axiosInstance.get(url);
+    setRankData(data.map(item => ({
+      ...item,
+      totalItemCount: data.length
+    })))
+  }
+
   if (loading) {
     return <Loading />;
   }
@@ -43,9 +60,14 @@ export default function Ranking({
           <RankNavigator
             currentLevel={level}
           />
+          <SearchInput
+            value={value}
+            setValue={setValue}
+            search={searchUser}
+          />
           <RankItem />
           <ul>
-            {data.map((rank, idx) =>
+            {rankData.map((rank, idx) =>
               <li key={idx}>
                 <Link to={`/mypage/${rank.id}`} replace>
                   <RankItem
@@ -59,7 +81,7 @@ export default function Ranking({
           </ul>
           <PageNation
             url={match.url}
-            totalItemCount={data.length === 0 ? 1 : data[0].totalItemCount}
+            totalItemCount={rankData.length === 0 ? 1 : rankData[0].totalItemCount}
             currentPage={Number(page)}
           />
         </RankWrapper>

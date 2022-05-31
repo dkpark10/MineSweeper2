@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 interface Props {
   value: string;
   url: string;
+  fontSize?: string;
   currentPage?: boolean;
 }
 
@@ -16,7 +17,7 @@ const PageNationItemWrapper = styled.span<Partial<Props>>`
   padding:4px;
   min-width: 32px;
   text-align:center;
-  font-size:0.85rem;
+  font-size: ${({fontSize}) => fontSize || "0.85rem"};
 
   background-color:${({ theme, currentPage }) =>
     currentPage === true
@@ -36,11 +37,13 @@ const PageNationItemWrapper = styled.span<Partial<Props>>`
 export default function PageNationItem({
   value,
   url,
+  fontSize,
   currentPage = false
 }: Props) {
   return (
     <Link to={url}>
       <PageNationItemWrapper
+        fontSize={fontSize}
         currentPage={currentPage}
       >
         {value}

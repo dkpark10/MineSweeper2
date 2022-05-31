@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import PageNationItem from "../../common/atoms/page_nation_item";
 
 interface Props {
@@ -18,7 +17,7 @@ const LevelNationWrapper = styled.div<Props>`
   border-radius: 8px;
 
   a{
-    font-size:0.95rem;
+    font-size:1.05rem;
     color:${({ theme }) => theme.fontColor};
     text-decoration: none;
     font-weight:bold;
@@ -44,6 +43,7 @@ export default function RankNavigator({
           value={item}
           url={`${levels[idx]}?page=1`}
           currentPage={currentLevel === levels[idx]}
+          fontSize={"1.0rem"}
         />
       )}
     </LevelNationWrapper>
