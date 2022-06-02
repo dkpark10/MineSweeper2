@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { RouteComponentProps, Link } from "react-router-dom";
 import { AxiosResponse } from "axios";
-import { Response } from "response-type";
 import { debounce } from "lodash";
 
 import Input from "../atoms/input";
 import Title from "../../common/atoms/title";
 import { useObjectInput } from "../../custom_hooks/useinput";
 import SignWrapper from "../atoms/wrapper";
+import WarningMessage from "../atoms/warning_message";
 
 import axiosInstance from "../../../utils/default_axios";
 import { invalidMessage } from "../../../utils/static_data";
@@ -20,7 +20,6 @@ interface InputProps {
 }
 
 export default function SignUp({ history }: RouteComponentProps) {
-
   const duplicateCheck = useMemo(() =>
     debounce(async ({ name, value }) => {
 
@@ -44,8 +43,8 @@ export default function SignUp({ history }: RouteComponentProps) {
         return;
       }
 
-      const { data }: AxiosResponse<Response> = await axiosInstance.get(`/api/user?id=${value}`);
-      if (value && data.result === true) {
+      const { data }: AxiosResponse<boolean> = await axiosInstance.get(`/api/user?id=${value}`);
+      if (value && data === true) {
         setValidator(prev => ({
           ...prev,
           id: {
@@ -74,10 +73,10 @@ export default function SignUp({ history }: RouteComponentProps) {
   }, duplicateCheck);
 
   const [validator, setValidator] = useState({
-    id: { result: true, msg: "" },
-    email: { result: true, msg: "" },
-    password: { result: true },
-    repeatPassword: { result: true }
+    id: { result: false, msg: "" },
+    email: { result: false, msg: "" },
+    password: { result: false },
+    repeatPassword: { result: false }
   });
 
   useEffect(() => {
@@ -104,7 +103,9 @@ export default function SignUp({ history }: RouteComponentProps) {
 
   const submintHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const checkValidValue = Object.entries(validator).filter(([_, value]) => value.result === false).length > 0;
+    const checkValidValue = Object.entries(validator)
+      .filter(([key, validator]) => validator.result === false).length > 0;
+
     if (checkValidValue) {
       alert("양식에 맞게 다시 작성해 주세요.");
       return;
@@ -112,13 +113,13 @@ export default function SignUp({ history }: RouteComponentProps) {
 
     const request = async () => {
       try {
-        const { data }: AxiosResponse<Response> = await axiosInstance.post("/api/user", {
+        const { data }: AxiosResponse<boolean> = await axiosInstance.post("/api/user", {
           id: value.id,
           email: value.email,
-          pwd: value.password
+          password: value.password
         });
 
-        if (data.result === true) {
+        if (data === true) {
           history.goBack();
         } else {
           throw new Error("유저 등록에 실패하였습니다.");
@@ -152,12 +153,11 @@ export default function SignUp({ history }: RouteComponentProps) {
               value={value.id}
               onChange={changeValue}
             />
-            {validator.id.result === false &&
-              value.id &&
-              <div className="failmsg" id="invalid_id">
-                {validator.id.msg}
-              </div>
-            }
+            <WarningMessage
+              show={validator.id.result === false && value.id.length > 0}
+            >
+              {validator.id.msg}
+            </WarningMessage>
           </div>
           <div>
             <label htmlFor="email" />
@@ -169,12 +169,11 @@ export default function SignUp({ history }: RouteComponentProps) {
               value={value.email}
               onChange={changeValue}
             />
-            {validator.email.result === false &&
-              value.email &&
-              <div className="failmsg" id="invalid_email">
-                {validator.email.msg}
-              </div>
-            }
+            <WarningMessage
+              show={validator.email.result === false && value.email.length > 0}
+            >
+              {validator.email.msg}
+            </WarningMessage>
           </div>
           <div>
             <label htmlFor="password" />
@@ -186,11 +185,11 @@ export default function SignUp({ history }: RouteComponentProps) {
               value={value.password}
               onChange={changeValue}
             />
-            {validator.password.result === false &&
-              <div className="failmsg" id="invalid_password">
-                {invalidMessage.password}
-              </div>
-            }
+            <WarningMessage
+              show={validator.password.result === false && value.password.length > 0}
+            >
+              {invalidMessage.password}
+            </WarningMessage>
           </div>
           <div>
             <label htmlFor="repeat-password" />
@@ -202,11 +201,11 @@ export default function SignUp({ history }: RouteComponentProps) {
               value={value.repeatPassword}
               onChange={changeValue}
             />
-            {validator.repeatPassword.result === false &&
-              <div className="failmsg" id="invalid_repeat_password">
-                {invalidMessage.repeatPassword}
-              </div>
-            }
+            <WarningMessage
+              show={validator.repeatPassword.result === false && value.repeatPassword.length > 0}
+            >
+              {invalidMessage.repeatPassword}
+            </WarningMessage>
           </div>
           <Input
             type="submit"
