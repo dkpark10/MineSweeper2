@@ -4,6 +4,7 @@ import { RootState } from "../../../reducers/index";
 import styled from "styled-components";
 import Button from "../../common/atoms/button";
 import axiosInstance from "../../../utils/default_axios";
+import secretKey from "../../../config/secret_key";
 
 interface Props {
   takenTime: number;
@@ -46,14 +47,14 @@ export default function ModalContent({
   const userid = useSelector((state: RootState) => state.login.id);
 
   useEffect(() => {
-
     const request = async () => {
       try {
         await axiosInstance.post("/api/game", {
           id: userid === "" ? "anonymous" : userid,
           record: takenTime / 1000,
           success: isGameSuccess ? "success" : "fail",
-          level: level
+          level: level,
+          clientAnonymousKey: secretKey.anonymousKey
         })
       } catch (e) {
       }

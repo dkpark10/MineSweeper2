@@ -58,7 +58,7 @@ export default function SignUp({ history }: RouteComponentProps) {
       setValidator(prev => ({
         ...prev,
         [name]: {
-          result: true,
+          result: value.length !== 0,
           msg: ""
         }
       }))

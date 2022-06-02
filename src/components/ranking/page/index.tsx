@@ -1,5 +1,5 @@
-import React from "react";
-import { RouteComponentProps, Link, Redirect } from "react-router-dom";
+import React, { useState } from "react";
+import { RouteComponentProps, Link } from "react-router-dom";
 import queryString from 'query-string';
 
 import Header from "../../common/organisms/header";
@@ -36,19 +36,26 @@ export default function Ranking({
   const INITURL = `/api/game/${level}?page=${page}`;
   const [rankData, loading, setRankData] = useAxios<GameProps[]>(INITURL);
   const [value, setValue] = useStringInput("");
+  const [searchLoading, setSearchLoading] = useState(false);
 
   const searchUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url = value.length === 0 ? INITURL : `/api/game/${level}?user=${value}`;
 
-    const { data }: AxiosResponse<GameProps[]> = await axiosInstance.get(url);
-    setRankData(data.map(item => ({
-      ...item,
-      totalItemCount: data.length
-    })))
+    try {
+      setSearchLoading(true);
+      const { data }: AxiosResponse<GameProps[]> = await axiosInstance.get(url);
+      setRankData(data.map(item => ({
+        ...item,
+        totalItemCount: data.length
+      })))
+    } catch (e) {
+
+    }
+    setSearchLoading(false);
   }
 
-  if (loading) {
+  if (loading || searchLoading) {
     return <Loading />;
   }
 
