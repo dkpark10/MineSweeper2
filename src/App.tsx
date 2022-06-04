@@ -1,21 +1,17 @@
-import React, { useEffect, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./styles/app.css";
-import NotFound from "./components/page/notfound";
-import Loading from "./components/page/loading";
-import axios from "axios";
-import { setLogin } from "./reducers/login";
-import { useDispatch } from "react-redux";
-import axiosApi, { Response } from "./utils/axiosapi";
 import useSlientLogin from "./components/custom_hooks/useslient_login";
+import Loading from "./components/common/atoms/loading";
+import NotFound from "./components/common/page/notfound";
 
-const Game = lazy(() => import("./components/mine_sweeper/page/index"));
-const SignIn = lazy(() => import("./components/sign/page/signin"));
-const SignUp = lazy(() => import("./components/sign/page/signup"));
-const Bulletin = lazy(() => import("./components/bulletin/router/index"));
-const MyPage = lazy(() => import("./components/statistics/router/index"));
-const Ranking = lazy(() => import("./components/ranking/page/index"));
-const Option = lazy(() => import("./components/options/page/index"));
+const Game = lazy(() => import("./components/domain/mine_sweeper/page/index"));
+const SignIn = lazy(() => import("./components/domain/sign/page/signin"));
+const SignUp = lazy(() => import("./components//domain/sign/page/signup"));
+const Bulletin = lazy(() => import("./components/domain/bulletin/router/index"));
+const MyPage = lazy(() => import("./components/domain/statistics/router/index"));
+const Ranking = lazy(() => import("./components/domain/ranking/page/index"));
+const Option = lazy(() => import("./components/domain/options/page/index"));
 
 export default function App() {
   useSlientLogin();

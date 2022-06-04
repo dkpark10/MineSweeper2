@@ -1,13 +1,10 @@
 {
   "name": "minesweeper2",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "minesweeper2",
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.17.0",
-    "@nivo/bar": "^0.75.0",
-    "@nivo/core": "^0.75.0",
-    "@nivo/pie": "^0.75.0",
     "axios": "^0.21.1",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "chart.js": "^3.7.1",
@@ -66,7 +63,7 @@
   "scripts": {
     "test": "jest",
     "start": "webpack serve --mode development",
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf build",
     "build": "webpack --progress --mode production",
     "servestart": "node server.js"
   },

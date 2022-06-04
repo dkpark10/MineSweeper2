@@ -17,7 +17,7 @@
     "node_modules",
     "src/setupTests.ts",
     "./node_modules/**/*",
-    "./dist"
+    "./build"
   ],
   "include": [
     "./src/**/*",
